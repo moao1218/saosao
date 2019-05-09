@@ -34,33 +34,11 @@
             <a class="active" href="index.html" 
             th:class="${activeUri=='index.html'?'active':''}">
               <i class="fa fa-dashboard"></i>
-              <span>公司简介</span>
+              <span>理赔信息</span>
               </a>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;" th:class="${activeUri=='guaranteeList.html'?'dcjq-parent active':'dcjq-parent'}">
-              <i class="fa fa-desktop"></i>
-              <span>保单模块</span>
-              </a>
-            <ul class="sub" th:style="${activeUri=='guaranteeList.html'?'display: block':'display: none'}">
-              <li><a href="guaranteeList.html">查看保单</a></li>
-              <li><a href="buttons.html">查看代办保单</a></li>
-              <li><a href="panels.html">查看以办保单</a></li>
          
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;" th:class="${activeUri=='basicTable.html'?'dcjq-parent active':'dcjq-parent'}">
-              <i class="fa fa-cogs"></i>
-              <span>理赔模块</span>
-              </a>
-            <ul class="sub" th:style="${activeUri=='basicTable.html'?'display: block':'display: none'}" >
-              <li><a href="basicTable.html">查看所有理赔单</a></li>
-              <li><a href="daiban.html" >查看代办理赔单</a></li>
-              <li><a href="gallery.html">查看一办理赔单</a></li>
-              
-            </ul>
-          </li>
+         
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-book"></i>
@@ -72,21 +50,7 @@
               
             </ul>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-tasks"></i>
-              <span>超级管理员模块</span>
-              </a>
-            <ul class="sub">
-              <li><a href="form_component.html">查看保单</a></li>
-              <li><a href="form_component.html">查看理赔单</a></li>
-              <li><a href="form_component.html">查看所有用户</a></li>
-              <li><a href="advanced_form_components.html">增加用户</a></li>
-              <li><a href="form_validation.html">删除用户</a></li>
-              <li><a href="contactform.html">注销用户</a></li>
-              <li><a href="contactform.html">修改用户</a></li>
-            </ul>
-          </li>
+          
         
         </ul>
         <!-- sidebar menu end-->

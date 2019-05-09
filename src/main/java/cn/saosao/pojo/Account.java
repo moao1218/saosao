@@ -8,123 +8,99 @@ package cn.saosao.pojo;
  */
 public class Account {
 
-	private long ACCOUNTID; // 明细编号
-	private long CLAIMID; //理赔编号
-	private long POLICYID; //保单编号
-	private String MONEY; //理赔金额
-	private long USERID; //会员编号
-	private String USER_CARD; //身份证
-	private String BANC_CARD; //银行卡
-	private String ACCOUNTANT; //操作人
-	private String TRANSFERTIME; //操作时间
-	private String ACCOUNT_STATUS; //操作状态
-	private String REMARKS; //备注
-	private String YULIU; //预留
-
+	private long accountid; // 明细编号
+	private long claimid; //理赔编号
+	private long policyid; //保单编号
+	private String money; //理赔金额
+	private long userid; //会员编号
+	private String user_card; //身份证
+	private String banc_card; //银行卡
+	private String accountant; //操作人
+	private String transfertime; //操作时间
+	private String account_status; //操作状态
+	private String remarks; //备注
+	private String yuliu; //预留
+	public long getAccountid() {
+		return accountid;
+	}
+	public void setAccountid(long accountid) {
+		this.accountid = accountid;
+	}
+	public long getClaimid() {
+		return claimid;
+	}
+	public void setClaimid(long claimid) {
+		this.claimid = claimid;
+	}
+	public long getPolicyid() {
+		return policyid;
+	}
+	public void setPolicyid(long policyid) {
+		this.policyid = policyid;
+	}
+	public String getMoney() {
+		return money;
+	}
+	public void setMoney(String money) {
+		this.money = money;
+	}
+	public long getUserid() {
+		return userid;
+	}
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+	public String getUser_card() {
+		return user_card;
+	}
+	public void setUser_card(String user_card) {
+		this.user_card = user_card;
+	}
+	public String getBanc_card() {
+		return banc_card;
+	}
+	public void setBanc_card(String banc_card) {
+		this.banc_card = banc_card;
+	}
+	public String getAccountant() {
+		return accountant;
+	}
+	public void setAccountant(String accountant) {
+		this.accountant = accountant;
+	}
+	public String getTransfertime() {
+		return transfertime;
+	}
+	public void setTransfertime(String transfertime) {
+		this.transfertime = transfertime;
+	}
+	public String getAccount_status() {
+		return account_status;
+	}
+	public void setAccount_status(String account_status) {
+		this.account_status = account_status;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	public String getYuliu() {
+		return yuliu;
+	}
+	public void setYuliu(String yuliu) {
+		this.yuliu = yuliu;
+	}
 	@Override
 	public String toString() {
-		return "Account [ACCOUNTID=" + ACCOUNTID + ", CLAIMID=" + CLAIMID + ", POLICYID=" + POLICYID + ", MONEY="
-				+ MONEY + ", USERID=" + USERID + ", USER_CARD=" + USER_CARD + ", BANC_CARD=" + BANC_CARD
-				+ ", ACCOUNTANT=" + ACCOUNTANT + ", TRANSFERTIME=" + TRANSFERTIME + ", ACCOUNT_STATUS=" + ACCOUNT_STATUS
-				+ ", REMARKS=" + REMARKS + ", YULIU=" + YULIU + "]";
+		return "Account [accountid=" + accountid + ", claimid=" + claimid + ", policyid=" + policyid + ", money="
+				+ money + ", userid=" + userid + ", user_card=" + user_card + ", banc_card=" + banc_card
+				+ ", accountant=" + accountant + ", transfertime=" + transfertime + ", account_status=" + account_status
+				+ ", remarks=" + remarks + ", yuliu=" + yuliu + "]";
 	}
 
-	public long getACCOUNTID() {
-		return ACCOUNTID;
-	}
-
-	public void setACCOUNTID(long aCCOUNTID) {
-		ACCOUNTID = aCCOUNTID;
-	}
-
-	public long getCLAIMID() {
-		return CLAIMID;
-	}
-
-	public void setCLAIMID(long cLAIMID) {
-		CLAIMID = cLAIMID;
-	}
-
-	public long getPOLICYID() {
-		return POLICYID;
-	}
-
-	public void setPOLICYID(long pOLICYID) {
-		POLICYID = pOLICYID;
-	}
-
-	public String getMONEY() {
-		return MONEY;
-	}
-
-	public void setMONEY(String mONEY) {
-		MONEY = mONEY;
-	}
-
-	public long getUSERID() {
-		return USERID;
-	}
-
-	public void setUSERID(long uSERID) {
-		USERID = uSERID;
-	}
-
-	public String getUSER_CARD() {
-		return USER_CARD;
-	}
-
-	public void setUSER_CARD(String uSER_CARD) {
-		USER_CARD = uSER_CARD;
-	}
-
-	public String getBANC_CARD() {
-		return BANC_CARD;
-	}
-
-	public void setBANC_CARD(String bANC_CARD) {
-		BANC_CARD = bANC_CARD;
-	}
-
-	public String getACCOUNTANT() {
-		return ACCOUNTANT;
-	}
-
-	public void setACCOUNTANT(String aCCOUNTANT) {
-		ACCOUNTANT = aCCOUNTANT;
-	}
-
-	public String getTRANSFERTIME() {
-		return TRANSFERTIME;
-	}
-
-	public void setTRANSFERTIME(String tRANSFERTIME) {
-		TRANSFERTIME = tRANSFERTIME;
-	}
-
-	public String getACCOUNT_STATUS() {
-		return ACCOUNT_STATUS;
-	}
-
-	public void setACCOUNT_STATUS(String aCCOUNT_STATUS) {
-		ACCOUNT_STATUS = aCCOUNT_STATUS;
-	}
-
-	public String getREMARKS() {
-		return REMARKS;
-	}
-
-	public void setREMARKS(String rEMARKS) {
-		REMARKS = rEMARKS;
-	}
-
-	public String getYULIU() {
-		return YULIU;
-	}
-
-	public void setYULIU(String yULIU) {
-		YULIU = yULIU;
-	}
-
+	
 	
 	
 	

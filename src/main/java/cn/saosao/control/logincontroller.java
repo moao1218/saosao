@@ -9,7 +9,13 @@ public class logincontroller {
 
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public String login() {
-		return "backPage/commons/comm";
+		
+		
+		
+		
+		
+		
+		return "backPage/index";
 	}
 	
 	@RequestMapping("/index")
