@@ -16,7 +16,7 @@ public class EmpController {
 	private EmpMapper empMapper;
 
 	@GetMapping(value="/emp/{id}")
-	public Emp	findEmpById(@PathVariable("id")Integer id) {
+	public Emp	findEmpById(@PathVariable("id") Integer id) {
 		return empMapper.getEmpById(id);
 		
 	}
