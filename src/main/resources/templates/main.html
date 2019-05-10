@@ -1,0 +1,916 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>财务</title>
+
+
+<link
+	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+#f1 {
+	width: 100%;
+	height: 80%;
+}
+
+.switch {
+	width: 50px;
+	float: right;
+	/* margin: 100px 0px 0 100px; */
+}
+
+.btn_fath {
+	margin-top: 10px;
+	position: relative;
+	border-radius: 20px;
+}
+
+.btn1 {
+	float: left;
+}
+
+.btn2 {
+	float: right;
+}
+
+.btnSwitch {
+	height: 20px;
+	width: 25px;
+	border: none;
+	color: #fff;
+	line-height: 20px;
+	font-size: 8px;
+	text-align: center;
+	z-index: 1;
+}
+
+.move {
+	z-index: 100;
+	width: 20px;
+	border-radius: 10px;
+	height: 20px;
+	position: absolute;
+	cursor: pointer;
+	border: 1px solid #828282;
+	background-color: #f1eff0;
+	box-shadow: 1px 2px 2px 1px #fff inset, 0 0 5px 1px #999;
+}
+
+.on .move {
+	left: 29px;
+}
+
+.on.btn_fath {
+	background-color: #5281cd;
+}
+
+.off.btn_fath {
+	background-color: #828282;
+}
+</style>
+</head>
+<body th:fragment="pagination">
+
+	<!-- 员工修改的  Modal -->
+	<div class="modal fade" id="empupdateModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">员工修改</h4>
+				</div>
+				<div class="modal-body">
+
+					<form class="form-horizontal">
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<!-- 更新的name  -->
+
+							<label class="col-sm-2 control-label">账号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name"
+									id="name_update_input" placeholder="empName"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-10">
+								<input type="text" name="pass" class="form-control"
+									id="mima_update_input" placeholder=""> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="zhuangtai"
+									id="zhuangtai_update_input" placeholder="empName"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-sm-2 control-label">原因</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="yuanyin"
+									id="yuanyin_update_input" placeholder="empName"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label class="col-sm-2 control-label">积分</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="jifen"
+									id="jifen_update_input" placeholder="empName"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<!-- 更新的name  -->
+							<label class="col-sm-2 control-label">激活码</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="cede"
+									id="jihuoma_update_input" placeholder="可以不写"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<!-- 更新的name  -->
+							<label class="col-sm-2 control-label">邮箱</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="email"
+									id="youxiang_update_input" placeholder="empName"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+				</div>
+				<!-- 下面是两个按钮  -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="emp_update_btn">更新</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!--  ---------------------------华丽的分割线  -- 员工添加----------------------------------------  -->
+	<!-- 员工添加的  Modal -->
+	<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">员工添加</h4>
+				</div>
+				<div class="modal-body">
+
+
+					<form class="form-horizontal">
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<label for="empName_update_input" class="col-sm-2 control-label">账号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name"
+									id="name_input" placeholder="账号"> <span id="helpBlock2"
+									class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="email_update_input" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-10">
+								<input type="text" name="pass" class="form-control"
+									id="mima_input" placeholder="密码"> <span id="helpBlock2"
+									class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="empName_update_input" class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="zhuangtai"
+									id="zhuangtai_input" placeholder="0正常1封号2激活"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<label for="empName_update_input" class="col-sm-2 control-label">原因</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="yuanyin"
+									id="yuanyin_input" placeholder="可以不填写"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+
+							<label for="empName_update_input" class="col-sm-2 control-label">积分</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="jifen"
+									id="jifen_input" placeholder="默认为0"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<!-- 更新的name  -->
+							<label for="empName_update_input" class="col-sm-2 control-label">激活码</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="cede"
+									id="jihuoma_input" placeholder="没有可以不填写"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<!-- 更新的name  -->
+							<label for="empName_update_input" class="col-sm-2 control-label">邮箱</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="email"
+									id="youxiang_input" placeholder="123@qq.com"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+				</div>
+				<!-- 下面是两个按钮  -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="emp_save_btn">保存</button>
+				</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- -------------------------华丽的分割线---------------------------------------  -->
+	<!-- 搭建显示页面 -->
+	<div class="container">
+		<!-- 标题  -->
+		<div class="row">
+			<div class="col-md-10">
+				<h1>管理平台</h1>
+
+			</div>
+			<div class="col-md-1 col-md-offset-1">
+				<button class="btn btn-primary" id="rmove_btn" onclick="tuichu()">退出</button>
+
+			</div>
+
+		</div>
+
+		<!-- 按钮 -->
+		<div class="row">
+			<div class="col-md-4 col-md-offset-8">
+				<button class="btn btn-primary" id="emp_add_modal_btn">新增</button>
+				<button class="btn btn-danger" id="emp_delete_all">删除</button>
+
+				
+
+
+			</div>
+			<body>
+		</div>
+		<!-- 显示表格数据 -->
+		<div class="row" id="f1">
+			<div class="col-md-12">
+				<table class="table table-hover" id="emps_table">
+					<!-- 为了方便，把表头放到这个thead里面   -->
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="check_all"></th>
+							<th>ID</th>
+							<th>账号</th>
+							<th>密码</th>
+							<th>状态</th>
+							<th>原因</th>
+							<th>积分</th>
+							<th>激活码</th>
+							<th>邮箱</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<!-- 表格的单元体就放在tbody里面 -->
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- 显示分页信息 -->
+		<div class="row">
+			<!-- 分页信息 -->
+			<div class="col-md-6" id="build_page_info"></div>
+			<!-- 分页条信息 -->
+			<div class="col-md-6" id="build_page_nav"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		/* 定义一个全局变量来保存总记录数  第二个参数是当前页*/
+		var totalRecord,current;
+		
+		
+		/* 页面加载完成 直接发送ajax请求发送页面，得到分页数据 */
+		$(function() {
+			to_page(1);
+		});
+
+		/* 查询的方法 */
+		function to_page(pn) {
+
+			$.ajax({
+				url : "${APP_PATH}/emps",
+				data : "pn=" + pn,
+				type : "GET",
+				success : function(result) {
+					//console.log(result.extend.anniu);
+					var ele = document.getElementById('move');
+					
+					if(result.extend.anniu==true){
+						//alert("sdsa");
+						$(".move").animate({left: "0"}, 300, function(){
+							$(".move").attr("data-state", "off");
+							$(".btn_fath").removeClass("on").addClass("off");
+						});
+					}else{
+						$(".move").animate({left: '29px'}, 300, function(){
+							$(".move").attr("data-state", "on");
+						    });
+					}
+					//解析并显示员工数据
+					build_emps_taple(result);
+					/* 解析显示分页信息  就是左边的*/
+					build_page_info(result);
+					/* 解析显示分页条  就是右边的*/
+					build_page_nav(result);
+
+				}
+			});
+
+		}
+		
+		//显示中间的构造就是员工信息
+		function build_emps_taple(result) {
+			$("#emps_table tbody").empty();
+			var emps = result.extend.pageInfo.list;
+			$.each(emps, function(index, item) {
+				/* 在构建员工数据之前都需要 清空数据 */
+				console.log(item);
+				//alert(item.empName);
+				/* 下面的大概是吧后面的内容添加到 */
+				var checkBoxTd=$("<td><input type='checkbox' class='check_item'/></td>");
+				var empidTd = $("<td></td>").append(item.id);
+				var name = $("<td></td>").append(item.name);
+				/* 判断男女 */
+				//var gender=item.gender=='M'?"男":"女";
+				var mima = $("<td></td>").append(
+						item.pass);
+				var zhuangtai = $("<td></td>").append(item.zhuangtai);
+				var yuanyin = $("<td></td>")
+						.append(item.yuanyin);
+				
+				var jifen = $("<td></td>")
+				.append(item.jifen);
+				
+				var cede = $("<td></td>")
+				.append(item.cede);
+				
+				var youxiang = $("<td></td>")
+				.append(item.email);
+				
+				var bianji = $("<button></button>").addClass(
+						"btn btn-primary btn-sm edit_btn").append(
+						$("<span></span>").addClass(
+								"glyphicon glyphicon-pencil")).append("更新");
+				
+				var dele = $("<button></button>").addClass(
+						"btn btn-danger btn-sm delete_btn").append(
+						$("<span></span>")
+								.addClass("glyphicon glyphicon-trash")).append("删除");
+				
+				//为编辑按钮提供一个自定义的属性，来表示当前员工的id
+				bianji.attr("edit-id",item.id);
+				//为按钮添加一个自定义属性 来表示删除员工的id 
+				dele.attr("del-id",item.id);
+
+				var btnTd = $("<td></td>").append(bianji).append(" ").append(
+						dele);
+				/* 之所以能链式操作的原因是 每次append之后返回还有tr元素 */
+				$("<tr></tr>").append(checkBoxTd).append(empidTd).append(name).append(
+						mima).append(zhuangtai).append(
+					yuanyin).append(jifen).append(cede).append(youxiang).append(btnTd).appendTo("#emps_table tbody");
+			});
+
+		}
+
+		/* 解析显示分页信息  就是左边的*/
+		function build_page_info(result) {
+			$("#build_page_info").empty();
+			$("#build_page_info").append(
+					"当前页数  " + result.extend.pageInfo.pageNum + " 页,  总页  "
+							+ result.extend.pageInfo.pages + ",  总条数:"
+							+ result.extend.pageInfo.total);
+			/* 把最大页数赋值给 totalRecord */
+			totalRecord=result.extend.pageInfo.total;
+			current=result.extend.pageInfo.pageNum;
+		}
+
+		/* 解析显示分页条  就是右边的*/
+		function build_page_nav(result) {
+			$("#build_page_nav").empty();
+			var ul = $("<ul></ul>").addClass("pagination")
+			/* 首页 */
+			var firstPageLi = $("<li></li>").append(
+					$("<a></a>").append("首页").attr("href", "#"));
+
+			//跳转首页
+			firstPageLi.click(function() {
+				to_page(1);
+			});
+
+			/* 1旁边的那个"《" 添加点击事件*/
+			var prePageLi = $("<li></li>").append(
+					$("<a></a>").append("&laquo;"));
+
+			/* 如果是第一页就不显示上一页   */
+			if (result.extend.pageInfo.hasPreviousPage == false) {
+				firstPageLi.addClass("disabled");
+				prePageLi.addClass("disabled");
+			} else {
+				/* 上面的点击事件 */
+				prePageLi.click(function() {
+					to_page(result.extend.pageInfo.pageNum - 1);
+				});
+				//跳转首页
+				firstPageLi.click(function() {
+					to_page(1);
+				});
+			}
+
+			/* 尾页旁边的"》" */
+			var nextPageLi = $("<li></li>").append(
+					$("<a></a>").append("&raquo;"));
+
+			/* 尾页 */
+			var lastPageLi = $("<li></li>").append(
+					$("<a></a>").append("尾页").attr("href", "#"));
+
+			if (result.extend.pageInfo.hasNextPage == false) {
+				nextPageLi.addClass("disabled");
+				lastPageLi.addClass("disabled");
+			} else {
+				/* 有下一页就跳转，没有就不能监听 */
+				/* 跳转尾页 */
+				lastPageLi.click(function() {
+					to_page(result.extend.pageInfo.pages);
+				});
+				/* 下一页 */
+				nextPageLi.click(function() {
+					to_page(result.extend.pageInfo.pageNum + 1);
+				});
+			}
+
+			/* 添加首页和前一页的提示信息  */
+			ul.append(firstPageLi).append(prePageLi);
+
+			/* 遍历的页码号 12345 */
+			$.each(result.extend.pageInfo.navigatepageNums, function(index,
+					item) {
+				var numLi = $("<li></li>").append($("<a></a>").append(item));
+				if (result.extend.pageInfo.pageNum == item) {
+					numLi.addClass("active")
+				}
+
+				/* 添加点击事件 跳转到你点击的页码 */
+				numLi.click(function() {
+					to_page(item);
+				});
+
+				//添加
+				ul.append(numLi);
+			});
+
+			//添加下一页和尾页的提示
+			ul.append(nextPageLi).append(lastPageLi);
+
+			/* 把ul添加到 nav里面 */
+			var navEle = $("<nav></nav>").append(ul);
+
+			navEle.appendTo("#build_page_nav");
+
+		}
+		
+		/* 点击新增按钮  打开模态框*/
+		$("#emp_add_modal_btn").click(function() {
+			//每次进入清除表单所有的样式 不加【0】好像表单都直接消失
+			$("#empAddModal form")[0].reset();
+			$("#empAddModal form").find("*").removeClass("has-error has-success");
+			$("#empAddModal form").find(".help-block").text("");
+			
+			/* 打开添加模态框 */
+			$('#empAddModal').modal({
+				backdrop : 'static'
+			});
+		});
+		
+		
+		/* 校验功能 校验账号和秘密功能 */
+		function validata_add_form(){
+			//1.先拿到校验数据，使用正则表达式
+			var empName=$("#empName_add_input").val();
+			/*就是字母大小写数字1到9或者汉子2到10 */
+			var regName= /(^[A-Za-z0-9_-]{4,10}$)|(^[\u2E80-\u9FFF]{2,5})/;
+			
+			if(!regName.test(empName)){
+				show_validate_msg("#empName_add_input","error","用户名可以是2到5位中文或者4到10位数字、字母");
+				return false;
+			}else{
+				show_validate_msg("#empName_add_input","success","");
+				
+			}
+			
+			/* 校验邮箱 */
+			var email=$("#email_add_input").val();
+			var biaoda=/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			//alert(biaoda.test(email));
+			if(!biaoda.test(email)){
+				show_validate_msg("#email_add_input","error","邮箱格式不正确！");
+				return false;
+			}else{
+				show_validate_msg("#email_add_input","success","");
+			} 
+			return true;
+		}
+		
+		/* 检查校验的 */
+		function show_validate_msg(ele,status,msg){
+			//清空元素之前的样式 不论成功失败 只要有这两个元素就移除
+			$(ele).parent().removeClass("has-success has-error");
+			$(ele).next("span").text("");
+			if("success"==status){
+				$(ele).parent().addClass("has-success");
+				$(ele).next("span").text(msg);
+			}else if("error"==status){
+				$(ele).parent().addClass("has-error");
+				$(ele).next("span").text(msg);
+			}
+		}
+		
+		/* 给编辑框绑定事件 一旦发生改变 就执行 */
+		$("#empName_add_input").change(function(){
+			//发送ajax请求 校验用户名是否可用
+			//var empName=this.value;
+			
+			var panduan=false;//判断 用户名是否重复
+			//panduan=false;
+			var empName=$("#empName_input").val();
+			//alert("as"+empName);
+			$.ajax({
+				url:"${APP_PATH}/checkuser",
+				data:"empName="+empName,
+				typr:"POST",
+				/* 
+				这里之所以出现点击占用之后先运行false 在返回true应该是
+				success是线程执行 比较慢
+				*/
+				success:function(result){
+					//alert(result.code);
+					if(result.code==100){
+						show_validate_msg("#empName_add_input","success","用户名可以用");
+						/* attr 方法设置或返回被选元素的属性值。 简单说就是增加一个ajax属性 值为success*/
+						$("#emp_save_btn").attr("ajax-va","success");
+					}else{
+						show_validate_msg("#empName_add_input","error",result.extend.va_msg);
+						$("#emp_save_btn").attr("ajax-va","error");
+					}
+				}
+			});
+			//alert("ads"+panduan);
+			/* 在ajax里面的 返回是没有用的 所以要移动到外面来 */
+		});
+		
+		
+		/* 点击保存员工的方法 */
+		$("#emp_save_btn").click(function(){
+			//点击保存
+			//1.先对要提交给服务器的数据进行校验、判断账号邮箱是否正确
+			/* if(!(validata_add_form())){
+				//alert("ads");
+				return false;
+			} */
+			/* 判断ajax用户名是否校验成功 */
+			if($(this).attr("ajax-va")=="error"){
+				show_validate_msg("#empName_add_input","error","用户名被占用");
+				return false;
+			}
+			if($("#youxiang_input").val()==""){
+				show_validate_msg("#youxiang_input","error","邮箱不能为空");
+				return false;
+			}
+			//2.发送ajax请求  点击保存数据
+			//alert($("#empAddModal form").serialize());
+			  $.ajax({
+				url:"${APP_PATH}/emp",
+				type:"POST",
+				data:$("#empAddModal form").serialize(),
+				success:function(result){
+					//alert(result.msg);
+					
+					if(result.code==100){
+						//就是返回成功 服务器响应成功 关闭模态框
+						$("#empAddModal").modal('hide');
+						//保存完成之后来到最后一页，显示刚才保存的，
+						to_page(totalRecord);
+						
+					}else{
+						//显示失败信息
+						console.log(result);
+						//那个字段错误就显示那个字段的
+						
+						/* alert(result.extend.errorFields.email);
+						alert(result.extend.errorFields.empName); */
+						if(undefined !=result.extend.errorFields.empName){
+							//显示员工名字的错误信息
+							show_validate_msg("#empName_add_input","error",result.extend.errorFields.empName);
+						}else if(undefined !=result.extend.errorFields.email){
+							//显示邮箱错误
+							show_validate_msg("#email_add_input","error",result.extend.errorFields.email);
+						}else if(undefined != result.extend.errorFields || 'object Object' != result.extend.errorFields){
+							alert("是否运行："+result.extend.errorFields);
+							//后台账号是否重复验证
+							show_validate_msg("#empName_add_input","error",result.extend.errorFields);
+						}
+					}
+				}
+				});  
+		});
+		
+		
+		//为更改按钮点击绑定事件   更改
+		$(document).on("click",".edit_btn",function(){
+			//alert("asd");
+			//查出员工列表并显示员工信息
+			/* 点击新增按钮  打开模态框*/
+		
+			//每次进入清除表单所有的样式 不加【0】好像表单都直接消失
+			$("#empupdateModal form")[0].reset();
+			$("#empupdateModal form").find("*").removeClass("has-error has-success");
+			$("#empupdateModal form").find(".help-block").text("");
+			
+			/* 发送ajax请求 */
+			//查询员工信息 传入id 显示在模块上
+			getEmp($(this).attr("edit-id"));
+			//把员工的id传递给更新按钮
+			$("#emp_update_btn").attr("edit-id",$(this).attr("edit-id"));
+			
+			$('#empupdateModal').modal({
+				backdrop : 'static'
+			});
+		});
+			
+		//查询员工信息 传入id 显示在模块上
+		function getEmp(id){
+			$.ajax({
+				url: "${APP_PATH}/emp/"+id,
+				type:"GET",
+				success:function(result){
+//					//console.log(result);
+					var empDate=result.extend.emp;
+					$("#name_update_input").val(empDate.name);
+					$("#mima_update_input").val(empDate.pass);
+					$("#zhuangtai_update_input").val(empDate.zhuangtai);
+					$("#yuanyin_update_input").val(empDate.yuanyin);
+					$("#jifen_update_input").val(empDate.jifen);
+					$("#jihuoma_update_input").val(empDate.cede);
+					$("#youxiang_update_input").val(empDate.email);
+					/* 给单选框赋值的方法 那个里面放的是 单选框的内容  给name=gender的赋值 */
+					/* $("#empupdateModal input[name=gender]").val([empDate.gender]); */
+					$("#empupdateModal select").val([empDate.dId]);
+				}
+			});
+		}
+		
+		//点击更新，更新员工信息
+		$("#emp_update_btn").click(function(){
+			
+			//1.先拿到校验数据，使用正则表达式
+			var empName=$("#name_update_input").val();
+			/*就是字母大小写数字1到9或者汉子2到10 */
+			var regName= /(^[A-Za-z0-9_-]{4,10}$)|(^[\u2E80-\u9FFF]{2,5})/;
+			
+			if(!regName.test(empName)){
+				show_validate_msg("#name_update_input","error","用户名可以是2到5位中文或者4到10位数字、字母");
+				return false;
+			}else{
+				show_validate_msg("#name_update_input","success","");
+			}
+			
+			//邮箱验证
+			var email=$("#youxiang_update_input").val();
+			var biaoda=/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			//alert(biaoda.test(email));
+			if(!biaoda.test(email)){
+				show_validate_msg("#youxiang_update_input","error","邮箱格式不正确！");
+				return false;
+			}else{
+				show_validate_msg("#youxiang_update_input","success","");
+			} 
+			//alert("asdadasd"+$("#empupdateModal form").serialize());
+			//------------------------------更新数据发送请求
+			//var form = document.forms[0];
+			//form.action ="http://www.baidu.com";
+	        /* form.action ="update/"+$(this).attr("edit-id");
+	        form.method = "post";
+	        form.submit();
+	    	$("#empupdateModal").model("hide");
+			to_page(current); */
+			$.ajax({
+				url:"${APP_PATH}/update/"+$(this).attr("edit-id"),
+				type:"POST",
+				data:$("#empupdateModal form").serialize(),
+				success:function(result){
+					//alert(result.msg);
+					
+					if(result.code==100){
+						//就是返回成功 服务器响应成功 关闭模态框
+						$("#empupdateModal").modal('hide');
+						//保存完成之后来到最后一页，显示刚才保存的，
+						to_page(totalRecord);
+						
+					}
+				}
+				});  
+		
+		});
+		
+
+		//为删除按钮点击绑定事件
+		$(document).on("click",".delete_btn",function(){
+			//alert($(this).parents("tr").find("td:eq(0)").text());
+			var empName=$(this).parents("tr").find("td:eq(1)").text();
+			var empId=$(this).attr("del-id");
+			if(confirm("确认删除【"+empName+"】+吗？")){
+				//确认就发送ajax请求
+				$.ajax({
+					url:"${APP_PATH}/emp/"+empId,
+					type:"DELETE",
+					success:function(result){
+						alert(result.msg);
+						//回到之前的页面
+						to_page(current);
+					}
+				});
+			}
+		});
+		
+		/* 多选框全选全不选择功能 */
+		$("#check_all").click(function(){
+			/* 下面的所有多选框和上面的状态一样 */
+			$(".check_item").prop("checked",$(this).prop("checked"));
+		});
+		
+		$(document).on("click",".check_item",function(){
+			//判断当前选中的元素是否是五个
+			/* .check_item:checked 能获得选择框选中的个数 */
+			var flag=$(".check_item:checked").length==$(".check_item").length
+			$("#check_all").prop("checked",flag);
+		});
+		
+		/* 全部删除点击事件 */
+		$("#emp_delete_all").click(function(){
+			var empNames="";
+			var del_idstr="";
+			$.each($(".check_item:checked"),function(){
+				//$(this).parents("tr").find("td:eq(2)").test();
+				empNames+=$(this).parents("tr").find("td:eq(2)").text()+" ,";
+				//组装员工id的字符串
+				del_idstr+=$(this).parents("tr").find("td:eq(1)").text()+"-";
+			
+			});
+			//去除empName 多余的"，","-"
+			empNames=empNames.substring(0,empNames.length-1);
+			del_idstr=del_idstr.substring(0,empNames.length-1);
+			if(confirm("确认删除【"+empNames+"】吗？")){
+				//发送ajax请求
+				$.ajax({
+					url:"${APP_PATH}/emp/"+del_idstr,
+					type:"DELETE",
+					success:function(result){
+						//alert(result.msg);
+						to_page(current);
+					}
+					
+				});
+				
+				
+			}
+		});
+		/* 退出登录 */
+		function tuichu(){
+			 window.location.href = "${APP_PATH}/tuichu";
+		}
+		
+		
+			    
+	    function toogle(th){
+	    	//alert(th.id);
+	    	if(th.id==1){
+		    	}
+	    	var ele = $(th).children(".move");
+	    	if(ele.attr("data-state") == "on"){
+	    		
+	    		ele.animate({left: "0"}, 300, function(){
+				      ele.attr("data-state", "off");
+				      
+				      $.ajax({
+							url: "${APP_PATH}/kaiguan/"+1,
+							type:"GET",
+							success:function(result){
+								console.log(result.code);
+								if(result.code==200){//服务器返回错误
+									if(ele.attr("data-state") == "on"){
+							    		ele.animate({left: "0"}, 300, function(){
+										      ele.attr("data-state", "off");
+										 });
+										 $(th).removeClass("on").addClass("off");
+									 }else if(ele.attr("data-state") == "off"){
+										 ele.animate({left: '29px'}, 300, function(){
+										      $(this).attr("data-state", "on");
+										    });
+									 }
+									
+								}
+							}
+						});
+				      
+				      
+				 });
+				 $(th).removeClass("on").addClass("off");
+			 }else if(ele.attr("data-state") == "off"){
+				 
+				 ele.animate({left: '29px'}, 300, function(){
+				      $(this).attr("data-state", "on");
+				    });
+				 
+				 $(th).removeClass("off").addClass("on");
+				     $.ajax({
+						url: "${APP_PATH}/kaiguan/"+1,
+						type:"GET",
+						success:function(result){
+							console.log(result.code);
+							if(result.code==200){//服务器返回错误
+								if(ele.attr("data-state") == "on"){
+						    		ele.animate({left: "0"}, 300, function(){
+									      ele.attr("data-state", "off");
+									 });
+						    		
+									 $(th).removeClass("on").addClass("off");
+								 }else if(ele.attr("data-state") == "off"){
+									 ele.animate({left: '29px'}, 300, function(){
+									      $(this).attr("data-state", "on");
+									    });
+								 }
+							}
+						}
+					}); 
+		     }
+			}
+
+
+		
+	</script>
+</body>
+</html>
+
+
+
