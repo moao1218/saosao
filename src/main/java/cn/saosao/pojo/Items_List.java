@@ -7,13 +7,13 @@ import java.io.Serializable;
  *
  */
 public class Items_List implements Serializable {
-	private Integer itemid;
-	private String item_name;
-	private String deductible;
-	private String excess;
-	private String dep_rate;
-	private String industry;
-	private String del_status;
+	private Integer itemid;//物品编号
+	private String item_name;//物品名称
+	private String deductible;//免赔额
+	private String excess;//免赔率
+	private String dep_rate;//折旧率
+	private String industry;//所属行业编号
+	private String del_status;//逻辑删除
 	public Integer getItemid() {
 		return itemid;
 	}
