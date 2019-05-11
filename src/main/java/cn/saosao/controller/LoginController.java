@@ -4,9 +4,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import cn.saosao.pojo.Clerk;
@@ -22,7 +24,7 @@ public class LoginController {
 	
 	
 	@PostMapping("/login")
-	public String CheckLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map) {
+	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map) {
 		Clerk c = clerkServiceImpl.findUserPwd(clerk);
 		if(c==null) {
 			//登录失败
@@ -39,11 +41,19 @@ public class LoginController {
 			}else {
 				//登录失败
 				map.put("msg", "用户名密码错误!");
-				return "backPage/login";
+				return "backPage/login"; 
 			}
 		}
-		
 	}
+	
+	@GetMapping("/logout")
+	public String logOut(HttpServletRequest request) {
+		request.getSession().invalidate();
+		Clerk ccc = (Clerk)request.getSession().getAttribute("clerk");
+		System.out.println(ccc);
+		return "backPage/login";
+	}
+	
 	
 	
 }
