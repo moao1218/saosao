@@ -1,11 +1,11 @@
-package cn.saosao.service.login;
+package cn.saosao.service;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public interface LoginService {
+public interface IClerkService {
 	/**
-	 * 检查登录
+	 * 登录
 	 * @return
 	 */
 	public boolean checkLogin();
