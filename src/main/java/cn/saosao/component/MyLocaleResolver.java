@@ -1,4 +1,4 @@
-package cn.saosao.config;
+package cn.saosao.component;
 
 import java.util.Locale;
 
