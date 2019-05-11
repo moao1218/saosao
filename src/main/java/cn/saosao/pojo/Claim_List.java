@@ -32,16 +32,10 @@ public class Claim_List implements Serializable {
 	
 	private Status status;//;理赔状态对象
 	private Users users;//会员对象
-	private Claim_Verify claim_verify;//理赔勘查清单对象
 	private Policy policy;//保单号对象
 	
 	
-	public Claim_Verify getClaim_verify() {
-		return claim_verify;
-	}
-	public void setClaim_verify(Claim_Verify claim_verify) {
-		this.claim_verify = claim_verify;
-	}
+	
 	public Users getUsers() {
 		return users;
 	}

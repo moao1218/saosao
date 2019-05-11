@@ -29,8 +29,17 @@ public class Claim_Verify implements Serializable {
 	private String del_status;//逻辑删除
 	
 	private Items_List items_list; //物品清单对象
+	private Claim_List claim_list;//理赔单列表对象
 	
 	
+	
+	public Claim_List getClaim_list() {
+		return claim_list;
+	}
+
+	public void setClaim_list(Claim_List claim_list) {
+		this.claim_list = claim_list;
+	}
 
 	public String getCla_ver_id() {
 		return cla_ver_id;
