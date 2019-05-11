@@ -109,7 +109,7 @@
 		<!--header start-->
 
 		<div
-			th:replace="backPage/commons/comm::#topbar(activeUri='index.html')"></div>
+			th:replace="backPage/commons/comm::#topbar(activeUri='referAll.html')"></div>
 
 		<!--header end-->
 		<!-- **********************************************************************************************************************************************************
@@ -125,18 +125,18 @@
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
 		<!--main content start-->
-		<section id="main-content">
-			<section class="wrapper">
+		<section id="main-content" >
+			<section class="wrapper" >
 				<div class="row">
-					<div class="container" style="margin-top:100px">
+					<div  style="width:100%" >
 						<!-- 标题  -->
-						<div class="row">
+						<div class="row" >
 							<div class="col-md-10">
-								<h1>管理平台</h1>
+								<h1 style="padding-left:100px">理赔列表</h1>
 
 							</div>
 						</div>
-						<div class="row" id="f1">
+						<div class="row" id="f1" >
 							<div class="col-md-12">
 								<table class="table table-striped">
 								  <thead>
@@ -152,9 +152,7 @@
 								      <th scope="col">申请时间</th>
 								      <th scope="col">保单性质</th>
 								      <th scope="col">财产险种</th>
-								      <th scope="col">理赔单一审状态</th>
-								      <th scope="col">理赔单二审状态</th>
-								      <th scope="col">理赔单三审状态</th>
+								      <th scope="col">理赔单状态</th>
 								      <th scope="col">理赔单紧急情况</th>
 								      <th scope="col">上一级操作人</th>
 								      <th scope="col">初始价格</th>
@@ -168,17 +166,17 @@
 							</div>
 						</div>
 						<!-- 分页 -->
-						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-left:50px">
 						  <div class="btn-group mr-2" role="group" aria-label="First group">
-						    <button type="button" class="btn btn-secondary">&lt&lt</button>
-						  	<button type="button" class="btn btn-secondary">&lt</button>
-						    <button type="button" class="btn btn-secondary">1</button>
-						    <button type="button" class="btn btn-secondary">2</button>
-						    <button type="button" class="btn btn-secondary">3</button>
-						    <button type="button" class="btn btn-secondary">4</button>
-						    <button type="button" class="btn btn-secondary">5</button>
-						    <button type="button" class="btn btn-secondary">&gt</button>
-						    <button type="button" class="btn btn-secondary">&gt&gt</button>
+						    <button type="button" class="btn btn-secondary btn-info">&lt&lt</button>
+						  	<button type="button" class="btn btn-secondary btn-info">&lt</button>
+						    <button type="button" class="btn btn-secondary btn-info">1</button>
+						    <button type="button" class="btn btn-secondary btn-info">2</button>
+						    <button type="button" class="btn btn-secondary btn-info">3</button>
+						    <button type="button" class="btn btn-secondary btn-info">4</button>
+						    <button type="button" class="btn btn-secondary btn-info">5</button>
+						    <button type="button" class="btn btn-secondary btn-info">&gt</button>
+						    <button type="button" class="btn btn-secondary btn-info">&gt&gt</button>
 						  </div>
 						</div>
 						</div>

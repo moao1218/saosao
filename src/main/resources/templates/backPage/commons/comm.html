@@ -39,13 +39,13 @@
           </li>
          
           <li class="sub-menu">
-            <a href="javascript:;" th:class="${activeUri=='basicTable.html'?'dcjq-parent active':'dcjq-parent'}">
+            <a href="javascript:;" th:class="${activeUri=='referAll.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>理赔模块</span>
               </a>
             <ul class="sub" th:style="${activeUri=='referAll.html'?'display: block':'display: none'}" >
-              <li><a th:href="basicTable.html" th:class="${aactiveUri=='referAll.html'?'active':''}">查看所有理赔单</a></li>
-              <li><a href="daiban.html" >查看代办理赔单</a></li>
+              <li><a th:href="@{/getall}" th:class="${aactiveUri=='referAll.html'?'active':''}">查看所有理赔单</a></li>
+              <li><a href="daiban.html" class="active">查看代办理赔单</a></li>
               <li><a href="gallery.html">查看一办理赔单</a></li>
               
             </ul>
