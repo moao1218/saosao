@@ -9,7 +9,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public String login() {
-		
+	
 		
 		
 		
@@ -20,7 +20,7 @@ public class LoginController {
 	
 	@RequestMapping("/index")
 	public String index() {
-		return "login";
+		return "backPage/index";
 	}
 	
 	
