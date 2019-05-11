@@ -11,10 +11,15 @@ public class MyMvcConfig implements WebMvcConfigurer {
 		  WebMvcConfigurer adapter = new WebMvcConfigurer() {
 			  @Override
 			  public void addViewControllers(ViewControllerRegistry registry) {
-				  registry.addViewController("/").setViewName("backPage/index");
-				  registry.addViewController("/index.html").setViewName("backPage/index");
+				  registry.addViewController("/").setViewName("backPage/login");
+				  registry.addViewController("/login.html").setViewName("backPage/login");
 			  } 
 		  };
 		  return adapter;
 	  }
+	
+	@Bean
+	public MyLocaleResolver localeResolver() {
+		return new MyLocaleResolver();
+	}
 }
