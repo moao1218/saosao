@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  */
 public class Claim_List implements Serializable {
-	private Integer claimid;  //理赔编号
+	private String claimid;  //理赔编号
 	private String claim_name;//申请人姓名
 	private String claim_card;//申请人证件号码
 	private String claim_phone;//申请人电话号码
@@ -33,7 +33,7 @@ public class Claim_List implements Serializable {
 	private Status status;//;理赔状态对象
 	private Users users;//会员对象
 	private Claim_Verify claim_verify;//理赔勘查清单对象
-	//缺一个保单对象
+	private Policy policy;//保单号对象
 	
 	
 	public Claim_Verify getClaim_verify() {
@@ -54,11 +54,19 @@ public class Claim_List implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public Integer getClaimid() {
+	
+	
+	public String getClaimid() {
 		return claimid;
 	}
-	public void setClaimid(Integer claimid) {
+	public void setClaimid(String claimid) {
 		this.claimid = claimid;
+	}
+	public Policy getPolicy() {
+		return policy;
+	}
+	public void setPolicy(Policy policy) {
+		this.policy = policy;
 	}
 	public String getClaim_name() {
 		return claim_name;

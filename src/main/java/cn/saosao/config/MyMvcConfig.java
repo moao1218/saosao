@@ -4,6 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import cn.saosao.component.MyLocaleResolver;
+
+
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 	@Bean   //将组件注册在容器
@@ -18,8 +22,13 @@ public class MyMvcConfig implements WebMvcConfigurer {
 		  return adapter;
 	  }
 	
-	@Bean
-	public MyLocaleResolver localeResolver() {
-		return new MyLocaleResolver();
-	}
+
+	//添加国际化组件到容器中
+	  @Bean
+	  public MyLocaleResolver localeResolver(){
+
+	      return new MyLocaleResolver();
+	  }
+
+
 }

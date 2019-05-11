@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  */
 public class Claim_Verify implements Serializable {
-	private Integer cla_ver_id; //勘察编号
+	private String cla_ver_id; //勘察编号
 	private String item_name;//物品名称
 	private String site_photo;//现场拍摄照片
 	private String third_pic;//第三方证明照片
@@ -29,12 +29,14 @@ public class Claim_Verify implements Serializable {
 	private String del_status;//逻辑删除
 	
 	private Items_List items_list; //物品清单对象
+	
+	
 
-	public Integer getCla_ver_id() {
+	public String getCla_ver_id() {
 		return cla_ver_id;
 	}
 
-	public void setCla_ver_id(Integer cla_ver_id) {
+	public void setCla_ver_id(String cla_ver_id) {
 		this.cla_ver_id = cla_ver_id;
 	}
 
