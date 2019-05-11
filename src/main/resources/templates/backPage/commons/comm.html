@@ -31,25 +31,31 @@
           <p class="centered"><a href="profile.html"><img src="back/img/ui-sam.jpg" class="img-circle" width="80"/></a></p>
           <h5 class="centered">熊蕃猛</h5>
           <li class="mt">
-            <a class="active" th:href="@{/index}" 
-            th:class="${activeUri=='index.html'?'active':''}">
+            <a class="active" th:href="@{/index}" th:class="${activeUri=='index.html'?'active':''}">
               <i class="fa fa-dashboard"></i>
               <span>首页</span>
-              </a>
+            </a>
           </li>
          
           <li class="sub-menu">
-            <a href="javascript:;" th:class="${activeUri=='referAll.html'?'dcjq-parent active':'dcjq-parent'}">
+            <a th:href="@{/getall}" th:class="${activeUri=='referAll.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
-              <span>理赔模块</span>
-              </a>
-            <ul class="sub" th:style="${activeUri=='referAll.html'?'display: block':'display: none'}" >
-              <li><a th:href="@{/getall}" th:class="${aactiveUri=='referAll.html'?'active':''}">查看所有理赔单</a></li>
-              <li><a href="daiban.html" class="active">查看代办理赔单</a></li>
-              <li><a href="gallery.html">查看一办理赔单</a></li>
-              
-            </ul>
+              <span>理赔清单</span>
+            </a>
           </li>
+          <li class="sub-menu">
+            <a href="@{}" th:class="${activeUri=='referAll.html'?'dcjq-parent active':'dcjq-parent'}">
+              <i class="fa fa-cogs"></i>
+              <span>待办清单</span>
+            </a>
+          </li>
+          <li class="sub-menu">
+            <a href="@{}" th:class="${activeUri=='referAll.html'?'dcjq-parent active':'dcjq-parent'}">
+              <i class="fa fa-cogs"></i>
+              <span>已办清单</span>
+            </a>
+          </li>
+          
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-book"></i>
