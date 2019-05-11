@@ -20,7 +20,7 @@ public class LoginController {
 
 	@Autowired
 	IClerkService clerkServiceImpl;
-	InterfaceUtil interfaceUtil = new InterfaceUtil();
+	
 	
 	
 	@PostMapping("/login")
@@ -31,8 +31,8 @@ public class LoginController {
 			map.put("msg", "用户名不存在!");
 			return "backPage/login";
 		}else {
-			
-			boolean flagPwd = interfaceUtil.checkMatch(clerk.getUserpwd(), c.getUserpwd());
+			//调用接口类的验证密文方法
+			boolean flagPwd = InterfaceUtil.checkMatch(clerk.getUserpwd(), c.getUserpwd());
 			
 			if(flagPwd) {
 				Clerk cler = clerkServiceImpl.checkLogin(clerk); 

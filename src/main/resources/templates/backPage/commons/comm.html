@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <title>Insert title here</title>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+
 </head>
 <body> 
 
@@ -15,9 +17,35 @@
       <a href="index.html" class="logo"><b>喵喵<span>理赔</span></b></a>
       <!--logo end-->
       
-      
+      <script type="text/javascript">
+		$(function(){
+			$.post("/weather",{"city":"深圳","appkey":"3aa9dfcfc136e1953edb18c45d1835f6"},function(data){
+				console.log(data);
+				$("#tianqi_city").html(data.result.result.city);
+				$("#tianqi_date").html(data.result.result.updatetime);
+				$("#tianqi_week").html(data.result.result.week);
+				$("#tianqi_weather").html(data.result.result.weather);
+				$("#tianqi_humidity").html(data.result.result.humidity);
+				$("#tianqi_temp").html(data.result.result.temp);
+				$("#tianqi_templow").html(data.result.result.templow);
+				$("#tianqi_temphigh").html(data.result.result.temphigh);
+				$("#tianqi_detail").html(data.result.result.index[0].detail);
+			},"json");
+		});
+		</script>
       
       <div class="top-menu">
+      	<!-- 天气显示位置 -->
+    	<span style="margin-left: 120px;color:white" >您所在的城市 : <span id="tianqi_city" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >日期 : <span id="tianqi_date" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >星期 :<span id="tianqi_week" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >天气 : <span id="tianqi_weather" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >湿度 : <span id="tianqi_humidity" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >气温: <span id="tianqi_temp" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >最低气温 : <span id="tianqi_templow" style="color:#4ECDC4" ></span></span>
+    	<span style="color:white" >最高气温 : <span id="tianqi_temphigh" style="color:#4ECDC4" ></span></span>
+      
+      	
         <ul class="nav pull-right top-menu">
           <li><a class="logout" href="login.html" th:href="@{/logout}" th:text="#{login.logout}">logout</a></li>
         </ul>

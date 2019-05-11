@@ -98,6 +98,9 @@
 .off.btn_fath {
 	background-color: #828282;
 }
+.inputClass{
+	margin:0px 60px 0px 60px;
+}
 </style>
 
 </head>
@@ -128,16 +131,65 @@
 		<section id="main-content" >
 			<section class="wrapper" >
 				<div class="row">
-					<div  style="width:100%;margin-top:50px" >
+					<div  style="width:100%;margin-top:20px" >
 						<!-- 标题  -->
 						<div class="row" >
 							<div class="col-md-10">
-								<h1 style="padding-left:100px">待办事项</h1>
+								<h1 style="padding-left:50px">待办事项</h1>
 
 							</div>
 						</div>
 						<div class="row" id="f1" >
 							<div class="col-md-12">
+								<form>
+									  <div class="form-group inputClass pull-left" >
+									    <label>理赔号:</label>
+									    <input type="text" class="form-control" id="claimid" name="claimid" placeholder="请输入理赔号" style="width:200px;display:inline">
+									  </div>
+									  
+									  <div class="form-group inputClass pull-left" >
+									    <label>申请人姓名:</label>
+									    <input type="text" class="form-control" id="claim_name" name="claim_name" placeholder="请输入申请人姓名" style="width:200px;display:inline">
+									  </div>
+									  
+									  <div class="form-group inputClass pull-left" >
+									    <label>申请时间:</label>
+									    <input type="date" class="form-control" id="start_time" name="start_time" placeholder="开始时间" style="width:200px;display:inline">
+									    &nbsp;-&nbsp;
+									    <input type="date" class="form-control" id="end_time" name="end_time" placeholder="结束时间" style="width:200px;display:inline">
+									  </div>
+									  <div style="clear:both"></div>
+									  <br/>
+									  <!-- <div style="border:1px solid red">ssss</div> -->
+									  <div class="form-group inputClass pull-left" >
+									    <label>保单性质:</label>
+									    <select class="form-control" id="pol_property" name="pol_property" style="width:125px;display:inline">
+									      <option value="0">个人财保</option>
+									      <option value="1">企业财保</option>
+									    </select>
+									  </div>
+									  
+									  <div class="form-group pull-left" style="margin-left:120px;">
+									    <label>理赔单状态:</label>
+									    <select class="form-control" id="status" name="status" style="width:125px;display:inline">
+									      <option value="1">待初审</option>
+										  <option value="">。。。</option>
+									    </select>
+									  </div>
+									  
+									  <div class="form-group pull-left" style="margin-left:200px;">
+									    <label>紧急状况:</label>
+									    <select class="form-control" id="emergency" name="emergency" style="width:125px;display:inline">
+									      <option value="0">正常</option>
+									      <option value="1">紧急</option>
+									      <option value="1">非常紧急</option>
+									    </select>
+									  </div>
+									  
+									  <div class="pull-left" style="margin-left:180px;">
+									  	<button type="button" class="btn btn-success " style="width:100px;">查询</button>
+									  </div>
+								</form>
 								<table class="table table-striped">
 								  <thead>
 								    <tr> 
