@@ -3,7 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.saosao.mapper.ClerkMapper">
-   <select id="checkLogin"  resultType="cn.saosao.pojo.Clerk" >
-   		
+	<sql id="showColumn">
+		magid, roleid, username, userpwd, job, realname, user_card, email, sex, nation, address, linkman, emergency, join_date, area, phone, del_status
+	</sql>
+	
+	<!-- 查询加密之后的密码 -->
+	<select id="findUserPwd" parameterType="cn.saosao.pojo.Clerk" resultType="cn.saosao.pojo.Clerk">
+		select userpwd,username from clerk where username=#{username}
+	</select>
+	
+	
+	<!-- 查询用户 -->
+   <select id="checkLogin"  parameterType="cn.saosao.pojo.Clerk" resultType="cn.saosao.pojo.Clerk">
+   		select <include refid="showColumn"/>  from clerk where username=#{username}
    </select>
+   
 </mapper>
