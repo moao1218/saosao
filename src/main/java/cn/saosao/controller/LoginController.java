@@ -1,5 +1,7 @@
 package cn.saosao.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,19 +22,27 @@ public class LoginController {
 	
 	
 	@PostMapping("/login")
-	public String CheckLogin(Clerk clerk,HttpServletRequest request) {
-		
-		System.out.println("a:"+clerk.getUsername()+"b:"+clerk.getUserpwd());
+	public String CheckLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map) {
 		Clerk c = clerkServiceImpl.findUserPwd(clerk);
-		boolean flagPwd = interfaceUtil.checkMatch(clerk.getUserpwd(), c.getUserpwd());
-		System.out.println("flagPwd:"+flagPwd);
-		
-		if(flagPwd) {
-			Clerk cler = clerkServiceImpl.checkLogin(clerk); 
-			request.getSession().setAttribute("clerk", cler);
-			return "backPage/index";
+		if(c==null) {
+			//登录失败
+			map.put("msg", "用户名不存在!");
+			return "backPage/login";
+		}else {
+			
+			boolean flagPwd = interfaceUtil.checkMatch(clerk.getUserpwd(), c.getUserpwd());
+			
+			if(flagPwd) {
+				Clerk cler = clerkServiceImpl.checkLogin(clerk); 
+				request.getSession().setAttribute("clerk", cler);
+				return "backPage/index";
+			}else {
+				//登录失败
+				map.put("msg", "用户名密码错误!");
+				return "backPage/login";
+			}
 		}
-		return "";
+		
 	}
 	
 	
