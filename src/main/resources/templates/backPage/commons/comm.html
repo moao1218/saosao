@@ -57,11 +57,11 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered">
-          <a href="profile.html">
+          <a href="userinfo.html" th:href="@{/userinfo}">
           	<img src="back/img/ui-pic.jpg"  class="img-circle" width="80"/>
           </a>
           </p>
-          <h5 class="centered" th:text="${session.clerk.username}"></h5>
+          <a th:href="@{/userinfo}"><h5 class="centered" th:text="${session.clerk.realname}"></h5></a>
           <li class="mt">
             <a class="active" th:href="@{/index}" th:class="${activeUri=='index.html'?'active':''}">
               <i class="fa fa-dashboard"></i>

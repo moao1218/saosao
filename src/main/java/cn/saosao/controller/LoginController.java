@@ -2,12 +2,11 @@ package cn.saosao.controller;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,7 +19,6 @@ public class LoginController {
 
 	@Autowired
 	IClerkService clerkServiceImpl;
-	
 	
 	
 	@PostMapping("/login")
@@ -52,7 +50,13 @@ public class LoginController {
 		return "backPage/login";
 	}
 	
-	
+	@GetMapping("/userinfo")
+	public String userinfo(HttpServletRequest request,Model model) {
+		Clerk clerk = (Clerk)request.getSession().getAttribute("clerk");
+		Clerk c = clerkServiceImpl.getClerkById(clerk.getMagid()+"");
+		model.addAttribute("clerk", c);
+		return "backPage/userinfo";
+	}
 	
 }
 

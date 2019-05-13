@@ -36,9 +36,9 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3 p404 centered">
-        <img src="img/404.png" alt="">
-        <h1>DON'T PANIC!!</h1>
-        <h3>The page you are looking for doesn't exist.</h3>
+        <img src="img/500.png" alt="">
+        <h1>ERROR 500</h1>
+        <h3>Ouch!! Something Went Wrong!</h3>
         <br>
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
