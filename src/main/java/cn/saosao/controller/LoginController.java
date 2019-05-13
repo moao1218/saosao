@@ -54,6 +54,7 @@ public class LoginController {
 	public String userinfo(HttpServletRequest request,Model model) {
 		Clerk clerk = (Clerk)request.getSession().getAttribute("clerk");
 		Clerk c = clerkServiceImpl.getClerkById(clerk.getMagid()+"");
+		System.out.println(c);
 		model.addAttribute("clerk", c);
 		return "backPage/userinfo";
 	}

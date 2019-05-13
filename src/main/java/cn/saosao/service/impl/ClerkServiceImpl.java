@@ -25,6 +25,7 @@ public class ClerkServiceImpl implements IClerkService {
 	public Clerk getClerkById(String magid) {
 		return clerkMapper.getClerkById(magid);
 	}
+	
 
 	
 

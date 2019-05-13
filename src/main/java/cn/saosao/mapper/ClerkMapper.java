@@ -21,4 +21,6 @@ public interface ClerkMapper {
 	 * @return
 	 */
 	public Clerk getClerkById(String magid);
+	
+	
 }

@@ -25,7 +25,7 @@ public class MyExceptionHandler {
          * Integer statusCode = (Integer) request
          .getAttribute("javax.servlet.error.status_code");
          */
-        request.setAttribute("javax.servlet.error.status_code",500);
+        request.setAttribute("javax.servlet.error.status_code",404);
         map.put("code","user.notexist");
         map.put("message","用户出错啦");
 

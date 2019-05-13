@@ -120,48 +120,48 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroup-sizing-default">入职日期</span>
 					  </div>
-					  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text" th:value="${clerk.join_date}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroup-sizing-default">身份证号码</span>
 					  </div>
-					  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text" th:value="${clerk.user_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
 					</div>
 					 <div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">姓名和职位</span>
 					  </div>
-					  <input type="text" class="form-control" readonly>
-					  <input type="text" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.realname}" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.job}" class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">账号和密码</span>
 					  </div>
-					  <input type="text" class="form-control" readonly>
-					  <input type="text" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.username}" class="form-control" readonly>
+					  <input type="password" th:value="${clerk.userpwd}" class="form-control" readonly>
 					</div>
 					
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">手机号码和邮箱</span>
 					  </div>
-					  <input type="text" class="form-control" readonly>
-					  <input type="text" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.phone}" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.email}" class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroup-sizing-default">家庭住址</span>
 					  </div>
-					  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text" th:value="${clerk.address}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">紧急联系人信息</span>
 					  </div>
-					  <input type="text" class="form-control" readonly>
-					  <input type="text" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.linkman}" class="form-control" readonly>
+					  <input type="text" th:value="${clerk.emergency}" class="form-control" readonly>
 					</div>
 				</div>		
 				

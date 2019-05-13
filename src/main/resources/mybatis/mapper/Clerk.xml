@@ -21,4 +21,7 @@
    <select id="getClerkById" parameterType="java.lang.String" resultType="cn.saosao.pojo.Clerk">
    		select <include refid="showColumn"/> from clerk where magid=#{magid}
    </select>
+   
+   
+   
 </mapper>
