@@ -105,17 +105,16 @@
 		$.post("/weatherservice",{},function(data){
 			$("#province").html(data[0].province);
 			$("#cityname").html(data[0].cityname);
-			
+			$("#lastUpdateTime").html(data[0].lastUpdateTime);
 			$("#weatherTruth").html(data[0].weatherTruth);
+			$("#survey").html(data[0].survey);
+			$("#startPic").html("<img src='images/weather/a_"+data[0].startPic+"'/>"); 
+			$("#endPic").html("<img src='images/weather/a_"+data[0].endPic+"'/>"); 
 			$("#introduction").html(data[0].introduction);
 			$("#cityDesc").html(data[0].cityDesc);
-			
 			$.each(data,function(i,n){
 				$("#temperature").html(n.temperature);
-				$("#survey").html(n.survey);
 				$("#windPower").html(n.windPower);
-				$("#startPic").html("<img src='images/weather/a_"+data[0].startPic+"'/>"); 
-				$("#endPic").html("<img src='images/weather/a_"+data[0].endPic+"'/>"); 
 			})
 		},"json")
 	})
@@ -151,19 +150,15 @@
 				<div class="row">
 					<div class="container" style="margin-top:100px">
 						<p ><span id="province"></span>省&nbsp;&nbsp;<span id="cityname"></span>市</p>
-						<p id="weatherTruth"></p>
+						<p>更新时间 : <span id="lastUpdateTime"></span></p>
+						<p><span id="weatherTruth"></span></p>
+						<p>今日气温：<span id="temperature"></span></p>
+						<p>风向和风力：<span id="windPower"></span></p>
+						<p>概况：<span id="survey"></span></p>
+						<p>开始图标：<span id="startPic"></span></p>
+						<p>结束图标：<span id="endPic"></span></p>
 						<p id="introduction"></p>
 						<p id="cityDesc"></p>
-							
-							
-						
-						<div>
-							<b>气温：</b><span id="temperature"></span><br/>
-							<b>概况：</b><span id="survey"></span><br/>
-							<b>风向和风力：</b><span id="windPower"></span><br/>
-							<b>开始图标：</b><span id="startPic"></span><br/>
-							<b>结束图标：</b><span id="endPic"></span><br/>
-						</div>
 					</div>
 				</div>
 			</section>

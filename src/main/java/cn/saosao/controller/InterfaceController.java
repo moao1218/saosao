@@ -20,7 +20,7 @@ import cn.saosao.util.WeatherUtil;
 @Controller
 public class InterfaceController {
 	
-	
+	 
 	@ResponseBody
 	@PostMapping("/weather")
 	public String getWeather() {
@@ -31,7 +31,7 @@ public class InterfaceController {
 	
 	@ResponseBody
 	@PostMapping("/weatherservice")
-	public List<Weather> getWeatherWwebService() {
+	public List<Weather> getWeatherWebService() {
 		List<Weather> checkWeather = WeatherUtil.checkWeather("深圳");
 		System.out.println(checkWeather);
 		return checkWeather;

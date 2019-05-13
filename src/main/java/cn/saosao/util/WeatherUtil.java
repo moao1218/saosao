@@ -30,7 +30,7 @@ public class WeatherUtil {
 				+ "<getWeatherbyCityName xmlns='http://WebXml.com.cn/'>"
 				+ "<theCityName>"+cityname+"</theCityName>"
 						+ "</getWeatherbyCityName></soap12:Body></soap12:Envelope>";
-		return reqStr;
+		return reqStr; 
 	}
 	
 	public static InputStream sendReq(String requestHeader){
