@@ -122,5 +122,13 @@ public class Clerk implements Serializable {
 	public void setDel_status(String del_status) {
 		this.del_status = del_status;
 	}
+	@Override
+	public String toString() {
+		return "Clerk [magid=" + magid + ", roleid=" + roleid + ", username=" + username + ", userpwd=" + userpwd
+				+ ", job=" + job + ", realname=" + realname + ", user_card=" + user_card + ", email=" + email + ", sex="
+				+ sex + ", nation=" + nation + ", address=" + address + ", linkman=" + linkman + ", emergency="
+				+ emergency + ", join_date=" + join_date + ", area=" + area + ", phone=" + phone + ", del_status="
+				+ del_status + "]";
+	}
 	
 }

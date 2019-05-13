@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en" >
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -106,7 +106,7 @@
 
 		<div th:replace="backPage/commons/comm::#sidebar(activeUri='referAll.html')"></div>
 
-
+		<div class="container-fluid">
 		<section id="main-content" >
 			<section class="wrapper" >
 				<div class="row">
@@ -132,9 +132,9 @@
 								  
 								  <div class="form-group inputClass pull-left" >
 								    <label>申请时间:</label>
-								    <input type="date" class="form-control" id="start_time" name="start_time" placeholder="开始时间" style="width:200px;display:inline">
+								    <input type="date" class="form-control" id="start_time" name="start_time" placeholder="开始时间" style="width:180px;display:inline">
 								    &nbsp;-&nbsp;
-								    <input type="date" class="form-control" id="end_time" name="end_time" placeholder="结束时间" style="width:200px;display:inline">
+								    <input type="date" class="form-control" id="end_time" name="end_time" placeholder="结束时间" style="width:180px;display:inline">
 								  </div>
 								  <div style="clear:both"></div>
 								  <br/>
@@ -167,6 +167,7 @@
 								  <div class="pull-left" style="margin-left:180px;">
 								  	<button type="button" class="btn btn-success " style="width:100px;">查询</button>
 								  </div>
+								  <div style="clear:both"></div>
 							</form>
 							
 								<table class="table table-striped">
@@ -188,13 +189,28 @@
 								    </tr>
 								  </thead>
 								  <tbody>
-								    
+								    <tr th:each="claim_list:${claim_list}">
+								    	<td th:text="${claim_listStat.index}+1"></td>
+								    	<td th:text="${claim_list.claimid}"></td>
+								    	<td th:text="${claim_list.claim_name}"></td>
+								    	<td th:text="${claim_list.claim_phone}"></td>
+								    	<td th:text="${claim_list.claim_date}"></td>
+								    	<td th:text="${claim_list.pol_property}==0?'个人':'企业'"></td>
+								    	<td th:text="${claim_list.coverage==null?'':claim_list.coverage.coverage_name}"></td>
+								    	<td th:text="${claim_list.status==null?'':claim_list.status.status_name}"></td>
+								    	<td th:text="${claim_list.status.status_name}"></td>
+								    	<td th:text="${claim_list.upper_operator==null?'':claim_list.upper_operator.realname}"></td>
+								    	<td th:text="${claim_list.initial_amount}"></td>
+								    	<td th:text="${claim_list.final_amount}"></td>
+								    	<td><button class="btn btn-success">详情</button></td>
+								    	
+								    </tr>
 								  </tbody>
 								</table>
 							</div>
 						</div>
 						<!-- 分页 -->
-						<div>
+						<div style="position:relative;top:20px;left:-20px">
 						<div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups" style="margin-left:50px">
 						  <div class="btn-group mr-2" role="group" aria-label="First group">
 						    <button type="button" class="btn btn-secondary btn-info">&lt&lt</button>
@@ -220,7 +236,7 @@
 		<!--main content end-->
 		<!--footer start-->
 		<!--footer end-->
-
+	</div>
 	</section>
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script th:src="@{/back/lib/jquery/jquery.min.js}"></script>

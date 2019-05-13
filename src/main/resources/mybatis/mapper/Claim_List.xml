@@ -33,31 +33,30 @@
 		<result column="initial_amount" property="initial_amount"/>
 		<result column="final_amount" property="final_amount"/>
 		
-		<!-- <association property="upper_operator" column="upper_operator" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association> -->
-		<result column="upper_operator" property="upper_operator"/>
+		<!-- <result column="upper_operator" property="upper_operator"/> -->
 		<result column="upper_opinion" property="upper_opinion"/>
 		<result column="upper_date" property="upper_date"/>
 		
-		<!-- <association property="scout" column="scout" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
-		<association property="first_auditor" column="first_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
-		<association property="second_auditor" column="second_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
-		<association property="third_auditor" column="third_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
-		<association property="accountant" column="accountant" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association> -->
-		<result column="scout" property="scout"/>
+
+		<!-- <result column="scout" property="scout"/>
 		<result column="first_auditor" property="first_auditor"/>
 		<result column="second_auditor" property="second_auditor"/>
 		<result column="third_auditor" property="third_auditor"/>
-		<result column="accountant" property="accountant"/>
+		<result column="accountant" property="accountant"/> -->
 		
 		<result column="final_date" property="final_date"/>
 		<result column="del_status" property="del_status"/>
 		<result column="transfer_failed" property="transfer_failed"/>
 		
-		
+		<association property="coverage" column="coverageid" select="cn.saosao.mapper.CoverageMapper.getCoverageById"></association>
+		<association property="upper_operator" column="upper_operator" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="scout" column="scout" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="first_auditor" column="first_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="second_auditor" column="second_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="third_auditor" column="third_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="accountant" column="accountant" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
 		<association property="status" column="statusid" select="cn.saosao.mapper.StatusMapper.getStatusById" ></association>
-		
 		<association property="users" column="userid" select="cn.saosao.mapper.UsersMapper.getUsersById" ></association>
-		
 		<association property="policy" column="policuid" select="cn.saosao.mapper.PolicyMapper.getPolicyByid" ></association>
 	</resultMap>
 </mapper>
