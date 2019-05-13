@@ -1,11 +1,12 @@
 package cn.saosao.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cn.saosao.mapper.StatusMapper;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IStatusService;
-
+@Service
 public class StatusService implements IStatusService {
 	@Autowired
 	StatusMapper statusMapper;
