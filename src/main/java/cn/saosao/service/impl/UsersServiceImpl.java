@@ -7,7 +7,7 @@ import cn.saosao.mapper.UsersMapper;
 import cn.saosao.pojo.Users;
 import cn.saosao.service.IUsersService;
 @Service
-public class UsersService implements IUsersService {
+public class UsersServiceImpl implements IUsersService {
 	@Autowired
 	UsersMapper usersMapper;
 	

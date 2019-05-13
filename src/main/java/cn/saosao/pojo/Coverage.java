@@ -3,16 +3,18 @@ package cn.saosao.pojo;
 import java.io.Serializable;
 
 public class Coverage implements Serializable {
-	private Integer coverageid;
+	private String coverageid;
 	private String coverage_name;
 	private String coverage_rate;
 	private String upper_limit;
 	private String lower_limit;
 	private String del_status;
-	public Integer getCoverageid() {
+	
+	
+	public String getCoverageid() {
 		return coverageid;
 	}
-	public void setCoverageid(Integer coverageid) {
+	public void setCoverageid(String coverageid) {
 		this.coverageid = coverageid;
 	}
 	public String getCoverage_name() {

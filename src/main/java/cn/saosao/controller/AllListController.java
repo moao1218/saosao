@@ -12,11 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.saosao.pojo.Claim_List;
+import cn.saosao.pojo.Coverage;
 import cn.saosao.pojo.Users;
 import cn.saosao.service.IClaimListService;
 import cn.saosao.service.IClerkService;
+import cn.saosao.service.ICoverageService;
 import cn.saosao.service.IPolicyService;
 import cn.saosao.service.IStatusService;
 import cn.saosao.service.IUsersService;
@@ -33,6 +36,8 @@ public class AllListController {
 	IStatusService iStatusService;
 	@Autowired
 	IUsersService iUsersService;
+	@Autowired
+	ICoverageService iCoverageservice;
 	
 	@RequestMapping("/getall")
 	public String allList(Model model,Claim_List list) {
@@ -53,6 +58,14 @@ public class AllListController {
 			System.out.println(claim_List);
 		}
 		return "backPage/referAll";
+	}
+	
+	@ResponseBody
+	@GetMapping("/getcov")
+	public Coverage getcover() {
+		Coverage coverageById = iCoverageservice.getCoverageById("101");
+		System.out.println(coverageById);
+		return coverageById;
 	}
 
 }

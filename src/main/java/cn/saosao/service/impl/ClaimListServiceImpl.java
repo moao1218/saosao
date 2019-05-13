@@ -10,7 +10,7 @@ import cn.saosao.mapper.ClaimListMapper;
 import cn.saosao.pojo.Claim_List;
 import cn.saosao.service.IClaimListService;
 @Service
-public class ClaimListService implements IClaimListService {
+public class ClaimListServiceImpl implements IClaimListService {
 	@Autowired
 	ClaimListMapper claimListMapper;
 		

@@ -7,7 +7,7 @@ import cn.saosao.mapper.PolicyMapper;
 import cn.saosao.pojo.Policy;
 import cn.saosao.service.IPolicyService;
 @Service
-public class PolicyService implements IPolicyService {
+public class PolicyServiceImpl implements IPolicyService {
 	@Autowired
 	PolicyMapper policyMapper;
 	

@@ -9,7 +9,7 @@ import cn.saosao.mapper.StatusMapper;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IStatusService;
 @Service
-public class StatusService implements IStatusService {
+public class StatusServiceImpl implements IStatusService {
 	@Autowired
 	StatusMapper statusMapper;
 	

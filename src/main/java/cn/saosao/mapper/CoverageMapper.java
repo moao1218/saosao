@@ -8,5 +8,5 @@ public interface CoverageMapper {
 	 * @param id
 	 * @return
 	 */
-	public Coverage getCoverageById(Integer coverageid);
+	public Coverage getCoverageById(String coverageid);
 }

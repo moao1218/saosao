@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="cn.saosao.mapper.CoverageMapper">
-	<select id="getCoverageById" parameterType="java.lang.Integer" resultType="cn.saosao.pojo.Coverage">
+	<select id="getCoverageById" parameterType="java.lang.String" resultType="cn.saosao.pojo.Coverage">
 		select coverageid,coverage_name,coverage_rate,upper_limit,lower_limit,del_status from coverage where coverageid=#{coverageid}
 	</select>
 </mapper>
