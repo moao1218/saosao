@@ -33,7 +33,6 @@ public class LoginController {
 		}else {
 			//调用接口类的验证密文方法
 			boolean flagPwd = InterfaceUtil.checkMatch(clerk.getUserpwd(), c.getUserpwd());
-			
 			if(flagPwd) {
 				Clerk cler = clerkServiceImpl.checkLogin(clerk); 
 				request.getSession().setAttribute("clerk", cler);
@@ -50,7 +49,6 @@ public class LoginController {
 	public String logOut(HttpServletRequest request) {
 		request.getSession().invalidate();
 		Clerk ccc = (Clerk)request.getSession().getAttribute("clerk");
-		System.out.println(ccc);
 		return "backPage/login";
 	}
 	

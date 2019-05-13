@@ -43,7 +43,6 @@ public class InterfaceUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 	

@@ -5,11 +5,17 @@ package cn.saosao.controller;
  *
  */
 
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.ibatis.scripting.xmltags.WhereSqlNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.saosao.pojo.Weather;
 import cn.saosao.util.InterfaceUtil;
+import cn.saosao.util.WeatherUtil;
 
 @Controller
 public class InterfaceController {
@@ -21,5 +27,13 @@ public class InterfaceController {
 		//调用接口类的天气接口
 		String weatherJsonStr = InterfaceUtil.weather();
 		return weatherJsonStr;
+	}
+	
+	@ResponseBody
+	@PostMapping("/weatherservice")
+	public List<Weather> getWeatherWwebService() {
+		List<Weather> checkWeather = WeatherUtil.checkWeather("深圳");
+		System.out.println(checkWeather);
+		return checkWeather;
 	}
 }
