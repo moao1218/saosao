@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import cn.saosao.pojo.Claim_List;
 import cn.saosao.service.IClaimListService;
 import cn.saosao.service.IClerkService;
 import cn.saosao.service.IPolicyService;
@@ -21,7 +22,7 @@ public class AllListController {
 	IClaimListService iClaimListService;
 	@Autowired
 	IClerkService iClerkService;
-	@Autowired
+	@Autowired 
 	IPolicyService iPolicyService;
 	@Autowired
 	IStatusService iStatusService;
@@ -33,8 +34,12 @@ public class AllListController {
 		return "backPage/referAll";
 	}
 	@PostMapping("/getall")
-	public String condition(Model model) {
+	public String condition(Model model,Claim_List list) {
 		Map map=new HashMap();
+		Integer cp=1;
+		Integer ps=5;
+		map.put("ps", ps);
+		map.put("cp",cp);
 		
 		return "backPage/referAll";
 	}
