@@ -21,6 +21,10 @@ public class ClerkServiceImpl implements IClerkService {
 	public Clerk checkLogin(Clerk clerk) {
 		return clerkMapper.checkLogin(clerk);
 	}
+	@Override
+	public Clerk getClerkById(String magid) {
+		return clerkMapper.getClerkById(magid);
+	}
 
 	
 

@@ -16,5 +16,9 @@ public interface ClerkMapper {
 	 * @return
 	 */
 	public Clerk checkLogin(Clerk clerk);
-	
+	/**
+	 * 根据id查用户
+	 * @return
+	 */
+	public Clerk getClerkById(String magid);
 }

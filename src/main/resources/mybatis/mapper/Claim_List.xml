@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="cn.saosao.mapper.ClaimListMapper">
+	<select id="findAll" parameterType="java.util.Map" statementType="CALLABLE">
+		{call pro_claim_list(
+			#{cp,mode=IN,jdbcType=NUMERIC},
+			#{ps,mode=IN,jdbcType=NUMERIC},
+			#{v_count,mode=OUT,jdbcType=NUMERIC},
+			#{totlepage,mode=OUT,jdbcType=NUMERIC},
+			#{claim_list,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=claim},
+			#{claimid,mode=IN,jdbcType=VARCHAR},
+			#{claim_name,mode=IN,jdbcType=VARCHAR},
+			#{start_time,mode=IN,jdbcType=VARCHAR},
+			#{end_time,mode=IN,jdbcType=VARCHAR},
+			#{pol_property,mode=IN,jdbcType=VARCHAR},
+			#{statusid,mode=IN,jdbcType=VARCHAR},
+			#{mintime,mode=IN,jdbcType=NUMERIC},
+			#{maxtime,mode=IN,jdbcType=NUMERIC}
+		)
+		}
+	</select>
+	
+	<resultMap type="cn.saosao.pojo.Claim_List" id="claim">
+		<id column="claimid" property="claimid"/>
+		<result column="claim_name" property="claim_name"/>
+		<result column="claim_card" property="claim_card"/>
+		<result column="claim_phone" property="claim_phone"/>
+		<result column="reason" property="reason"/>
+		<result column="claim_date" property="claim_date"/>
+		<result column="pol_property" property="pol_property"/>
+		<result column="site_photo" property="site_photo"/>
+		<result column="third_pic" property="third_pic"/>
+		<result column="initial_amount" property="initial_amount"/>
+		<result column="final_amount" property="final_amount"/>
+		
+		<!-- <association property="upper_operator" column="upper_operator" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association> -->
+		<result column="upper_operator" property="upper_operator"/>
+		<result column="upper_opinion" property="upper_opinion"/>
+		<result column="upper_date" property="upper_date"/>
+		
+		<!-- <association property="scout" column="scout" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="first_auditor" column="first_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="second_auditor" column="second_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="third_auditor" column="third_auditor" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association>
+		<association property="accountant" column="accountant" select="cn.saosao.mapper.ClerkMapper.getClerkById"></association> -->
+		<result column="scout" property="scout"/>
+		<result column="first_auditor" property="first_auditor"/>
+		<result column="second_auditor" property="second_auditor"/>
+		<result column="third_auditor" property="third_auditor"/>
+		<result column="accountant" property="accountant"/>
+		
+		<result column="final_date" property="final_date"/>
+		<result column="del_status" property="del_status"/>
+		<result column="transfer_failed" property="transfer_failed"/>
+		
+		
+		<association property="status" column="statusid" select="cn.saosao.mapper.StatusMapper.getStatusById" ></association>
+		
+		<association property="users" column="userid" select="cn.saosao.mapper.UsersMapper.getUsersById" ></association>
+		
+		<association property="policy" column="policuid" select="cn.saosao.mapper.PolicyMapper.getPolicyByid" ></association>
+	</resultMap>
+</mapper>

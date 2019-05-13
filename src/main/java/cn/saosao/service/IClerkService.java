@@ -18,8 +18,12 @@ public interface IClerkService {
 	 * @return
 	 */
 	public Clerk checkLogin(Clerk clerk);
-	
-	
+	/**根据用户id查用户
+	 * 
+	 * @param magid
+	 * @return
+	 */
+	public Clerk getClerkById(String magid);
 	
 	
 	

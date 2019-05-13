@@ -18,21 +18,21 @@ public class Claim_List implements Serializable {
 	private String third_pic;//第三方证明照片
 	private String initial_amount;//初始金额
 	private String final_amount;//最终金额
-	private String upper_operator;//上一级操作人
+	private String upper_operator;//上一级操作人(关联表)
 	private String upper_opinion;//上一级意见
 	private String upper_date;//上一级操作时间
 	private String scout;//勘察操作人
-	private String first_auditor;//一审操作人
-	private String second_auditor;//二审操作人
-	private String third_auditor;//三审操作人
-	private String accountant;//会计操作人
+	private String first_auditor;//一审操作人（关联表）
+	private String second_auditor;//二审操作人（关联吧）
+	private String third_auditor;//三审操作人（关联表）
+	private String accountant;//会计操作人（关联表）
 	private String final_date;//理赔结束时间
 	private String del_status;//逻辑删除
 	private String transfer_failed;//转账失败原因
 	
-	private Status status;//;理赔状态对象
-	private Users users;//会员对象
-	private Policy policy;//保单号对象
+	private Status status;//;理赔状态对象（关联）
+	private Users users;//会员对象（关联）
+	private Policy policy;//保单号对象（关联）
 	
 	
 	
