@@ -64,4 +64,15 @@
 		<association property="users" column="userid" select="cn.saosao.mapper.UsersMapper.getUsersById" ></association>
 		<association property="policy" column="policuid" select="cn.saosao.mapper.PolicyMapper.getPolicyByid" ></association>
 	</resultMap>
+	
+	<update id="updateClaim" parameterType="cn.saosao.pojo.Claim_List">
+		update claim_list
+		<set>
+			<if test="status.statusid!=null"> statusid=#{status.statusid},</if>
+			<if test="upper_operator.realname!=null"> upper_operator=#{upper_operator.realname} </if>
+			<if test="upper_date!=null">upper_date=#{upper_date}</if>
+		</set>
+		where claimid=#{claimid}
+	</update>
+	
 </mapper>
