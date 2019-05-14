@@ -96,7 +96,9 @@
 }
 </style>
 <script>
-	
+	function goback(){
+		location.href="/getall";
+	}
 </script>
 </head>
 <body>
@@ -204,8 +206,11 @@
 					  </div>
 					  <textarea class="form-control " aria-label="With textarea" readonly>[[${claim.transfer_failed}]]</textarea>
 					</div>
+					
+					<button type="button" class="btn btn-round btn-info" th:onclick="goback()">返回</button>
+					
 				</div>
-
+				
 			</section>
 
 		</section>

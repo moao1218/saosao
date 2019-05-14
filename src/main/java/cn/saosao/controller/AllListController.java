@@ -113,5 +113,9 @@ public class AllListController {
 		System.out.println(c.get(0));
 		return "backPage/claimInfo";
 	}
-
+	
+	/*
+	 * @GetMapping("/goback") public String goBack() { System.out.println("aaa");
+	 * return "/getall"; }
+	 */
 }
