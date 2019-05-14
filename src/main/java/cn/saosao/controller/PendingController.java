@@ -30,7 +30,7 @@ public class PendingController {
 	@RequestMapping("/pending")
 	public String pending(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap,HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Clerk clerk=(Clerk)session.getAttribute("clerk");
+		Clerk getClerk=(Clerk)session.getAttribute("clerk");
 		
 		System.out.println(start_time);
 		System.out.println(end_time);
@@ -68,7 +68,7 @@ public class PendingController {
 		}
 		map.put("ps", ps);
 		map.put("cp",ccp);
-		
+		map.put("idepending", getClerk.getJob());
 		iClaimListService.getAll(map);
 		List<Status> allStatus = iStatusService.findAllStatus();
 		List<Claim_List> lista = (List)map.get("claim_list");

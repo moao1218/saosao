@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="cn.saosao.mapper.ClaimListMapper">
 	<select id="findAll" parameterType="java.util.Map" statementType="CALLABLE">
-		{call pro_claim_list(
+		{call pro_claim_list1(
 			#{cp,mode=IN,jdbcType=NUMERIC},
 			#{ps,mode=IN,jdbcType=NUMERIC},
 			#{v_count,mode=OUT,jdbcType=NUMERIC},
@@ -15,7 +15,10 @@
 			#{pol_property,mode=IN,jdbcType=VARCHAR},
 			#{statusid,mode=IN,jdbcType=VARCHAR},
 			#{mintime,mode=IN,jdbcType=NUMERIC},
-			#{maxtime,mode=IN,jdbcType=NUMERIC}
+			#{maxtime,mode=IN,jdbcType=NUMERIC},
+			#{idepending,mode=IN,jdbcType=VARCHAR},
+			#{idedoing,mode=IN,jdbcType=VARCHAR},
+			#{doinguserid,mode=IN,jdbcType=VARCHAR}
 		)
 		}
 	</select>

@@ -215,7 +215,7 @@
 								    </tr>
 								  </thead>
 								  <tbody>
-								    <tr th:each="claim_list:${claim_list}" th:if="${claim_list.status.status_name==''}">
+								    <tr th:each="claim_list:${claim_list}">
 								    	<td th:text="${claim_listStat.index}+1"></td>
 								    	<td th:text="${claim_list.claimid}"></td>
 								    	<td th:text="${claim_list.claim_name}"></td>

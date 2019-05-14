@@ -81,6 +81,12 @@
             </a>
           </li>
           <li class="sub-menu">
+            <a th:href="@{/doing}" th:class="${activeUri=='doing.html'?'dcjq-parent active':'dcjq-parent'}">
+              <i class="fa fa-cogs"></i>
+              <span>正在办理</span>
+            </a>
+          </li>
+          <li class="sub-menu">
             <a th:href="@{/history}" th:class="${activeUri=='history.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>已办清单</span>
