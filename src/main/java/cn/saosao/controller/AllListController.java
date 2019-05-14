@@ -1,25 +1,21 @@
 package cn.saosao.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.plaf.basic.BasicBorders.SplitPaneBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.saosao.pojo.Claim_List;
 import cn.saosao.pojo.Coverage;
 import cn.saosao.pojo.Status;
-import cn.saosao.pojo.Users;
 import cn.saosao.service.IClaimListService;
 import cn.saosao.service.IClerkService;
 import cn.saosao.service.ICoverageService;
@@ -102,6 +98,20 @@ public class AllListController {
 		Coverage coverageById = iCoverageservice.getCoverageById("101");
 		System.out.println(coverageById);
 		return coverageById;
+	}
+	
+	@GetMapping("/getclerkbyid/{id}")
+	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model) {
+		Integer cp=1;
+		Integer ps=1;
+		map.put("ps", ps);
+		map.put("cp",cp);
+		map.put("claimid",claimid);//"15573813681523542796"
+		iClaimListService.getAll(map);
+		List<Claim_List> c = (List)map.get("claim_list");
+		model.addAttribute("claim", c.get(0));
+		System.out.println(c.get(0));
+		return "backPage/claimInfo";
 	}
 
 }
