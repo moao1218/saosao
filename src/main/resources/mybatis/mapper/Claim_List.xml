@@ -68,9 +68,14 @@
 	<update id="updateClaim" parameterType="cn.saosao.pojo.Claim_List">
 		update claim_list
 		<set>
-			<if test="status.statusid!=null"> statusid=#{status.statusid},</if>
-			<if test="upper_operator.realname!=null"> upper_operator=#{upper_operator.realname} </if>
-			<if test="upper_date!=null">upper_date=#{upper_date}</if>
+			<if test="status.statusid!=null"> statusid=#{status.statusid}, </if>
+			<if test="upper_operator.magid!=null"> upper_operator=#{upper_operator.magid}, </if>
+			<if test="upper_date!=null">upper_date=#{upper_date}, </if>
+			<if test="scout.magid!=null">scout=#{scout.magid}, </if>
+			<if test="first_auditor.magid!=null">first_auditor=#{first_auditor.magid}, </if>
+			<if test="second_auditor.magid!=null">second_auditor=#{second_auditor.magid}, </if>
+			<if test="third_auditor.magid!=null">third_auditor=#{third_auditor.magid}, </if>
+			<if test="upper_opinion!=null">upper_opinion=#{upper_opinion} </if>
 		</set>
 		where claimid=#{claimid}
 	</update>
