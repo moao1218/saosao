@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 
+负责财务支出信息的
+wh
+ -->
+<head lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Dashboard" />
+<meta name="keyword"
+	content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina" />
+<title>财务支出项</title>
+<link href="asserts/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}"
+	rel="stylesheet">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+<!-- Favicons -->
+<link th:href="@{/back/img/favicon.png}" rel="icon" />
+<link th:href="@{/back/img/apple-touch-icon.png}" rel="apple-touch-icon" />
+<link
+	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="asserts/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}"
+	rel="stylesheet">
+<!--external css-->
+<link th:href="@{/back/lib/font-awesome/css/font-awesome.css}"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/back/css/zabuto_calendar.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{back/lib/gritter/css/jquery.gritter.css}" />
+<!-- Custom styles for this template -->
+<link th:href="@{/back/css/style.css}" rel="stylesheet" />
+<link th:href="@{/back/css/style-responsive.css}" rel="stylesheet" />
+<script th:src="@{/back/lib/chart-master/Chart.js}"></script>
+
+<!-- =======================================================
+    Template Name: Dashio
+    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+
+<style type="text/css">
+.logout {
+	position: relative;
+	top: 20px;
+}
+
+#f1 {
+	width: 100%;
+	height: 80%;
+}
+
+.switch {
+	width: 50px;
+	float: right;
+	/* margin: 100px 0px 0 100px; */
+}
+
+.btn_fath {
+	margin-top: 10px;
+	position: relative;
+	border-radius: 20px;
+}
+
+.btn1 {
+	float: left;
+}
+
+.btn2 {
+	float: right;
+}
+
+.btnSwitch {
+	height: 20px;
+	width: 25px;
+	border: none;
+	color: #fff;
+	line-height: 20px;
+	font-size: 8px;
+	text-align: center;
+	z-index: 1;
+}
+
+.move {
+	z-index: 100;
+	width: 20px;
+	border-radius: 10px;
+	height: 20px;
+	position: absolute;
+	cursor: pointer;
+	border: 1px solid #828282;
+	background-color: #f1eff0;
+	box-shadow: 1px 2px 2px 1px #fff inset, 0 0 5px 1px #999;
+}
+
+.modal-content {
+	margin-top: 25%;
+}
+
+.on .move {
+	left: 29px;
+}
+
+.on.btn_fath {
+	background-color: #5281cd;
+}
+
+.off.btn_fath {
+	background-color: #828282;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		$.post("/weatherservice", {}, function(data) {
+			$("#province").html(data[0].province);
+			$("#cityname").html(data[0].cityname);
+
+			$("#weatherTruth").html(data[0].weatherTruth);
+			$("#introduction").html(data[0].introduction);
+			$("#cityDesc").html(data[0].cityDesc);
+
+			$.each(data, function(i, n) {
+				$("#temperature").html(n.temperature);
+				$("#survey").html(n.survey);
+				$("#windPower").html(n.windPower);
+				$("#startPic").html(
+						"<img src='images/weather/a_"+data[0].startPic+"'/>");
+				$("#endPic").html(
+						"<img src='images/weather/a_"+data[0].endPic+"'/>");
+			})
+		}, "json")
+	})
+</script>
+</head>
+
+<body>
+	<section id="container">
+		<!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+		<!--header start-->
+
+		<div
+			th:replace="backPage/commons/comm::#topbar(activeUri='index.html')"></div>
+
+		<!--header end-->
+		<!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+		<!--sidebar start-->
+
+		<div
+			th:replace="backPage/commons/comm::#sidebar(activeUri='index.html')"></div>
+
+		<!--sidebar end-->
+		<!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="row">
+					<!-- ************************************************************************** -->
+
+					<div class="container" style="margin-top: 10px;">
+						<!-- 标题  -->
+						<div class="row"></div>
+
+						<!-- 按钮 -->
+						<div class="row">
+							<div class="col-md-4 col-md-offset-8">
+								<button class="btn btn-primary" id="emp_add_modal_btn">转账</button>
+								<button class="btn btn-danger" id="emp_delete_all">查找</button>
+							</div>
+							<body>
+						</div>
+						<!-- 显示表格数据 -->
+						<div class="row" id="f1">
+							<div class="col-md-12">
+								<table class="table table-hover" id="emps_table">
+									<thead>
+										<tr>
+											<th><input type="checkbox" id="check_all"></th>
+											<th scope="col">明细编号</th>
+											<th scope="col">理赔号</th>
+											<th scope="col">保单号</th>
+											<th scope="col">姓名</th>
+											<th scope="col">手机号</th>
+											<th scope="col">身份证</th>
+											<th scope="col">银行卡</th>
+											<th scope="col">转账金额</th>
+											<th scope="col">转账时间</th>
+											<th scope="col">操作人</th>
+										</tr>
+									</thead>
+									<!-- 表格的单元体就放在tbody里面 -->
+									<tr th:each="account:${accountlist}">
+										<th><input type="checkbox" id="check_all"></th>
+										<th th:text="${account.ACCOUNTID}">明细编号</th>
+										<th th:text="${account.CLAIMID}">理赔号</th>
+										<th th:text="${account.POLICYID}">保单号</th>
+										<th th:text="${account.CLAIM_NAME}">名字</th>
+										<th th:text="${account.CLAIM_PHONE}">手机号码</th>
+										<th th:text="${account.USER_CARD}">身份证</th>
+										<th th:text="${account.BANC_CARD}">银行卡</th>
+										<th th:text="${account.MONEY}">转账金额</th>
+										<th th:text="${account.TRANSFERTIME}">转账时间</th>
+										<th th:text="${account.ACCOUNTANT}">操作人</th>
+									</tr>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- 显示分页信息 -->
+						<div class="row">
+							<!-- 分页条信息 -->
+							<div class="col-md-6" id="build_page_nav">
+							<!-- <input th:text="${fenye}"> -->
+							</div>
+							<!-- 分页信息 -->
+							<div class="col-md-6" id="build_page_info">
+								<nav aria-label="Page navigation">
+									<ul class="pagination">
+										<li th:class="${fenye.isshang==false?'disabled':''}"><a th:href="@{Completed(adree=${fenye.dangqian-1})}"
+											href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+										<li th:class="${li==fenye.dangqian?'active':''}"
+											th:each="li:${fenye.lie}"><a href="#" th:text="${li}"
+											th:href="@{Completed(adree=${li})}">${li}</a></li>
+
+										<li th:class="${fenye.isxia==false?'disabled':''}"><a th:href="@{Completed(adree=${fenye.dangqian+1})}"
+											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										</a></li> 页码：
+										<input type="text" id="dianti" style="width: 50px;">
+									</ul>
+								</nav>
+
+							</div>
+							<!-- ***************************************************************** -->
+
+						</div>
+					</div>
+					<!-- ************************************************************************ -->
+				</div>
+			</section>
+
+		</section>
+		<!--main content end-->
+		<!--footer start-->
+		<!--footer end-->
+
+	</section>
+
+
+	<div class="modal fade" id="empupdateModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">条件查找</h4>
+				</div>
+				<div class="modal-body">
+
+					<form class="form-horizontal" action="Completed2" method="post">
+						<div class="form-group">
+							<!-- 对应的name属性要和 Employee里面属性对应-->
+							<!-- 更新的name  -->
+							<label class="col-sm-2 control-label">明细编号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="acc"
+									id="acc_input" placeholder="明细编号" th:value="${huixian.acc}">
+								<span id="helpBlock2" class="help-block"></span>
+							</div>
+
+							<label class="col-sm-2 control-label">理赔编号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="claimid"
+									id="claimid_input" placeholder="理赔编号" th:value="${huixian.claimid}"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+
+
+							<label class="col-sm-2 control-label">保单号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="policyid"
+									id="policyid_input" placeholder="保单编号" th:value="${huixian.policyid}"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+
+
+							<label class="col-sm-2 control-label">名字</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="cname"
+									id="policyid_input" placeholder="名字" th:value="${huixian.cname}"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+
+							<label class="col-sm-2 control-label">价格区间</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="moneymin"
+									id="policyid_input" placeholder="价格小" th:value="${huixian.moneymin}"> <input
+									type="text" class="form-control" name="moneymax"
+									id="policyid_input" placeholder="价格大" th:value="${huixian.moneymax}"> <span
+									id="helpBlock2" class="help-block"></span>
+
+							</div>
+
+							<label class="col-sm-2 control-label">操作人</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="accountant"
+									id="accountant_input" placeholder="操作人" th:value="${huixian.accountant}"> <span
+									id="helpBlock2" class="help-block"></span>
+							</div>
+						</div>
+				</div>
+				<!-- 下面是两个按钮  -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="submit" class="btn btn-primary" id="find_btn">查找</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script th:src="@{/back/lib/jquery/jquery.min.js}"></script>
+
+	<script th:src="@{/back/lib/bootstrap/js/bootstrap.min.js}"></script>
+	<script class="include" type="text/javascript"
+		th:src="@{/back/lib/jquery.dcjqaccordion.2.7.js}"></script>
+	<script th:src="@{back/lib/jquery.scrollTo.min.js}"></script>
+	<script th:src="@{/back/lib/jquery.nicescroll.js}"
+		type="text/javascript"></script>
+	<script th:src="@{/back/lib/jquery.sparkline.js}"></script>
+	<!--common script for all pages-->
+	<script th:src="@{/back/lib/common-scripts.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/back/lib/gritter/js/jquery.gritter.js}"></script>
+	<script type="text/javascript" th:src="@{/back/lib/gritter-conf.js}"></script>
+	<!--script for this page-->
+	<script th:src="@{/back/lib/sparkline-chart.js}"></script>
+	<script th:src="@{/back/lib/zabuto_calendar.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var unique_id = $.gritter.add({
+				// (string | mandatory) the heading of the notification
+				title : '欢迎来到喵喵财保',
+				// (string | mandatory) the text inside the notification
+				text : '你好，今天心情还好吗？',
+				// (string | optional) the image to display on the left
+				image : 'back/img/ui-pic.jpg',
+				// (bool | optional) if you want it to fade out on its own or just sit there
+				sticky : false,
+				// (int | optional) the time you want it to be alive for before fading out
+				time : 8000,
+				// (string | optional) the class name you want to apply to that specific message
+				class_name : 'my-sticky-class'
+			});
+
+			return false;
+		});
+
+		$("#emp_delete_all").click(function() {
+			$('#empupdateModal').modal({
+				backdrop : 'static'
+			});
+		});
+		$("#dianti").keypress(function (e) {
+            if (e.which == 13) {
+            	 window.location.href="Completed?adree="+$("#dianti").val();
+            }
+});
+	</script>
+	<script type="application/javascript">
+		
+		
+    $(document).ready(function() {
+      $("#date-popover").popover({
+        html: true,
+        trigger: "manual"
+      });
+      $("#date-popover").hide();
+      $("#date-popover").click(function(e) {
+        $(this).hide();
+      });
+
+      $("#my-calendar").zabuto_calendar({
+        action: function() {
+          return myDateFunction(this.id, false);
+        },
+        action_nav: function() {
+          return myNavFunction(this.id);
+        },
+        ajax: {
+          url: "show_data.php?action=1",
+          modal: true
+        },
+        legend: [{
+            type: "text",
+            label: "Special event",
+            badge: "00"
+          },
+          {
+            type: "block",
+            label: "Regular event",
+          }
+        ]
+      });
+    });
+
+    function myNavFunction(id) {
+      $("#date-popover").hide();
+      var nav = $("#" + id).data("navigation");
+      var to = $("#" + id).data("to");
+      console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+    }
+  
+	
+	
+	
+	
+	
+	</script>
+</body>
+
+</html>

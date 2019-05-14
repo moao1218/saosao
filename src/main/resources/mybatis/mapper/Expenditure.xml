@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.saosao.mapper.Finance.ExpenditureMapper">
+
+<sql id="lianbiao">
+a.accountid,
+         a.claimid,
+         a.policyid,
+         a.money,
+         a.userid,
+         a.user_card,
+         a.banc_card,
+         a.accountant,
+         a.transfertime,
+         a.account_status,
+         a.remarks,
+         a.yuliu,
+         c.claimid,
+         c.claim_name,
+         c.claim_card,
+         c.claim_phone,
+         c.reason,
+         c.policuid,
+         c.claim_date,
+         c.coverageid,
+         c.pol_property,
+         c.site_photo,
+         c.third_pic,
+         c.initial_amount,
+         c.final_amount,
+         c.upper_operator,
+         c.upper_opinion,
+         c.upper_date,
+         c.scout,
+         c.first_auditor,
+         c.second_auditor,
+         c.third_auditor,
+         c.accountant,
+         c.final_date,
+         c.del_status,
+         c.userid,
+         c.transfer_failed,
+         c.yuliu1,
+         c.yuliu2,
+         c.statusid
+</sql>
+
+<resultMap type="java.util.Map" id="remap">
+
+</resultMap>
+
+
+<!-- 连接了资金表和理赔表，里面是所有字段 -->
+<select id="finAll" parameterType="java.util.Map" resultType="java.util.Map" statementType="CALLABLE">
+{call zhichu(
+			#{cp,mode=IN,jdbcType=NUMERIC},
+			#{ps,mode=IN,jdbcType=NUMERIC},
+			#{acc,mode=IN,jdbcType=VARCHAR},
+			#{claimid,mode=IN,jdbcType=VARCHAR},
+			#{policyid,mode=IN,jdbcType=VARCHAR},
+			#{cname,mode=IN,jdbcType=VARCHAR},
+			#{moneymin,mode=IN,jdbcType=NUMERIC},
+			#{moneymax,mode=IN,jdbcType=NUMERIC},
+			#{accountant,mode=IN,jdbcType=VARCHAR},
+			#{accounts,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=remap},
+			#{zys,mode=OUT,jdbcType=NUMERIC}
+			)
+}
+</select>
+
+<select id="findcount" resultType="java.lang.Integer">
+select count(0) from account a,claim_list c where a.claimid=c.claimid
+</select>
+
+
+
+</mapper>
+
