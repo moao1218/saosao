@@ -7,12 +7,13 @@ import java.io.Serializable;
  *
  */
 public class Status implements Serializable {
-	private Integer statusid; //理赔状态编号
+	private String statusid; //理赔状态编号
 	private String status_name;//理赔状态名称
-	public Integer getStatusid() {
+	
+	public String getStatusid() {
 		return statusid;
 	}
-	public void setStatusid(Integer statusid) {
+	public void setStatusid(String statusid) {
 		this.statusid = statusid;
 	}
 	public String getStatus_name() {

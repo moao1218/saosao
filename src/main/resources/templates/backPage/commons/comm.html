@@ -20,7 +20,6 @@
       <script type="text/javascript">
 		$(function(){
 			$.post("/weather",{"city":"深圳","appkey":"3aa9dfcfc136e1953edb18c45d1835f6"},function(data){
-				console.log(data);
 				$("#tianqi_city").html(data.result.result.city);
 				$("#tianqi_date").html(data.result.result.updatetime);
 				$("#tianqi_week").html(data.result.result.week);

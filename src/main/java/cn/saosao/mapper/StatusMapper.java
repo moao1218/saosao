@@ -10,5 +10,5 @@ public interface StatusMapper {
 	 * @return
 	 */
 	public List<Status> findAllStatus();
-	public Status getStatusById(String usersid);
+	public Status getStatusById(String statusid);
 }
