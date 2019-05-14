@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.saosao.pojo.Claim_List;
@@ -25,7 +27,7 @@ public class HistoryController {
 	IClaimListService iClaimListService;
 	@Autowired
 	IStatusService iStatusService;
-	@RequestMapping("history")
+	@RequestMapping("/history")
 	public String getHistory(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Clerk getClerk=(Clerk)session.getAttribute("clerk");
@@ -82,5 +84,19 @@ public class HistoryController {
 		System.out.println("totalpage"+totlepage);
 
 		return "backPage/history";
+	}
+	
+	@GetMapping("/getclerkhistory/{id}")
+	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model) {
+		Integer cp=1;
+		Integer ps=1;
+		map.put("ps", ps);
+		map.put("cp",cp);
+		map.put("claimid",claimid);//"15573813681523542796"
+		iClaimListService.getAll(map);
+		List<Claim_List> c = (List)map.get("claim_list");
+		model.addAttribute("claim", c.get(0));
+		System.out.println(c.get(0));
+		return "backPage/historyInfo";
 	}
 }
