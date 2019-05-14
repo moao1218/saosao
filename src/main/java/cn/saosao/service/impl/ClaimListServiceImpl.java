@@ -18,5 +18,10 @@ public class ClaimListServiceImpl implements IClaimListService {
 	public List getAll(Map map) {
 		return claimListMapper.findAll(map);
 	}
+
+	@Override
+	public boolean updateClaim(Claim_List claim) {
+		return claimListMapper.updateClaim(claim);
+	}
 	
 }

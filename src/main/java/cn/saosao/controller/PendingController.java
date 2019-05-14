@@ -97,10 +97,34 @@ public class PendingController {
 	@PostMapping("/goManage")
 	public String goManage(Claim_List claim,HttpServletRequest request) {
 		Clerk clerk = (Clerk)request.getSession().getAttribute("clerk");
-		System.out.println(clerk.getRealname()+"---"+clerk.getJob());
+		
+		System.out.println(clerk.getRealname()+"---"+clerk.getJob()+"---"+clerk.getMagid());
+		
+		if (clerk.getMagid() == 27) {//勘查员编号
+			claim.getScout().setMagid(clerk.getMagid());
+			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.getStatus().setStatusid("17");//待办页面该状态为勘查中
+			
+		} else if (clerk.getMagid() == 21) {//一审员编号
+			claim.getFirst_auditor().setMagid(clerk.getMagid());
+			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.getStatus().setStatusid("16");//待办页面改状态为待勘查
+		} else if (clerk.getMagid() == 22) {//二审编号
+			claim.getSecond_auditor().setMagid(clerk.getMagid());
+			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.getStatus().setStatusid("21");//待办页面改状态为二审中
+		} else if (clerk.getMagid() == 23) {//三审编号
+			claim.getThird_auditor().setMagid(clerk.getMagid());
+			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.getStatus().setStatusid("24");//待办页面改状态为三审中
+		}
 		
 		
-		System.out.println(claim.getClaimid()+"---"+claim.getUpper_operator().getRealname()+"--"+claim.getUpper_date()+"---");
+		System.out.println(claim.getScout().getMagid()+"--"+claim.getUpper_operator().getRealname());
+		System.out.println(claim.getClaimid()+"---"+claim.getUpper_operator().getMagid()+"--"+claim.getUpper_date()+"---"+claim.getStatus().getStatusid());
+		
+		boolean flag = iClaimListService.updateClaim(claim);
+		System.out.println("flag:"+flag);
 		return "redirect:/pending";//这里需要改的,需要重定向到处理中页面
 	}
 }
