@@ -106,16 +106,16 @@
 	}
 	function end(status){
 		if(status=="success"){
-			fom.doingstatus="success";
+			fom.doingstatus.value="success";
 			fom.submit();
 		}else{
-			fom.doingstatus="failer";
+			fom.doingstatus.value="failer";
 			fom.submit();
 		}
 	}
 </script>
 </head>
-<body>
+<body style="background-color:#D4EDDA;">
 	<section id="container">
 
 		<div th:replace="backPage/commons/comm::#topbar(activeUri='doing.html')"></div>
@@ -127,7 +127,7 @@
 			<section class="wrapper" >
 			
 				<form th:action="@{/enddoing}" method="POST" name="fom" id="fom">
-				<input type="hidden" name="doingstatus" id="doingstatus"/>
+				<input type="hidden" name="doingstatus" id="doingstatus" value=""/>
 				<div class="container" style="margin-top:50px;">
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
@@ -195,14 +195,14 @@
 					    <span class="input-group-text" id="">会员编号和账号和姓名</span>
 					  </div>
 					  <input type="text" name="users.userid" th:value="${claim.users}==null?'':${claim.users.userid}"  class="form-control" readonly>
-					  <input type="text" name="users.username" th:value="${claim.users.username}"  class="form-control" readonly>
-					  <input type="text" name="users.realname" th:value="${claim.users.realname}==null?'':${claim.users.realname}"  class="form-control" readonly>
+					  <input type="text" name="users.username" th:value="${claim.users}==null?'':${claim.users.username}"  class="form-control" readonly>
+					  <input type="text" name="users.realname" th:value="${claim.users}==null?'':${claim.users.realname}"  class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroup-sizing-default">银行卡号</span>
 					  </div>
-					  <input type="text" name="users.bank_card"  th:value="${claim.users.bank_card}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text" name="users.bank_card"  th:value="${claim.users}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
 					</div>
 				
 				
