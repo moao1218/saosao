@@ -109,6 +109,7 @@ public class DoingController {
 		List<Claim_List> c = (List)map.get("claim_list");
 		model.addAttribute("claim", c.get(0));
 		Clerk clerk = (Clerk)session.getAttribute("clerk");
+		//--------------------------------------------------------------
 		if(clerk.getRoleid().equals("10")){
 			return "backPage/showdoingInfo";
 		}else {
