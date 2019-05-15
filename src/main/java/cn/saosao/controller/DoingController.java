@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import cn.saosao.pojo.Claim_List;
 import cn.saosao.pojo.Clerk;
@@ -110,12 +112,18 @@ public class DoingController {
 		model.addAttribute("claim", c.get(0));
 		Clerk clerk = (Clerk)session.getAttribute("clerk");
 		//--------------------------------------------------------------
+		
 		if(clerk.getRoleid().equals("10")){
 			return "backPage/showdoingInfo";
 		}else {
 			return "backPage/doingInfo";
 		}
 	}
-	
+	@ResponseBody
+	@RequestMapping("/calculate")
+	public Integer getCalculate(String claimid) {
+		
+		return 1;
+	}
 	
 }

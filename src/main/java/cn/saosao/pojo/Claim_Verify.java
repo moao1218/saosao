@@ -25,7 +25,7 @@ public class Claim_Verify implements Serializable {
 	private String house_age;//房屋使用年限
 	private String completed_date;//房屋竣工时间
 	private String verify_date;//勘察时间
-	private String scout;//勘察员
+	private Clerk scout;//勘察员
 	private String del_status;//逻辑删除
 	
 	private Items_List items_list; //物品清单对象
@@ -185,11 +185,13 @@ public class Claim_Verify implements Serializable {
 		this.verify_date = verify_date;
 	}
 
-	public String getScout() {
+	
+
+	public Clerk getScout() {
 		return scout;
 	}
 
-	public void setScout(String scout) {
+	public void setScout(Clerk scout) {
 		this.scout = scout;
 	}
 
@@ -207,6 +209,17 @@ public class Claim_Verify implements Serializable {
 
 	public void setItems_list(Items_List items_list) {
 		this.items_list = items_list;
+	}
+
+	@Override
+	public String toString() {
+		return "Claim_Verify [cla_ver_id=" + cla_ver_id + ", item_name=" + item_name + ", site_photo=" + site_photo
+				+ ", third_pic=" + third_pic + ", user_age=" + user_age + ", invoice_pic=" + invoice_pic + ", invoice="
+				+ invoice + ", mark=" + mark + ", itme_model=" + itme_model + ", house_no=" + house_no + ", house_pic="
+				+ house_pic + ", address=" + address + ", building_pic=" + building_pic + ", acreage=" + acreage
+				+ ", house_market=" + house_market + ", house_age=" + house_age + ", completed_date=" + completed_date
+				+ ", verify_date=" + verify_date + ", scout=" + scout + ", del_status=" + del_status + ", items_list="
+				+ items_list + ", claim_list=" + claim_list + "]";
 	}
 	
 	
