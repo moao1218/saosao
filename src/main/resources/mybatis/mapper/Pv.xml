@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="cn.saosao.mapper.PvMapper">
+	<insert id="insertPv" parameterType="java.util.Map">
+		insert into claim_verify
+		  (cla_ver_id, itemid,  site_photo, third_pic, user_age, invoice_pic, invoice, 
+		  mark, itme_model, house_pic, address, building_pic, acreage, house_market, house_age, 
+		  completed_date, verify_date, scout, del_status,claimid)
+		values
+		  (#{pv.cla_ver_id}, #{items.itemid},  #{items.site_photo}, #{items.third_pic}, 
+		  #{items.user_age}, #{items.invoice_pic}, #{items.invoice}, #{items.mark}, 
+		  #{items.itme_model},  #{pv.house_pic}, #{pv.address}, #{pv.building_pic}, 
+		  #{pv.acreage}, #{pv.house_market}, #{pv.house_age}, #{pv.completed_date}, 
+		  #{pv.verify_date}, #{pv.scout}, #{pv.del_status}, #{pv.claimid})
+	</insert>
+	
+	
+	<select id="findAllItems" resultType="cn.saosao.pojo.Items">
+		select itemid, item_name, deductible, excess, dep_rate, industry, del_status from items_list order by itemid asc
+	</select>
+	
+	
+	
+	
+</mapper>

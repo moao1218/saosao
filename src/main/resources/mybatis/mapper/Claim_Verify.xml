@@ -37,6 +37,7 @@
 	</resultMap>
 	
 	<insert id="addClaimVer" parameterType="cn.saosao.pojo.Claim_Verify">
+		<!-- 要更改三个文件上传的name,不能跟实体类一样 -->
 		insert into claim_verify
 		  ( site_photo, third_pic, user_age, invoice, house_no, address, house_pic, acreage, house_market, house_age, verify_date, scout, claimid,del_status)
 		values
