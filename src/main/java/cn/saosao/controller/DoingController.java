@@ -26,6 +26,7 @@ import cn.saosao.pojo.Claim_Verify;
 import cn.saosao.pojo.Clerk;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IClaimListService;
+import cn.saosao.service.IClaimVerifyService;
 import cn.saosao.service.IStatusService;
 
 @Controller
@@ -34,6 +35,8 @@ public class DoingController {
 	IClaimListService iClaimListService;
 	@Autowired
 	IStatusService iStatusService;
+	@Autowired
+	IClaimVerifyService iClaimVerifyService;
 	@RequestMapping("/doing")
 	public String doing(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap,HttpServletRequest request) throws ParseException {
 			HttpSession session = request.getSession();
@@ -124,7 +127,11 @@ public class DoingController {
 	@ResponseBody
 	@RequestMapping("/calculate")
 	public Integer getCalculate(String claimid) {
-		
+		List<Claim_Verify> list=iClaimVerifyService.getList(claimid);
+		//
+		for (Claim_Verify claim_Verify : list) {
+			System.out.println(claim_Verify);
+		}
 		return 1;
 	}
 	

@@ -156,7 +156,7 @@
 					    <span class="input-group-text" id="">初始金额和最终金额</span>
 					  </div>
 					  <input type="text" name="initial_amount" th:value="${claim.initial_amount}"  class="form-control" readonly>
-					  <button class="glyphicon glyphicon-plus" th:if="${session.clerk.roleid='5'}" th:onclick="calculate([[${claim.claimid}]])"></button>
+					  <button  th:if="${session.clerk.roleid}==5" th:onclick="calculate([[${claim.claimid}]])"><span class="glyphicon glyphicon-plus"></span></button>
 					  <input type="text" name="final_amount" th:value="${claim.final_amount}"  class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
