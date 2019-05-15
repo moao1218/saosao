@@ -1,6 +1,5 @@
 package cn.saosao.controller;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,18 +19,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import cn.saosao.pojo.Claim_List;
 import cn.saosao.pojo.Claim_Verify;
 import cn.saosao.pojo.Clerk;
+import cn.saosao.pojo.Items;
+import cn.saosao.pojo.Pv;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IClaimListService;
 import cn.saosao.service.IClaimVerifyService;
 import cn.saosao.service.IItemsListService;
+import cn.saosao.service.IPvService;
 import cn.saosao.service.IStatusService;
+import cn.saosao.util.InterfaceUtil;
 
 @Controller
 public class DoingController {
@@ -43,6 +46,8 @@ public class DoingController {
 	IClaimVerifyService iClaimVerifyService;
 	@Autowired
 	IItemsListService iItemsListService;
+	@Autowired
+	IPvService pvServiceImpl;
 	@RequestMapping("/doing")
 	public String doing(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap,HttpServletRequest request) throws ParseException {
 			HttpSession session = request.getSession();
@@ -232,8 +237,83 @@ public class DoingController {
 		
 		return "redirect:doing";
 	}
-
+	
 	//勘查人员提交的勘查清单表
+	
+	  @ResponseBody
+	  @PostMapping(value="/findAllItems") 
+	  public List<Items> findAllItems(){
+		  List<Items> items = pvServiceImpl.findAllItems(); 
+		  return items; 
+	  }
+	 
+	  @PostMapping(value="/insertPv")
+		public void insertPv(Pv pv,HttpServletRequest request) {
+		  
+			Map<String,Object> map = new HashMap<String,Object>();
+			
+			Items items = new Items();
+			
+			pv.setScout(pv.getScout());
+			pv.setDel_status("0");
+		
+			MultipartRequest req = (MultipartRequest) request;	
+			MultipartFile h_pic = req.getFile("h_pic");
+			MultipartFile bu_pic = req.getFile("bud_pic");
+			if(h_pic!=null) {
+				String house_pic = InterfaceUtil.upload(request, h_pic);
+				pv.setHouse_pic(house_pic);
+			}
+			if(bu_pic!=null) {
+				String building_pic = InterfaceUtil.upload(request, bu_pic);
+				pv.setBuilding_pic(building_pic);
+			}
+			
+			
+			String num = request.getParameter("num");
+			System.out.println("num:"+num);
+			for (int i = 1; i < Integer.parseInt(num); i++) {
+				long currentTimeMillis = System.currentTimeMillis();
+				int r = new Random().nextInt(8999)+1000;
+				pv.setCla_ver_id(""+currentTimeMillis+r);
+				
+				if(req.getFile("a_pic"+i)!=null) {
+					String site_photo = InterfaceUtil.upload(request, req.getFile("a_pic"+i));
+					items.setSite_photo(site_photo);
+				}
+				
+				if(req.getFile("b_pic"+i)!=null) {
+					String third_pic = InterfaceUtil.upload(request, req.getFile("b_pic"+i));
+					items.setThird_pic(third_pic);
+				}
+				if(req.getFile("c_pic"+i)!=null) {
+					String invoice_pic = InterfaceUtil.upload(request, req.getFile("c_pic"+i));
+					items.setInvoice_pic(invoice_pic);
+				}
+				String itemid = request.getParameter("a"+i);
+				String user_age = request.getParameter("b"+i);
+				String invoice = request.getParameter("c"+i);
+				String mark = request.getParameter("d"+i);
+				String itme_model = request.getParameter("e"+i);
+				
+			items.setItemid(/* Integer.parseInt(itemid) */102);
+				System.out.println(items.getItemid());
+				items.setUser_age(user_age);
+				items.setInvoice(invoice);
+				items.setMark(mark);
+				items.setItme_model(itme_model);
+				System.out.println("aaaaaaaaaaa:"+items);
+				map.put("pv", pv);
+				map.put("items", items);
+				
+				boolean insertPv = pvServiceImpl.insertPv(map);
+			}
+//			List<Items> items = pvService.findAllItems();
+//			model.addAttribute("items", items);
+//			return "redirect:/doing";
+		}
+	
+	
 	@PostMapping("/showfile") 
 	public String showfile( Claim_Verify cla_ver,Claim_List claim, HttpServletRequest request) {
 		  Date date = new Date();
@@ -241,31 +321,14 @@ public class DoingController {
 		  String times = sdf.format(date);
 		  Clerk clerk = (Clerk)request.getSession().getAttribute("clerk");
 		
-		  System.out.println("进来了");
-		  System.out.println(cla_ver.getSite_photo()+"-"+cla_ver.getThird_pic()+"-"+
-		  cla_ver.getUser_age()+"-"+cla_ver.getInvoice()+"-"+
-		  cla_ver.getHouse_no()+"-"+cla_ver.getHouse_pic()+"-"+cla_ver.getAcreage()+"-"
-		  +cla_ver.getHouse_market()+"-"+
-		  cla_ver.getHouse_age()+"-"+cla_ver.getVerify_date()+"-"+cla_ver.getScout().
-		  getMagid()+"-"+cla_ver.getClaim_list().getClaimid());
-		 
-		boolean flag = iClaimVerifyService.addClaimVer(cla_ver);
-		if(flag) {
-			System.out.println("aaaaa");
-			claim.setUpper_date(times);
-			claim.setClaimid(cla_ver.getClaim_list().getClaimid());
-			claim.getScout().setMagid(clerk.getMagid());
-			claim.getUpper_operator().setMagid(clerk.getMagid());
-			claim.getStatus().setStatusid("18");//勘查中页面该状态为勘查借宿
-			iClaimListService.updateClaim(claim);
-			
-			
-			return "redirect:/doing";
-		}else {
-			return "redirect/getclerkdoing/"+claim.getClaimid();
-		}
-		
-		
+
+		claim.setUpper_date(times);
+		claim.setClaimid(cla_ver.getClaim_list().getClaimid());
+		claim.getScout().setMagid(clerk.getMagid());
+		claim.getUpper_operator().setMagid(clerk.getMagid());
+		claim.getStatus().setStatusid("18");//勘查中页面该状态为勘查借宿
+		iClaimListService.updateClaim(claim);
+		return "redirect:/doing";
 	}
 	
 
