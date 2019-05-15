@@ -122,20 +122,20 @@ public class PendingController {
 		
 		System.out.println(clerk.getRealname()+"---"+clerk.getJob()+"---"+clerk.getMagid());
 		
-		if (clerk.getMagid() == 27) {//勘查员编号
+		if (clerk.getRoleid().equals(10)) {//勘查员编号
 			claim.getScout().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
 			claim.getStatus().setStatusid("17");//待办页面该状态为勘查中
 			
-		} else if (clerk.getMagid() == 21) {//一审员编号
+		} else if (clerk.getRoleid().equals(4)) {//一审员编号
 			claim.getFirst_auditor().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
 			claim.getStatus().setStatusid("16");//待办页面改状态为待勘查
-		} else if (clerk.getMagid() == 22) {//二审编号
+		} else if (clerk.getRoleid().equals(5)) {//二审编号
 			claim.getSecond_auditor().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
 			claim.getStatus().setStatusid("21");//待办页面改状态为二审中
-		} else if (clerk.getMagid() == 23) {//三审编号
+		} else if (clerk.getRoleid().equals(6)) {//三审编号
 			claim.getThird_auditor().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
 			claim.getStatus().setStatusid("24");//待办页面改状态为三审中
