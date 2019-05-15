@@ -99,7 +99,7 @@ public class DoingController {
 			return "backPage/doing";
 	}
 	@GetMapping("/getclerkdoing/{id}")
-	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model) {
+	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model,HttpSession session) {
 		Integer cp=1;
 		Integer ps=1;
 		map.put("ps", ps);
@@ -108,7 +108,12 @@ public class DoingController {
 		iClaimListService.getAll(map);
 		List<Claim_List> c = (List)map.get("claim_list");
 		model.addAttribute("claim", c.get(0));
-		return "backPage/doingInfo";
+		Clerk clerk = (Clerk)session.getAttribute("clerk");
+		if(clerk.getRoleid().equals("10")){
+			return "backPage/showdoingInfo";
+		}else {
+			return "backPage/doingInfo";
+		}
 	}
 	
 	
