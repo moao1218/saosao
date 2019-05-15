@@ -35,4 +35,12 @@
 		<collection property="items_list" column="itemid" ofType="cn.saosao.pojo.Items_List"></collection>
 		<collection property="claim_list" column="claimid" ofType="cn.saosao.pojo.Claim_List"></collection>
 	</resultMap>
+	
+	<insert id="addClaimVer" parameterType="cn.saosao.pojo.Claim_Verify">
+		insert into claim_verify
+		  ( site_photo, third_pic, user_age, invoice, house_no, address, house_pic, acreage, house_market, house_age, verify_date, scout, claimid,del_status)
+		values
+		  ( #{site_photo}, #{third_pic}, #{user_age}, #{invoice}, #{house_no},#{address}, #{house_pic}, #{acreage}, #{house_market}, #{house_age}, #{verify_date}, #{scout.magid}, #{claim_list.claimid},'0')
+	</insert>
+	
 </mapper>

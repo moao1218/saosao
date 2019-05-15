@@ -2,47 +2,47 @@ package cn.saosao.pojo;
 
 import java.io.Serializable;
 
+
+/**
+ * 	保单实体类
+ * @author ThinkPad
+ *
+ */
 public class Policy implements Serializable {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 652245561295329701L;
 	
-	private String	policyid; 
-	private String	insured_name; 
-	private String	insured_card; 
-	private String	area; 
-	private String	address; 
-	private String	relation; 
-	private String	holder_name; 
-	private String	holder_card; 
-	private String	holder_sex; 
-	private String	holder_phone; 
-	private String	holder_email; 
-	private String	insured_date; 
-	private String	license; 
-	private Integer	industry_code; 
-	private String	acreage; 
-	private String	firm_name; 
-	private String	premium; 
-	private String	pol_property; 
-	private String	del_status; 
-	private String	start_date; 
-	private String	end_date; 
-	private String	yuliu1; 
-	private String	yuliu2; 
-	private Integer	userid;
-
-	
+	private String policyid; 
+	private String insured_name;
+	private String insured_card; 
+	private String address; 
+	private String relation; 
+	private String holder_name; 
+	private String holder_card; 
+	private String holder_sex; 
+	private String holder_phone; 
+	private String holder_email; 
+	private String insured_date; 
+	private String license; 
+	private String industry_code; 
+	private String acreage; 
+	private String firm_name; 
+	private String premium; 
+	private String pol_property; 
+	private String del_status; 
+	private String start_date; 
+	private String end_date; 
+	private String yuliu1; 
+	private String yuliu2; 
+	private Users users;
 	public String getPolicyid() {
 		return policyid;
 	}
 	public void setPolicyid(String policyid) {
 		this.policyid = policyid;
-	}
-	public Integer getUserid() {
-		return userid;
 	}
 	public String getInsured_name() {
 		return insured_name;
@@ -55,12 +55,6 @@ public class Policy implements Serializable {
 	}
 	public void setInsured_card(String insured_card) {
 		this.insured_card = insured_card;
-	}
-	public String getArea() {
-		return area;
-	}
-	public void setArea(String area) {
-		this.area = area;
 	}
 	public String getAddress() {
 		return address;
@@ -116,14 +110,11 @@ public class Policy implements Serializable {
 	public void setLicense(String license) {
 		this.license = license;
 	}
-	public Integer getIndustry_code() {
+	public String getIndustry_code() {
 		return industry_code;
 	}
-	public void setIndustry_code(Integer industry_code) {
+	public void setIndustry_code(String industry_code) {
 		this.industry_code = industry_code;
-	}
-	public void setUserid(Integer userid) {
-		this.userid = userid;
 	}
 	public String getAcreage() {
 		return acreage;
@@ -179,5 +170,12 @@ public class Policy implements Serializable {
 	public void setYuliu2(String yuliu2) {
 		this.yuliu2 = yuliu2;
 	}
+	public Users getUsers() {
+		return users;
+	}
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+	
 
 }

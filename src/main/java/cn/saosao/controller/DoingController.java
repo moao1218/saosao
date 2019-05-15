@@ -1,5 +1,6 @@
 package cn.saosao.controller;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,8 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.saosao.pojo.Claim_List;
 import cn.saosao.pojo.Claim_Verify;
@@ -106,7 +109,7 @@ public class DoingController {
 			return "backPage/doing";
 	}
 	@GetMapping("/getclerkdoing/{id}")
-	public String getClerkById(Claim_Verify cla_ver,@PathVariable("id") String claimid,Map<String,Object> map,Model model,HttpSession session) {
+	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model,HttpSession session) {
 		Integer cp=1;
 		Integer ps=1;
 		map.put("ps", ps);
@@ -144,6 +147,40 @@ public class DoingController {
 		String times = sdf.format(date);
 		map.put("times", times);
 		return map;
+	}
+	//勘查人员提交的勘查清单表
+	@PostMapping("/showfile") 
+	public String showfile( Claim_Verify cla_ver,Claim_List claim, HttpServletRequest request) {
+		  Date date = new Date();
+		  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		  String times = sdf.format(date);
+		  Clerk clerk = (Clerk)request.getSession().getAttribute("clerk");
+		
+		  System.out.println("进来了");
+		  System.out.println(cla_ver.getSite_photo()+"-"+cla_ver.getThird_pic()+"-"+
+		  cla_ver.getUser_age()+"-"+cla_ver.getInvoice()+"-"+
+		  cla_ver.getHouse_no()+"-"+cla_ver.getHouse_pic()+"-"+cla_ver.getAcreage()+"-"
+		  +cla_ver.getHouse_market()+"-"+
+		  cla_ver.getHouse_age()+"-"+cla_ver.getVerify_date()+"-"+cla_ver.getScout().
+		  getMagid()+"-"+cla_ver.getClaim_list().getClaimid());
+		 
+		boolean flag = iClaimVerifyService.addClaimVer(cla_ver);
+		if(flag) {
+			System.out.println("aaaaa");
+			claim.setUpper_date(times);
+			claim.setClaimid(cla_ver.getClaim_list().getClaimid());
+			claim.getScout().setMagid(clerk.getMagid());
+			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.getStatus().setStatusid("18");//勘查中页面该状态为勘查借宿
+			iClaimListService.updateClaim(claim);
+			
+			
+			return "redirect:/doing";
+		}else {
+			return "redirect/getclerkdoing/"+claim.getClaimid();
+		}
+		
+		
 	}
 	
 }
