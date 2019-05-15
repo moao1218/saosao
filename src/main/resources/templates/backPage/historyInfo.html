@@ -96,79 +96,120 @@
 }
 </style>
 <script>
-function goback(){
-	location.href="/index";
-}
+	function goback(){
+		location.href="/history";
+	}
 </script>
 </head>
 <body>
 	<section id="container">
 
-		<div th:replace="backPage/commons/comm::#topbar(activeUri='userinfo.html')"></div>
+		<div th:replace="backPage/commons/comm::#topbar(activeUri='historyInfo.html')"></div>
 
-		<div th:replace="backPage/commons/comm::#sidebar(activeUri='userinfo.html')"></div>
+		<div th:replace="backPage/commons/comm::#sidebar(activeUri='historyInfo.html')"></div>
 
 
 		<section id="main-content" >
 			<section class="wrapper" >
 				<div class="container" style="margin-top:50px;">
+					
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="">理赔编号和保单编号和理赔状态</span>
+					  </div>
+					  <input type="text" th:value="${claim.claimid}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.policy}==null?'':${claim.policy.policyid}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.status}==null?'':${claim.status.status_name}"  class="form-control" readonly>
+					</div>
+					
+				
 					 <div class="input-group mb-3">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
+					    <span class="input-group-text" id="">姓名和申请时间和结束时间</span>
 					  </div>
-					  <input type="text" th:value="${clerk.magid}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
-					</div>
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="inputGroup-sizing-default">入职日期</span>
-					  </div>
-					  <input type="text" th:value="${clerk.join_date}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
-					</div>
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="inputGroup-sizing-default">身份证号码</span>
-					  </div>
-					  <input type="text" th:value="${clerk.user_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
-					</div>
-					 <div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="">姓名和职位</span>
-					  </div>
-					  <input type="text" th:value="${clerk.realname}" class="form-control" readonly>
-					  <input type="text" th:value="${clerk.job}" class="form-control" readonly>
-					</div>
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="">账号和密码</span>
-					  </div>
-					  <input type="text" th:value="${clerk.username}" class="form-control" readonly>
-					  <input type="password" th:value="${clerk.userpwd}" class="form-control" readonly>
+					  <input type="text" th:value="${claim.claim_name}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.claim_date}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.final_date}"  class="form-control" readonly>
 					</div>
 					
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="">手机号码和邮箱</span>
+					    <span class="input-group-text" id="">证件号码和电话号码</span>
 					  </div>
-					  <input type="text" th:value="${clerk.phone}" class="form-control" readonly>
-					  <input type="text" th:value="${clerk.email}" class="form-control" readonly>
+					  <input type="text" th:value="${claim.claim_card}" class="form-control" readonly>
+					  <input type="text" th:value="${claim.claim_phone}" class="form-control" readonly>
+					</div>
+					
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="">保单性质和险种</span>
+					  </div>
+					  <input type="text" th:value="${claim.pol_property}==0?'企业':'个人'" class="form-control" readonly>
+					  <input type="text" th:value="${claim.coverage.coverage_name}" class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="inputGroup-sizing-default">家庭住址</span>
+					    <span class="input-group-text" id="">初始金额和最终金额</span>
 					  </div>
-					  <input type="text" th:value="${clerk.address}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text" th:value="${claim.initial_amount}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.final_amount}"  class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="">紧急联系人信息</span>
+					    <span class="input-group-text" id="">上一级操作人和操作时间</span>
 					  </div>
-					  <input type="text" th:value="${clerk.linkman}" class="form-control" readonly>
-					  <input type="text" th:value="${clerk.emergency}" class="form-control" readonly>
+					  <input type="text" th:value="${claim.upper_operator}==null?'':${claim.upper_operator.realname}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.upper_date}"  class="form-control" readonly>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="">操作员</span>
+					  </div>
+					  <input type="text" th:value="${claim.scout}==null?'':${claim.scout.realname}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.first_auditor}==null?'':${claim.first_auditor.realname}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.second_auditor}==null?'':${claim.second_auditor.realname}"   class="form-control" readonly>
+					  <input type="text" th:value="${claim.third_auditor}==null?'':${claim.third_auditor.realname}"   class="form-control" readonly>
+					  <input type="text" th:value="${claim.accountant}==null?'':${claim.accountant.realname}"   class="form-control" readonly>
+					</div>
+					
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="">会员编号和账号和姓名</span>
+					  </div>
+					  <input type="text" th:value="${claim.users}==null?'':${claim.users.userid}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.users.username}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.users.realname}==null?'':${claim.users.realname}"  class="form-control" readonly>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="inputGroup-sizing-default">银行卡号</span>
+					  </div>
+					  <input type="text"  th:value="${claim.users.bank_card}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					</div>
+				
+				
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">申请理由</span>
+					  </div>
+					  <textarea class="form-control "  aria-label="With textarea" readonly>[[${claim.reason}]]</textarea>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">上一级意见</span>
+					  </div>
+					  <textarea class="form-control " aria-label="With textarea" readonly>[[${claim.upper_opinion}]]</textarea>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">转账失败原因</span>
+					  </div>
+					  <textarea class="form-control " aria-label="With textarea" readonly>[[${claim.transfer_failed}]]</textarea>
 					</div>
 					
 					<button type="button" class="btn btn-round btn-info" th:onclick="goback()">返回</button>
-				</div>		
-				
+					
+				</div>
 				
 			</section>
 

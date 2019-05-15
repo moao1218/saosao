@@ -12,4 +12,10 @@ public interface IClaimListService {
 	 * @return
 	 */
 	public List getAll(Map map);
+	/**
+	 * 修改
+	 * @param claim
+	 * @return
+	 */
+	public boolean updateClaim(Claim_List claim);
 }

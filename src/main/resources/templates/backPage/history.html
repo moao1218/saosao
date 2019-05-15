@@ -115,6 +115,9 @@
 			sform.submit();
 	}
 	}
+	function historyinfo(id){
+		location.href="/getclerkhistory/"+id;
+	}
 </script>
 
 </head>
@@ -228,7 +231,7 @@
 								    	<td th:text="${claim_list.upper_operator==null?'':claim_list.upper_operator.realname}"></td>
 								    	<td th:text="${claim_list.initial_amount}"></td>
 								    	<td th:text="${claim_list.final_amount}"></td>
-								    	<td><button class="btn btn-success">详情</button></td>
+								    	<td><button class="btn btn-success" th:onclick="historyinfo([[${claim_list.claimid}]])">详情</button></td>
 								    </tr>
 								  </tbody>
 								</table>
