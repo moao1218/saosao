@@ -7,25 +7,25 @@ import java.io.Serializable;
  *
  */
 public class Claim_Verify implements Serializable {
-	private String cla_ver_id; //勘察编号
+	private String cla_ver_id; //勘察编号1
 	private String item_name;//物品名称
-	private String site_photo;//现场拍摄照片
-	private String third_pic;//第三方证明照片
-	private String user_age;//使用年限
+	private String site_photo;//现场拍摄照片1
+	private String third_pic;//第三方证明照片1
+	private String user_age;//使用年限(填写)
 	private String invoice_pic;//发票图片
-	private String invoice;//发票金额
+	private String invoice;//发票金额1
 	private String mark;//品牌
 	private String itme_model;//型号
-	private String house_no;//房产证号码
-	private String house_pic;//房产证照片
+	private String house_no;//房产证号码1
+	private String house_pic;//房产证照片1
 	private String address;//房屋地址
 	private String building_pic;//房屋照片
-	private String acreage;//房屋面积
-	private String house_market;//房屋市值
-	private String house_age;//房屋使用年限
+	private String acreage;//房屋面积1
+	private String house_market;//房屋市值1
+	private String house_age;//房屋使用年限1
 	private String completed_date;//房屋竣工时间
-	private String verify_date;//勘察时间
-	private Clerk scout;//勘察员
+	private String verify_date;//勘察时间1
+	private Clerk scout;//勘察员1
 	private String del_status;//逻辑删除
 	
 	private Items_List items_list; //物品清单对象

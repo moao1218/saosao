@@ -16,11 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.saosao.pojo.Claim_List;
+import cn.saosao.pojo.Claim_Verify;
 import cn.saosao.pojo.Clerk;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IClaimListService;
@@ -101,7 +103,7 @@ public class DoingController {
 			return "backPage/doing";
 	}
 	@GetMapping("/getclerkdoing/{id}")
-	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model,HttpSession session) {
+	public String getClerkById(Claim_Verify cla_ver,@PathVariable("id") String claimid,Map<String,Object> map,Model model,HttpSession session) {
 		Integer cp=1;
 		Integer ps=1;
 		map.put("ps", ps);
@@ -124,6 +126,17 @@ public class DoingController {
 	public Integer getCalculate(String claimid) {
 		
 		return 1;
+	}
+	
+	@ResponseBody
+	@PostMapping("/gettimes")
+	public Map<String,Object> getTimes() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String times = sdf.format(date);
+		map.put("times", times);
+		return map;
 	}
 	
 }

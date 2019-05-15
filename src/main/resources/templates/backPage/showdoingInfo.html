@@ -26,6 +26,10 @@
 <link th:href="@{/back/css/style-responsive.css}" rel="stylesheet" />
 <script th:src="@{/back/lib/chart-master/Chart.js}"></script>
 
+<script type="text/javascript" th:src="@{/bootstrap-fileupload/bootstrap-fileupload.js}"></script>
+<link rel="stylesheet" type="text/css"	th:href="@{/bootstrap-fileupload/bootstrap-fileupload.css}">
+
+
 <style type="text/css">
 .logout{
 	position:relative;
@@ -99,6 +103,16 @@
 	function goback(){
 		location.href="/doing";
 	}
+	function gettimes(){
+		$.post("/gettimes",{},function(data){
+			
+			$("#times").val(data.times);
+			
+		},"json")
+	}
+	function addrow(){
+		
+	}
 </script>
 </head>
 <body>
@@ -148,13 +162,7 @@
 					  <input type="text" name="pol_property"  th:value="${claim.pol_property}==0?'企业':'个人'" class="form-control" readonly>
 					  <input type="text" name="coverage.coverage_name" th:value="${claim.coverage.coverage_name}" class="form-control" readonly>
 					</div>
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="">初始金额和最终金额</span>
-					  </div>
-					  <input type="text" name="initial_amount" th:value="${claim.initial_amount}"  class="form-control" readonly>
-					  <input type="text" name="final_amount" th:value="${claim.final_amount}"  class="form-control" readonly>
-					</div>
+					
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">上一级操作人和操作时间</span>
@@ -201,31 +209,99 @@
 					  </div>
 					  <textarea class="form-control " name="upper_opinion" aria-label="With textarea" readonly>[[${claim.upper_opinion}]]</textarea>
 					</div>
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text">转账失败原因</span>
-					  </div>
-					  <textarea class="form-control " name="transfer_failed" aria-label="With textarea" readonly>[[${claim.transfer_failed}]]</textarea>
-					</div>
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<button type="submit" class="btn btn-round btn-success"></button>
-					<button type="submit" class="btn btn-round btn-danger">不通过</button>
+					<!-- table -->
+					<table class="table table-striped" id="tables">
+						  <thead>
+						    <tr> 
+						      <th scope="col">现场拍摄照片</th>
+						      <th scope="col">第三方证明照片</th>
+						      <th scope="col">使用年限</th>
+						      <th scope="col">发票金额</th>
+						      <th scope="col">房产证号码</th>
+						      <th scope="col">房屋地址</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr class="tr1">
+						    	<td >
+				                  <div class="form-group">
+					                  <div class="controls col-md-9">
+					                    <div class="fileupload fileupload-new" data-provides="fileupload">
+					                      <span class="btn btn-theme02 btn-file">
+					                        <span class="fileupload-new"><i class="fa fa-paperclip"></i> 选择文件</span>
+					                      <span class="fileupload-exists"><i class="fa fa-undo"></i> 更改</span>
+					                      <input type="file" class="default" />
+					                      </span>
+					                      <span class="fileupload-preview" style="margin-left:5px;"></span>
+					                      <a href="advanced_form_components.html#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+					                    </div>
+					                  </div>
+					                </div>
+						    	</td>
+						    	<td >
+						    		<div class="form-group">
+					                  <div class="controls col-md-9">
+					                    <div class="fileupload fileupload-new" data-provides="fileupload">
+					                      <span class="btn btn-theme02 btn-file">
+					                        <span class="fileupload-new"><i class="fa fa-paperclip"></i> 选择文件</span>
+					                      <span class="fileupload-exists"><i class="fa fa-undo"></i> 更改</span>
+					                      <input type="file" class="default" />
+					                      </span>
+					                      <span class="fileupload-preview" style="margin-left:5px;"></span>
+					                      <a href="advanced_form_components.html#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+					                    </div>
+					                  </div>
+					                </div>
+						    	</td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    </tr>
+						  </tbody>
+						  
+						  <thead>
+						    <tr class="tr2"> 
+						      <th scope="col">房产证照片</th>
+						      <th scope="col">房屋面积</th>
+						      <th scope="col">房屋市值</th>
+						      <th scope="col">房屋使用年限</th>
+						      <th scope="col">勘察时间</th>
+						      <th scope="col">勘察员</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						    	<td >
+						    		<div class="form-group">
+					                  <div class="controls col-md-9">
+					                    <div class="fileupload fileupload-new" data-provides="fileupload">
+					                      <span class="btn btn-theme02 btn-file">
+					                        <span class="fileupload-new"><i class="fa fa-paperclip"></i> 选择文件</span>
+					                      <span class="fileupload-exists"><i class="fa fa-undo"></i> 更改</span>
+					                      <input type="file" class="default" />
+					                      </span>
+					                      <span class="fileupload-preview" style="margin-left:5px;"></span>
+					                      <a href="advanced_form_components.html#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+					                    </div>
+					                  </div>
+					                </div>
+						    	</td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    	<td ><input type="text" class="form-control" ></td>
+						    	<td ><input type="text" class="form-control" id="times" th:onblur="gettimes()"></td>
+						    	<td ><input type="text" class="form-control" th:value="${session.clerk.magid}" readonly></td>
+						    </tr>
+						  </tbody>
+						</table>
+				
+				
+					<button type="button" class="btn btn-round btn-success " th:onclick="addrow()"><span class="fa-minus"></span></button>
 					<!-- th:onclick="goManage([[${claim.claimid}]]) -->
 					<button type="button" class="btn btn-round btn-info pull-right" th:onclick="goback()">返回</button>
-					<button type="file" th:if="${session.clerk.roleid}==10">文件上传</button>
+					
 				</div>
 				</form>
 				
