@@ -134,7 +134,7 @@ public class DoingController {
 		}
 		return 1;
 	}
-	
+	 
 	@ResponseBody
 	@PostMapping("/gettimes")
 	public Map<String,Object> getTimes() {
