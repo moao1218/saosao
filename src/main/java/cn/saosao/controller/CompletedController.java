@@ -35,31 +35,30 @@ public class CompletedController {
 	@Autowired
 	ExpenditureServer exs;
 
-	
-	
 	// 查看支出信息
 	@SuppressWarnings("unused")
 	@GetMapping("/Completed")
 	public String zhichu(HttpServletRequest request, HttpServletResponse response, DuoTiaoJIan d,
 			@RequestParam(value = "adree", defaultValue = "1") int adree) {
-		DuoTiaoJIan d1=null;
-		if(adree!=-1)
+		DuoTiaoJIan d1 = null;
+		if (adree != -1)
 			d1 = (DuoTiaoJIan) request.getSession().getAttribute("fenyexinxi");
 		if (d1 != null)
 			d = d1;
-		System.out.println(d.toString());
-		
-		
+		//System.out.println(d.toString());
+
 		Map<String, Object> m = new HashMap<String, Object>();
 		List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
-		if (adree<=0) adree=1;
-		int findcount = exs.findcount();//获取总数据
+		if (adree <= 0)
+			adree = 1;
+		int findcount = exs.findcount();// 获取总数据
 		if (findcount % 5 != 0) {// 不等于0就是总数据不是五的整数
 			findcount = findcount / 5 + 1;
 		} else {
 			findcount /= 5;
 		}
-		if(adree>=findcount)adree=findcount;
+		if (adree >= findcount)
+			adree = findcount;
 		m.put("cp", adree);
 		m.put("ps", 5);
 		m.put("acc", d.acc);
@@ -77,24 +76,22 @@ public class CompletedController {
 		Object object = m.get("zys");
 		Integer zys = Integer.valueOf(object.toString());
 
-		
-
 		request.setAttribute("accountlist", finAll);
 		System.out.println(finAll.size());
-		/*
-		 * for (int i = 0; i < finAll.size(); i++) { for (Entry<String, Object> m1 :
-		 * finAll.get(i).entrySet()) { System.out.println(m1.getKey() + "::" +
-		 * m1.getValue()); } }
-		 */
+
+		for (int i = 0; i < finAll.size(); i++) {
+			for (Entry<String, Object> m1 : finAll.get(i).entrySet()) {
+				System.out.println(m1.getKey() + "::" + m1.getValue());
+			}
+		}
 
 		// 获取右下角的页码
-		FenYe huoqu = huoqu(zys,adree);
+		FenYe huoqu = huoqu(zys, adree);
 		request.setAttribute("fenye", huoqu);
-		
-		//条件查询回显
+
+		// 条件查询回显
 		request.setAttribute("huixian", d);
-		
-		
+
 		return "backPage/Finance/Expenditure";
 	}
 
@@ -108,7 +105,7 @@ public class CompletedController {
 		System.out.println(d.toString());
 		Map<String, Object> m = new HashMap<String, Object>();
 		List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
-		
+
 		m.put("cp", 1);
 		m.put("ps", 5);
 		m.put("acc", d.acc);
@@ -127,19 +124,17 @@ public class CompletedController {
 		Integer zys = Integer.valueOf(object.toString());
 
 		request.setAttribute("accountlist", finAll);
-		
+
 		// 获取右下角的页码
 		FenYe huoqu2 = huoqu2(zys);
 		request.setAttribute("fenye", huoqu2);
-		
-		//回显
-		//条件查询回显
+
+		// 回显
+		// 条件查询回显
 		request.setAttribute("huixian", d);
-				
+
 		return "backPage/Finance/Expenditure";
 	}
-
-	
 
 	/**
 	 * 
@@ -198,28 +193,26 @@ public class CompletedController {
 		f.setZong(zys);// 总页数
 		f.setZsj(zsj);// 总数据
 		List<Integer> list = new ArrayList<Integer>();
-		if(adress-2>0) {	//1,2,3,4,5
-			int a=adress-2;
-			for(int i = 1,j=a;i<=5&&j<=zys;i++,j++) {
+		if (adress - 2 > 0) { // 1,2,3,4,5
+			int a = adress - 2;
+			for (int i = 1, j = a; i <= 5 && j <= zys; i++, j++) {
 				list.add(i);
 			}
-		}else {//123
-			for(int i = 1,j=1;i<=5&&j<=zys;i++,j++) {
+		} else {// 123
+			for (int i = 1, j = 1; i <= 5 && j <= zys; i++, j++) {
 				list.add(i);
 			}
 		}
 		f.setLie(list);
 		return f;
 	}
-	
-	
-	
+
 	// 处理待完成的理赔单
-		@GetMapping("/ToBeCompleted")
-		public String ToBeCompleted() {
-			
-			
-			
-			return "";
-		}
+	/*
+	 * @GetMapping("/ToBeCompleted") public String ToBeCompleted() {
+	 * 
+	 * 
+	 * 
+	 * return "backPage/Finance/ToBePaid"; }
+	 */
 }

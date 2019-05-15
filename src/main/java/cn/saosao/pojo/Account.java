@@ -8,11 +8,11 @@ package cn.saosao.pojo;
  */
 public class Account {
 
-	private long accountid; // 明细编号
-	private long claimid; //理赔编号
-	private long policyid; //保单编号
+	private String accountid; // 明细编号
+	private String claimid; //理赔编号
+	private String policyid; //保单编号
 	private String money; //理赔金额
-	private long userid; //会员编号
+	private String userid; //会员编号
 	private String user_card; //身份证
 	private String banc_card; //银行卡
 	private String accountant; //操作人
@@ -20,22 +20,22 @@ public class Account {
 	private String account_status; //操作状态
 	private String remarks; //备注
 	private String yuliu; //预留
-	public long getAccountid() {
+	public String getAccountid() {
 		return accountid;
 	}
-	public void setAccountid(long accountid) {
+	public void setAccountid(String accountid) {
 		this.accountid = accountid;
 	}
-	public long getClaimid() {
+	public String getClaimid() {
 		return claimid;
 	}
-	public void setClaimid(long claimid) {
+	public void setClaimid(String claimid) {
 		this.claimid = claimid;
 	}
-	public long getPolicyid() {
+	public String getPolicyid() {
 		return policyid;
 	}
-	public void setPolicyid(long policyid) {
+	public void setPolicyid(String policyid) {
 		this.policyid = policyid;
 	}
 	public String getMoney() {
@@ -44,10 +44,10 @@ public class Account {
 	public void setMoney(String money) {
 		this.money = money;
 	}
-	public long getUserid() {
+	public String getUserid() {
 		return userid;
 	}
-	public void setUserid(long userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	public String getUser_card() {
@@ -99,7 +99,6 @@ public class Account {
 				+ ", accountant=" + accountant + ", transfertime=" + transfertime + ", account_status=" + account_status
 				+ ", remarks=" + remarks + ", yuliu=" + yuliu + "]";
 	}
-
 	
 	
 	

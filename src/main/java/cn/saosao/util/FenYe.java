@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 该类用于 财务模块分页使用， 保存了一些分页所需要的参数
  * 
- * @author lenovo
+ * @author wh
  *
  */
 public class FenYe implements Serializable{

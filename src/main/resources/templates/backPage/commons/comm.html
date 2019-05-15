@@ -96,15 +96,18 @@
           </li>
           
           <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-book"></i>
-              <span>财务模块</span>
-              </a>
-            <ul class="sub">
-              <li><a href="Completed?adree=-1 ">查看已完成理赔单</a></li>
-              <li><a href="ToBeCompleted">查看未完成理赔单</a></li>
-            </ul>
+            <a href="Completed?adree=-1" th:class="${activeUri=='history.html'?'dcjq-parent active':'dcjq-parent'}">
+              <i class="fa fa-cogs"></i>
+              <span>查看已完成理赔单</span>
+            </a>
           </li>
+          <li class="sub-menu">
+            <a href="ToBeCompleted" th:class="${activeUri=='history.html'?'dcjq-parent active':'dcjq-parent'}">
+              <i class="fa fa-cogs"></i>
+              <span>查看未完成理赔单</span>
+            </a>
+          </li>
+          
           
         
         </ul>

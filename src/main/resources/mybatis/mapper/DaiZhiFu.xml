@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.saosao.mapper.Finance.DaiZhiFuMapper">
+
+	<sql id="quan">
+		t.claimid, t.claim_name, t.claim_card, t.claim_phone,
+		t.reason,
+		t.policuid,
+		t.claim_date, t.coverageid, t.pol_property,
+		t.site_photo, t.third_pic,
+		t.initial_amount, t.final_amount,
+		t.upper_operator, t.upper_opinion,
+		t.upper_date, t.scout,
+		t.first_auditor, t.second_auditor,
+		t.third_auditor,
+		t.accountant,
+		t.final_date, t.del_status, t.userid,
+		t.transfer_failed, t.yuliu1,
+		t.yuliu2, t.statusid
+	</sql>
+
+	<sql id="accountsql">
+		ACCOUNTID, CLAIMID, POLICYID, MONEY, USERID, USER_CARD,
+		BANC_CARD, ACCOUNTANT,
+		TRANSFERTIME, ACCOUNT_STATUS, REMARKS, YULIU
+	</sql>
+
+
+	<select id="findall" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="quan" />
+		,bank_card
+		from CLAIM_LIST t,users u where u.userid=t.userid and
+		t.statusid=25 and t.del_status=0
+		<if test="claimid!=null">
+			and t.claimid like '%${claimid}%'
+		</if>
+		<if test="name!=null">
+			and t.CLAIM_NAME like '%${name}%'
+		</if>
+		<if test="sfz!=null">
+			and t.CLAIM_CARD like '%${sfz}%'
+		</if>
+	</select>
+
+	<!-- 根据理赔单号 查询 理赔单 -->
+	<select id="selectByid" parameterType="java.lang.String"
+		resultType="java.util.Map">
+		select t.*,u.BANK_CARD
+		from CLAIM_LIST t,users u where
+		u.userid=t.userid and t.statusid=25 and
+		t.del_status=0 and
+		t.claimid=#{claimid}
+	</select>
+
+	<select id="findByid" parameterType="java.lang.String"
+		resultType="java.util.Map">
+		select c.*,t.COVERAGE_NAME,u.* from claim_list c, COVERAGE
+		t,users u where t.COVERAGEID=c.COVERAGEID and c.USERID=u.USERID and c.claimid=#{id}
+	</select>
+
+
+
+	<insert id="insertall" parameterType="java.util.Map">
+		insert into ACCOUNT (
+		<include refid="accountsql" />
+		)
+		values (#{ACCOUNTID}, #{CLAIMID}, #{POLICYID}, #{MONEY}, #{USERID},
+		#{USER_CARD}, #{BANC_CARD}, #{ACCOUNTANT}, #{TRANSFERTIME},
+		#{ACCOUNT_STATUS}, #{REMARKS}, #{YULIU})
+
+	</insert>
+
+
+	<update id="updateByidtoyuanying" parameterType="java.util.Map">
+		update
+		claim_list set TRANSFER_FAILED=#{yuanying} where claimid=#{id}
+
+	</update>
+
+	<update id="updateByidtozhuangtai" parameterType="java.util.Map">
+		update
+		claim_list set statusid=#{zhuangtai} where claimid=#{id}
+
+	</update>
+
+</mapper>
