@@ -99,23 +99,35 @@
 	function goback(){
 		location.href="/doing";
 	}
-	function calculate(claimid){
-		$.post=("",{},function(data){},"json");
+	function calculate1(claimid){
+		$.post("/calculate1",{"claimid":claimid},function(data){
+			$("#initial_amount").val(data);
+		},"json");
+	}
+	function end(status){
+		if(status=="success"){
+			fom.doingstatus="success";
+			fom.submit();
+		}else{
+			fom.doingstatus="failer";
+			fom.submit();
+		}
 	}
 </script>
 </head>
 <body>
 	<section id="container">
 
-		<div th:replace="backPage/commons/comm::#topbar(activeUri='doingInfo.html')"></div>
+		<div th:replace="backPage/commons/comm::#topbar(activeUri='doing.html')"></div>
 
-		<div th:replace="backPage/commons/comm::#sidebar(activeUri='doingInfo.html')"></div>
+		<div th:replace="backPage/commons/comm::#sidebar(activeUri='doing.html')"></div>
 
 
 		<section id="main-content" >
 			<section class="wrapper" >
 			
-				<form th:action="@{/goManage}" method="POST" name="fom">
+				<form th:action="@{/enddoing}" method="POST" name="fom" id="fom">
+				<input type="hidden" name="doingstatus" id="doingstatus"/>
 				<div class="container" style="margin-top:50px;">
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
@@ -155,9 +167,10 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">初始金额和最终金额</span>
 					  </div>
-					  <input type="text" name="initial_amount" th:value="${claim.initial_amount}"  class="form-control" readonly>
-					  <button  th:if="${session.clerk.roleid}==5" th:onclick="calculate([[${claim.claimid}]])"><span class="glyphicon glyphicon-plus"></span></button>
-					  <input type="text" name="final_amount" th:value="${claim.final_amount}"  class="form-control" readonly>
+					  <input type="text" name="initial_amount" th:value="${claim.initial_amount}" id="initial_amount"  class="form-control" readonly>
+					  <span th:if="${session.clerk.roleid}==5" class="btn btn-success" th:onclick="calculate1([[${claim.claimid}]])">计算金额</span>
+					  <input type="text" th:if="${session.clerk.roleid}!=5" name="final_amount" th:value="${claim.final_amount}"  class="form-control" readonly>
+					  <input type="text" th:if="${session.clerk.roleid}==5" name="final_amount" th:value="${claim.final_amount}"  class="form-control">
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
@@ -211,8 +224,8 @@
 					  </div>
 					  <textarea class="form-control " name="transfer_failed" aria-label="With textarea" readonly>[[${claim.transfer_failed}]]</textarea>
 					</div>
-					<button type="submit" class="btn btn-round btn-success">通过</button>
-					<button type="submit" class="btn btn-round btn-danger">不通过</button>
+					<span class="btn btn-round btn-success" th:onclick="end('success')">通过</span>
+					<span class="btn btn-round btn-danger" th:onclick="end('failer')">不通过</span>
 					<!-- th:onclick="goManage([[${claim.claimid}]]) -->
 					<button type="button" class="btn btn-round btn-info pull-right" th:onclick="goback()">返回</button>
 					<button type="file" th:if="${session.clerk.roleid}==10">文件上传</button>

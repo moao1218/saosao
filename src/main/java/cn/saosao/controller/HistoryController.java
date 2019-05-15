@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.saosao.pojo.Claim_List;
@@ -23,6 +24,7 @@ import cn.saosao.pojo.Clerk;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IClaimListService;
 import cn.saosao.service.IStatusService;
+import cn.saosao.service.impl.CliamVerifyImpl;
 
 @Controller
 public class HistoryController {
@@ -116,4 +118,5 @@ public class HistoryController {
 		System.out.println(c.get(0));
 		return "backPage/historyInfo";
 	}
+	
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="cn.saosao.mapper.ClaimVerifyMapper">
 	<sql id="allcolumn">
-		cla_ver_id,itemid,item_name,site_photo,third_pic,user_age,invoice_pic,invoice_pic,mark,
+		cla_ver_id,itemid,item_name,site_photo,third_pic,user_age,invoice_pic,invoice,mark,
 		itme_model,house_no,house_pic,address,building_pic,acreage,house_market,house_age,completed_date,
 		verify_date,scout,del_status,claimid
 	</sql>
@@ -18,7 +18,7 @@
 		<result column="third_pic" property="third_pic"/>
 		<result column="user_age" property="user_age"/>
 		<result column="invoice_pic" property="invoice_pic"/>
-		<result column="invoice_pic" property="invoice_pic"/>
+		<result column="invoice" property="invoice"/>
 		<result column="mark" property="mark"/>
 		<result column="itme_model" property="itme_model"/>
 		<result column="house_no" property="house_no"/>
@@ -32,7 +32,7 @@
 		<result column="verify_date" property="verify_date"/>
 		<result column="del_status" property="del_status"/>
 		<collection property="scout" column="scout" ofType="cn.saosao.pojo.Clerk"></collection>
-		<collection property="items_list" column="itemid" ofType="cn.saosao.pojo.Items_List"></collection>
+		<collection property="items_list" column="itemid" ofType="cn.saosao.pojo.Items_List" select="cn.saosao.mapper.ItemListMapper.getlist"></collection>
 		<collection property="claim_list" column="claimid" ofType="cn.saosao.pojo.Claim_List"></collection>
 	</resultMap>
 </mapper>

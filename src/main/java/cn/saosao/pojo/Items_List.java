@@ -56,5 +56,10 @@ public class Items_List implements Serializable {
 	public void setDel_status(String del_status) {
 		this.del_status = del_status;
 	}
+	@Override
+	public String toString() {
+		return "Items_List [itemid=" + itemid + ", item_name=" + item_name + ", deductible=" + deductible + ", excess="
+				+ excess + ", dep_rate=" + dep_rate + ", industry=" + industry + ", del_status=" + del_status + "]";
+	}
 	
 }

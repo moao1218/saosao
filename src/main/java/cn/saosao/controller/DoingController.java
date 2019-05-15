@@ -27,6 +27,7 @@ import cn.saosao.pojo.Clerk;
 import cn.saosao.pojo.Status;
 import cn.saosao.service.IClaimListService;
 import cn.saosao.service.IClaimVerifyService;
+import cn.saosao.service.IItemsListService;
 import cn.saosao.service.IStatusService;
 
 @Controller
@@ -37,6 +38,8 @@ public class DoingController {
 	IStatusService iStatusService;
 	@Autowired
 	IClaimVerifyService iClaimVerifyService;
+	@Autowired
+	IItemsListService iItemsListService;
 	@RequestMapping("/doing")
 	public String doing(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap,HttpServletRequest request) throws ParseException {
 			HttpSession session = request.getSession();
@@ -117,7 +120,7 @@ public class DoingController {
 		model.addAttribute("claim", c.get(0));
 		Clerk clerk = (Clerk)session.getAttribute("clerk");
 		//--------------------------------------------------------------
-		
+		System.out.println(clerk);
 		if(clerk.getRoleid().equals("10")){
 			return "backPage/showdoingInfo";
 		}else {
@@ -125,14 +128,43 @@ public class DoingController {
 		}
 	}
 	@ResponseBody
-	@RequestMapping("/calculate")
-	public Integer getCalculate(String claimid) {
+	@RequestMapping("/calculate1")
+	public Double getCalculate(String claimid) {
+		System.out.println("进入了计算");
 		List<Claim_Verify> list=iClaimVerifyService.getList(claimid);
+		Double price=0.0;
 		//
+		System.out.println("长度是"+list.size());
 		for (Claim_Verify claim_Verify : list) {
 			System.out.println(claim_Verify);
+			  //发票价格
+			  Double invoic=claim_Verify.getInvoice()==null?0:Double.parseDouble(claim_Verify.getInvoice());
+			  System.out.println("发票价格"+invoic);
+			  //房屋市场价价格 
+			  Double housemarket=claim_Verify.getHouse_market()==null?0:Double.parseDouble(claim_Verify.getHouse_market());
+			  System.out.println("房屋市场价价格"+housemarket);
+			  //使用年限 
+			  Double useage=claim_Verify.getUser_age()==null?0:Double.parseDouble(claim_Verify.getUser_age());
+			  System.out.println("使用年限"+useage);
+			  //免赔率 
+			  Double excess = Double.parseDouble(claim_Verify.getItems_list().getExcess());
+			  System.out.println("免赔率 "+excess);
+			  //折旧率
+			  Double dep_rate=Double.parseDouble(claim_Verify.getItems_list().getDep_rate());
+			  System.out.println("折旧率 "+dep_rate);
+			  if(claim_Verify.getItems_list().getItemid()>=111) {
+				  price+=(housemarket-(housemarket*excess)-(dep_rate*useage*housemarket)); 
+				  System.out.println("进入了房屋"+price);
+			  }else {
+				  price+=(invoic-(invoic*excess)-(dep_rate*useage*invoic));
+				  System.out.println("进入了武平"+(dep_rate*useage*invoic));
+			  }
+			 
+			
+			
 		}
-		return 1;
+		System.out.println("价格为"+price);
+		return price;
 	}
 	 
 	@ResponseBody
@@ -145,5 +177,53 @@ public class DoingController {
 		map.put("times", times);
 		return map;
 	}
-	
+	@PostMapping("/enddoing")
+	public String enddoing(String doingstatus,HttpServletRequest request,Claim_List claim) {
+		HttpSession session=request.getSession();
+		Clerk clerk=(Clerk)session.getAttribute("clerk");
+		Date date=new Date();
+		SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
+		String nowdate=sim.format(date);
+		System.out.println(claim);
+		if(doingstatus.equals("success")) {
+			if(clerk.getMagid().equals("4")) {
+				claim.getFirst_auditor().setMagid(clerk.getMagid());//设置第一操作人
+				claim.getUpper_operator().setMagid(clerk.getMagid());//设置上一级操作人
+				claim.setUpper_date(nowdate);//设置上一级操作时间
+				claim.getStatus().setStatusid("20");//待二审
+			}else if(clerk.getMagid().equals("5")){
+				claim.getSecond_auditor().setMagid(clerk.getMagid());//设置第二操作人
+				claim.getUpper_operator().setMagid(clerk.getMagid());//设置上一级操作人
+				claim.setUpper_date(nowdate);//设置上一级操作时间
+				claim.getStatus().setStatusid("23");//待三审
+			}else if(clerk.getMagid().equals("6")){
+				claim.getThird_auditor().setMagid(clerk.getMagid());//设置第三操作人
+				claim.getUpper_operator().setMagid(clerk.getMagid());//设置上一级操作人
+				claim.setUpper_date(nowdate);//设置上一级操作时间
+				claim.getStatus().setStatusid("25");//待支付
+			}
+		}else {
+			if(clerk.getMagid().equals("4")) {
+				claim.getFirst_auditor().setMagid(clerk.getMagid());//设置第一操作人
+				claim.getUpper_operator().setMagid(clerk.getMagid());//设置上一级操作人
+				claim.setUpper_date(nowdate);//设置上一级操作时间
+				claim.getStatus().setStatusid("19");//一审不通过
+			}else if(clerk.getMagid().equals("5")){
+				claim.getSecond_auditor().setMagid(clerk.getMagid());//设置第二操作人
+				claim.getUpper_operator().setMagid(clerk.getMagid());//设置上一级操作人
+				claim.setUpper_date(nowdate);//设置上一级操作时间
+				claim.getStatus().setStatusid("22");//二审不通过
+			}else if(clerk.getMagid().equals("6")){
+				claim.getThird_auditor().setMagid(clerk.getMagid());//设置第三操作人
+				claim.getUpper_operator().setMagid(clerk.getMagid());//设置上一级操作人
+				claim.setUpper_date(nowdate);//设置上一级操作时间
+				claim.getStatus().setStatusid("26");//三审不通过
+			}
+		}
+		boolean flag = iClaimListService.updateClaim(claim);
+		
+		
+		
+		return "redirect:doing";
+	}
 }
