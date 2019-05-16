@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- 
-负责财务支出信息的
+负责财务支出信息的  已完成的
 wh
  -->
 <head lang="en">
@@ -160,7 +160,7 @@ wh
 		<!--sidebar start-->
 
 		<div
-			th:replace="backPage/commons/comm::#sidebar(activeUri='index.html')"></div>
+			th:replace="backPage/commons/comm::#sidebar(activeUri='Completed.html')"></div>
 
 		<!--sidebar end-->
 		<!-- **********************************************************************************************************************************************************
@@ -191,7 +191,7 @@ wh
 									<thead>
 										<tr>
 											<th><input type="checkbox" id="check_all"></th>
-											
+											<th scope="col">明细编号</th>
 											<th scope="col">理赔号</th>
 											<!-- <th scope="col">保单号</th> -->
 											<th scope="col">姓名</th>
@@ -199,25 +199,26 @@ wh
 											<th scope="col">身份证</th>
 											<th scope="col">银行卡</th>
 											<th scope="col">申请时间</th>
-											<th scope="col">上一级操作人</th>
+											<!-- <th scope="col">上一级操作人</th> -->
 											<th scope="col">转账金额</th>
-											<th scope="col">操作</th>
+											<th scope="col">操作人</th>
 											
 										</tr>
 									</thead>
 									<!-- 表格的单元体就放在tbody里面 -->
 									<tr th:each="account:${accountlist}">
 										<th><input type="checkbox" id="check_all"></th>
+										<th th:text="${account.ACCOUNTID}">明细号</th>
 										<th th:text="${account.CLAIMID}">理赔号</th>
 										<!-- <th th:text="${account.POLICYID}">保单号</th> -->
 										<th th:text="${account.CLAIM_NAME}">名字</th>
 										<th th:text="${account.CLAIM_PHONE}">手机号码</th>
 										<th th:text="${account.USER_CARD}">身份证</th>
 										<th th:text="${account.BANC_CARD}">银行卡</th>
-										<th th:text="${account.MONEY}">申请时间</th>
-										<th th:text="${account.TRANSFERTIME}">上一级操作人</th>
-										<th th:text="${account.ACCOUNTANT}">金额</th>
-										<th th:text="${account.ACCOUNTANT}">操作</th>
+										<th th:text="${account.TRANSFERTIME}">申请时间</th>
+										<!-- <th th:text="${account.TRANSFERTIME}">上一级操作人</th> -->
+										<th th:text="${account.MONEY}">金额</th>
+										<th th:text="${account.ACCOUNTANT}">操作人</th>
 									</tr>
 									<tbody>
 									</tbody>

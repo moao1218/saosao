@@ -160,7 +160,7 @@ wh
 		<!--sidebar start-->
 
 		<div
-			th:replace="backPage/commons/comm::#sidebar(activeUri='index.html')"></div>
+			th:replace="backPage/commons/comm::#sidebar(activeUri='ToBeCompleted.html')"></div>
 
 		<!--sidebar end-->
 		<!-- **********************************************************************************************************************************************************
@@ -192,7 +192,6 @@ wh
 									<thead>
 										<tr>
 											<th><input type="checkbox" id="check_all"></th>
-											
 											<th>理赔编号</th>
 											<th>保单号</th>
 											<th>姓名</th>
@@ -210,9 +209,7 @@ wh
 
 									<tr th:each="account:${list.list}">
 										<th><input type="checkbox" id="check_item" class="check_ite"></th>
-										
 										<th th:text="${account.CLAIMID}">理赔号</th>
-										
 										<th th:text="${account.POLICUID}">保单号</th>
 										<th th:text="${account.CLAIM_NAME}">名字</th>
 										<th th:text="${account.CLAIM_CARD}">证件号</th>
