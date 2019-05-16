@@ -79,16 +79,29 @@ public class PendingController {
 		
 		for (Claim_List claim_List : lista) {
 			String claim_date = claim_List.getUpper_date();
-			Date parse = sim.parse(claim_date);
-			Long emergencytime=(date.getTime()-parse.getTime())/(1000*3600*24);
-			if(emergencytime<=50) {
-				claim_List.setEmergency("正常");
-			}else if(emergencytime<=80){
-				claim_List.setEmergency("紧急");
+			if(claim_date==null) {
+				String claim_date1= claim_List.getClaim_date();
+				Date parse = sim.parse(claim_date1);
+				Long emergencytime=(date.getTime()-parse.getTime())/(1000*3600*24);
+				if(emergencytime<=50) {
+					claim_List.setEmergency("正常");
+				}else if(emergencytime<=80){
+					claim_List.setEmergency("紧急");
+				}else {
+					claim_List.setEmergency("非常紧急");
+				}
 			}else {
-				claim_List.setEmergency("非常紧急");
+				Date parse = sim.parse(claim_date);
+				Long emergencytime=(date.getTime()-parse.getTime())/(1000*3600*24);
+				if(emergencytime<=50) {
+					claim_List.setEmergency("正常");
+				}else if(emergencytime<=80){
+					claim_List.setEmergency("紧急");
+				}else {
+					claim_List.setEmergency("非常紧急");
+				}
+				System.out.println(emergencytime);
 			}
-			System.out.println(emergencytime);
 			
 		}
 		
@@ -119,25 +132,31 @@ public class PendingController {
 	@PostMapping("/goManage")
 	public String goManage(Claim_List claim,HttpServletRequest request) {
 		Clerk clerk = (Clerk)request.getSession().getAttribute("clerk");
-		
+		Date date=new Date();
+		SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
+		String nowdate=sim.format(date);
 		System.out.println(clerk.getRealname()+"---"+clerk.getJob()+"---"+clerk.getMagid()+"---"+clerk.getRoleid());
 		
 		if (clerk.getRoleid().equals("10")) {//勘查员编号
 			claim.getScout().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.setUpper_date(nowdate);
 			claim.getStatus().setStatusid("17");//待办页面该状态为勘查中
 			
 		} else if (clerk.getRoleid().equals("4")) {//一审员编号
 			claim.getFirst_auditor().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.setUpper_date(nowdate);
 			claim.getStatus().setStatusid("16");//待办页面改状态为待勘查
 		} else if (clerk.getRoleid().equals("5")) {//二审编号
 			claim.getSecond_auditor().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.setUpper_date(nowdate);
 			claim.getStatus().setStatusid("21");//待办页面改状态为二审中
 		} else if (clerk.getRoleid().equals("6")) {//三审编号
 			claim.getThird_auditor().setMagid(clerk.getMagid());
 			claim.getUpper_operator().setMagid(clerk.getMagid());
+			claim.setUpper_date(nowdate);
 			claim.getStatus().setStatusid("24");//待办页面改状态为三审中
 		}
 		

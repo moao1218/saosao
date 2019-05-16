@@ -146,7 +146,11 @@ public class DoingController {
 			 model.addAttribute("items",items);
 			return "backPage/showdoingInfo";
 		}else {
-			model.addAttribute("itemlist",list);
+			if(list.size()==0) {
+				model.addAttribute("verify",new Claim_Verify());
+			}else {
+				model.addAttribute("verify",list.get(0));
+			}
 			return "backPage/doingInfo";
 		}
 	}
