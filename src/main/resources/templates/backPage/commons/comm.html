@@ -33,7 +33,7 @@
 		});
 		</script>
       
-      <div class="top-menu">
+      <div class="top-menu" style="width:1400px;float:right;margin-top:20px">
       	<!-- 天气显示位置 -->
       	<div>
     	<span style="margin-left: 120px;color:white" >您所在的城市 : <span id="tianqi_city" style="color:#4ECDC4" ></span></span>
@@ -46,11 +46,13 @@
     	<span style="color:white" >最高气温 : <span id="tianqi_temphigh" style="color:#4ECDC4" ></span></span>
       	
       	
-        <ul class="nav pull-right top-menu">
+        <ul class="nav pull-right top-menu" style="position:absolute;right:20px;top:0px">
           <li><a class="logout" href="login.html" th:href="@{/logout}" th:text="#{login.logout}">logout</a></li>
         </ul>
+        <div style="clear:both"></div>
       	</div>
       </div>
+      <div style="clear:both"></div>
     </header>
     
     <aside id="sidebar">
@@ -59,7 +61,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered">
           <a href="userinfo.html" th:href="@{/userinfo}">
-          	<img th:src="@{/back/img/ui-pic.jpg}"  class="img-circle" width="80"/>
+          	<img th:src="@{/back/img/ui-pic.jpg}"  class="rounded-circle" width="80"/>
           </a>
           </p>
           <a th:href="@{/userinfo}"><h5 class="centered" th:text="${session.clerk.realname}"></h5></a>

@@ -177,14 +177,14 @@
 					    <span class="input-group-text" id="">会员编号和账号和姓名</span>
 					  </div>
 					  <input type="text" th:value="${claim.users}==null?'':${claim.users.userid}"  class="form-control" readonly>
-					  <input type="text" th:value="${claim.users.username}"  class="form-control" readonly>
-					  <input type="text" th:value="${claim.users.realname}==null?'':${claim.users.realname}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.users}==null?'':${claim.users.username}"  class="form-control" readonly>
+					  <input type="text" th:value="${claim.users}==null?'':${claim.users.realname}"  class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroup-sizing-default">银行卡号</span>
 					  </div>
-					  <input type="text"  th:value="${claim.users.bank_card}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text"  th:value="${claim.users}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
 					</div>
 				
 				

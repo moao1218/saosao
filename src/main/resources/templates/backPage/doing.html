@@ -115,10 +115,13 @@
 			sform.submit();
 	}
 	}
+	function doinginfo(id){
+		location.href="/getclerkdoing/"+id;
+	}
 </script>
 
 </head>
-<body>
+<body style="background-color:#D4EDDA;">
 	<section id="container">
 
 		<div th:replace="backPage/commons/comm::#topbar(activeUri='doing.html')"></div>
@@ -230,14 +233,23 @@
 								    	<td th:text="${claim_list.upper_operator==null?'':claim_list.upper_operator.realname}"></td>
 								    	<td th:text="${claim_list.initial_amount}"></td>
 								    	<td th:text="${claim_list.final_amount}"></td>
-								    	<td><button class="btn btn-success">详情</button></td>
+								    	<td><button class="btn btn-success" th:onclick="doinginfo([[${claim_list.claimid}]])">详情</button></td>
 								    </tr>
 								  </tbody>
 								</table>
 							</div>
 						</div>
 						<!-- 分页 -->
-						<div style="position:relative;top:20px;left:-20px">
+						<div style="position:relative;top:20px;left:-15px;padding-left:40px;">
+						<div style="float:left;background-color:#D4EDDA;">
+							<nav aria-label="breadcrumb"style="background-color:#D4EDDA;">
+							  <ol class="breadcrumb" style="background-color:#D4EDDA;">
+							    <li class="breadcrumb-item active" aria-current="page">第 [[${cp}]]页</li>
+							    <li class="breadcrumb-item active" aria-current="page">总 [[${totalpage}]]页</li>
+							    <li class="breadcrumb-item active" aria-current="page">共搜索 [[${line_count}]]条数据</li>
+							  </ol>
+							</nav>
+						</div>
 						<div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups" style="margin-left:50px">
 						  <div class="btn-group mr-2" role="group" aria-label="First group">
 						  	<button type="button" th:onclick="gopage(1)" class="btn btn-secondary btn-info">&lt&lt</button>
@@ -253,7 +265,9 @@
 						    <button type="button" th:onclick="|gopage('${totalpage}')|" class="btn btn-secondary btn-info">&gt&gt</button>
 						  </div>
 						</div>
+						<div style="clear:both"></div>
 						</div>
+						<div style="clear:both"></div>
 						</div>
 
  

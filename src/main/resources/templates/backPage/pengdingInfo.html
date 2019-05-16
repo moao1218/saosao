@@ -105,12 +105,12 @@
 	} */
 </script>
 </head>
-<body>
+<body style="background-color:#D4EDDA;">
 	<section id="container">
 
-		<div th:replace="backPage/commons/comm::#topbar(activeUri='pengdingInfo.html')"></div>
+		<div th:replace="backPage/commons/comm::#topbar(activeUri='pengding.html')"></div>
 
-		<div th:replace="backPage/commons/comm::#sidebar(activeUri='pengdingInfo.html')"></div>
+		<div th:replace="backPage/commons/comm::#sidebar(activeUri='pengding.html')"></div>
 
 
 		<section id="main-content" >
@@ -181,14 +181,14 @@
 					    <span class="input-group-text" id="">会员编号和账号和姓名</span>
 					  </div>
 					  <input type="text" name="users.userid" th:value="${claim.users}==null?'':${claim.users.userid}"  class="form-control" readonly>
-					  <input type="text" name="users.username" th:value="${claim.users.username}"  class="form-control" readonly>
-					  <input type="text" name="users.realname" th:value="${claim.users.realname}==null?'':${claim.users.realname}"  class="form-control" readonly>
+					  <input type="text" name="users.username" th:value="${claim.users}==null?'':${claim.users.username}"  class="form-control" readonly>
+					  <input type="text" name="users.realname" th:value="${claim.users}==null?'':${claim.users.realname}"  class="form-control" readonly>
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroup-sizing-default">银行卡号</span>
 					  </div>
-					  <input type="text" name="users.bank_card"  th:value="${claim.users.bank_card}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
+					  <input type="text" name="users.bank_card"  th:value="${claim.users}==null?'':${claim.users.bank_card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
 					</div>
 				
 				
@@ -251,7 +251,7 @@
       $("#date-popover").click(function(e) {
         $(this).hide();
       });
-
+ 
       $("#my-calendar").zabuto_calendar({
         action: function() {
           return myDateFunction(this.id, false);

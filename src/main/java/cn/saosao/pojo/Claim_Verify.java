@@ -7,25 +7,28 @@ import java.io.Serializable;
  *
  */
 public class Claim_Verify implements Serializable {
-	private String cla_ver_id; //勘察编号
-	private String item_name;//物品名称
-	private String site_photo;//现场拍摄照片
-	private String third_pic;//第三方证明照片
-	private String user_age;//使用年限
-	private String invoice_pic;//发票图片
-	private String invoice;//发票金额
-	private String mark;//品牌
-	private String itme_model;//型号
-	private String house_no;//房产证号码
-	private String house_pic;//房产证照片
-	private String address;//房屋地址
-	private String building_pic;//房屋照片
-	private String acreage;//房屋面积
-	private String house_market;//房屋市值
-	private String house_age;//房屋使用年限
-	private String completed_date;//房屋竣工时间
-	private String verify_date;//勘察时间
-	private String scout;//勘察员
+	private String cla_ver_id; //勘察编号2
+	private String item_name;//物品名称1
+	//加:物品编号
+	private String site_photo;//现场拍摄照片1
+	private String third_pic;//第三方证明照片1
+	private String user_age;//使用年限1
+	private String invoice_pic;//发票图片1
+	private String invoice;//发票金额1
+	private String mark;//品牌1
+	private String itme_model;//型号1
+	
+	private String house_no;//房产证号码2
+	//加:理赔编号
+	private String house_pic;//房产证照片2
+	private String address;//房屋地址2
+	private String building_pic;//房屋照片2
+	private String acreage;//房屋面积2
+	private String house_market;//房屋市值2
+	private String house_age;//房屋使用年限2
+	private String completed_date;//房屋竣工时间2
+	private String verify_date;//勘察时间1
+	private Clerk scout;//勘察员1
 	private String del_status;//逻辑删除
 	
 	private Items_List items_list; //物品清单对象
@@ -185,11 +188,13 @@ public class Claim_Verify implements Serializable {
 		this.verify_date = verify_date;
 	}
 
-	public String getScout() {
+	
+
+	public Clerk getScout() {
 		return scout;
 	}
 
-	public void setScout(String scout) {
+	public void setScout(Clerk scout) {
 		this.scout = scout;
 	}
 
@@ -207,6 +212,17 @@ public class Claim_Verify implements Serializable {
 
 	public void setItems_list(Items_List items_list) {
 		this.items_list = items_list;
+	}
+
+	@Override
+	public String toString() {
+		return "Claim_Verify [cla_ver_id=" + cla_ver_id + ", item_name=" + item_name + ", site_photo=" + site_photo
+				+ ", third_pic=" + third_pic + ", user_age=" + user_age + ", invoice_pic=" + invoice_pic + ", invoice="
+				+ invoice + ", mark=" + mark + ", itme_model=" + itme_model + ", house_no=" + house_no + ", house_pic="
+				+ house_pic + ", address=" + address + ", building_pic=" + building_pic + ", acreage=" + acreage
+				+ ", house_market=" + house_market + ", house_age=" + house_age + ", completed_date=" + completed_date
+				+ ", verify_date=" + verify_date + ", scout=" + scout + ", del_status=" + del_status + ", items_list="
+				+ items_list + ", claim_list=" + claim_list + "]";
 	}
 	
 	

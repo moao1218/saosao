@@ -75,7 +75,9 @@
 			<if test="first_auditor.magid!=null">first_auditor=#{first_auditor.magid}, </if>
 			<if test="second_auditor.magid!=null">second_auditor=#{second_auditor.magid}, </if>
 			<if test="third_auditor.magid!=null">third_auditor=#{third_auditor.magid}, </if>
-			<if test="upper_opinion!=null">upper_opinion=#{upper_opinion} </if>
+			<if test="upper_opinion!=null">upper_opinion=#{upper_opinion}, </if>
+			<if test="initial_amount!=null">initial_amount=#{initial_amount}, </if>
+			<if test="final_amount!=null">final_amount=#{final_amount} </if>
 		</set>
 		where claimid=#{claimid}
 	</update>

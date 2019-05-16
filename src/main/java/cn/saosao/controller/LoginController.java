@@ -22,11 +22,15 @@ public class LoginController {
 	
 	
 	@PostMapping("/login")
-	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map) {
+	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map,String msg) {
 		Clerk c = clerkServiceImpl.findUserPwd(clerk);
 		if(c==null) {
 			//登录失败
+			if(msg==null) {
 			map.put("msg", "用户名不存在!");
+			}else {
+				map.put("msg", msg);
+			}
 			return "backPage/login";
 		}else {
 			//调用接口类的验证密文方法

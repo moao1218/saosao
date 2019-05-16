@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="cn.saosao.mapper.ItemListMapper">
+	<select id="getlist" parameterType="java.lang.Integer" resultType="cn.saosao.pojo.Items_List">
+		select itemid,item_name,deductible,excess,dep_rate,industry,del_status from items_list where ITEMID=#{itemid}
+	</select>
+</mapper>

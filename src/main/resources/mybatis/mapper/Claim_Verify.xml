@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="cn.saosao.mapper.ClaimVerifyMapper">
+	<sql id="allcolumn">
+		cla_ver_id,itemid,item_name,site_photo,third_pic,user_age,invoice_pic,invoice,mark,
+		itme_model,house_no,house_pic,address,building_pic,acreage,house_market,house_age,completed_date,
+		verify_date,scout,del_status,claimid
+	</sql>
+	
+	<select id="getList" parameterType="java.lang.String" resultMap="claimverify">
+		select <include refid="allcolumn"/> from claim_verify where claimid=#{claimid}
+	</select>
+	
+	<resultMap type="cn.saosao.pojo.Claim_Verify" id="claimverify">
+		<id column="cla_ver_id" property="cla_ver_id"/>
+		<result column="item_name" property="item_name"/>
+		<result column="site_photo" property="site_photo"/>
+		<result column="third_pic" property="third_pic"/>
+		<result column="user_age" property="user_age"/>
+		<result column="invoice_pic" property="invoice_pic"/>
+		<result column="invoice" property="invoice"/>
+		<result column="mark" property="mark"/>
+		<result column="itme_model" property="itme_model"/>
+		<result column="house_no" property="house_no"/>
+		<result column="house_pic" property="house_pic"/>
+		<result column="address" property="address"/>
+		<result column="building_pic" property="building_pic"/>
+		<result column="acreage" property="acreage"/>
+		<result column="house_market" property="house_market"/>
+		<result column="house_age" property="house_age"/>
+		<result column="completed_date" property="completed_date"/>
+		<result column="verify_date" property="verify_date"/>
+		<result column="del_status" property="del_status"/>
+		<collection property="scout" column="scout" ofType="cn.saosao.pojo.Clerk"></collection>
+		<collection property="items_list" column="itemid" ofType="cn.saosao.pojo.Items_List" select="cn.saosao.mapper.ItemListMapper.getlist"></collection>
+		<collection property="claim_list" column="claimid" ofType="cn.saosao.pojo.Claim_List"></collection>
+	</resultMap>
+	
+	<insert id="addClaimVer" parameterType="cn.saosao.pojo.Claim_Verify">
+		<!-- 要更改三个文件上传的name,不能跟实体类一样 -->
+		insert into claim_verify
+		  ( site_photo, third_pic, user_age, invoice, house_no, address, house_pic, acreage, house_market, house_age, verify_date, scout, claimid,del_status)
+		values
+		  ( #{site_photo}, #{third_pic}, #{user_age}, #{invoice}, #{house_no},#{address}, #{house_pic}, #{acreage}, #{house_market}, #{house_age}, #{verify_date}, #{scout.magid}, #{claim_list.claimid},'0')
+	</insert>
+	
+</mapper>

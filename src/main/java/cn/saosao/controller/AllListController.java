@@ -26,6 +26,7 @@ import cn.saosao.service.ICoverageService;
 import cn.saosao.service.IPolicyService;
 import cn.saosao.service.IStatusService;
 import cn.saosao.service.IUsersService;
+import cn.saosao.util.JsonUtil;
 
 @Controller
 public class AllListController {
@@ -42,6 +43,8 @@ public class AllListController {
 	@Autowired
 	ICoverageService iCoverageservice;
 	
+
+	
 	@RequestMapping("/getall")
 	public String allList(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap) throws ParseException {
 		SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
@@ -50,7 +53,7 @@ public class AllListController {
 		model.addAttribute("start_time",start_time);
 		model.addAttribute("end_time",end_time);
 		model.addAttribute("timegap",timegap);
-		
+
 		Map map=new HashMap();
 		Integer ccp;
 		String mintime=null;
