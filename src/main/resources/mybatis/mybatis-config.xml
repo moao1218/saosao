@@ -4,7 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true"/>
-    </settings>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<!-- 分页参数合理 ，没有这个参数的话虽然现实不能点击但是点击还是会跳转到-1页或者大于最大页 -->
+			<property name="reasonable" value="true" />
+		</plugin>
+	</plugins>
 </configuration>

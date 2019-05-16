@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="cn.saosao.mapper.Finance.InsurancePolicyMapper">
+	<sql id="insurance_slip_sql">
+		i.policyid, i.insure_name, i.insure_card, i.area,
+		i.address, i.relation, i.holder_name,
+		i.holder_card, i.holder_sex,
+		i.holder_phone, i.holder_email, i.insure_date,
+		i.first_auditor,
+		i.second_auditor, i.third_auditor, i.insure_status, i.scout,
+		i.scount_status, i.license, i.industry_code, i.acreage, i.firm_name,
+		i.userid,
+		i.premium, i.pol_property, i.del_status, i.paystatus,
+		i.yuliu2
+	</sql>
+
+
+
+	<select id="findAll" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="insurance_slip_sql" />
+		,u.bank_card from insurance_slip i,users u where
+		u.userid=i.userid and
+		paystatus=27
+		<if test="policyid !=null">
+			and policyid like '%${policyid}%'
+		</if>
+		<if test="holder_name!=null">
+			and holder_name like '%${holder_name}%'
+		</if>
+		<if test="holder_card!=null">
+			and holder_card like '%${holder_card}%'
+		</if>
+
+
+	</select>
+
+	<!-- 退款成功之后修改状态为25 -->
+	<update id="updateByidtozhaungtai"
+		parameterType="java.lang.String">
+		update insurance_slip set paystatus = 25 where
+		policyid=${_parameter}
+
+	</update>
+
+	<!-- 根据用户的id查询用户的银行卡 -->
+	<select id="selectuser" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select bank_card from users where userid=${_parameter}
+
+	</select>
+
+	<!-- 根据id查询全部内容 -->
+	<select id="selectByidall" parameterType="java.lang.String"
+		resultType="java.util.Map">
+		select
+		<include refid="insurance_slip_sql" />
+		,u.bank_card from insurance_slip i,users u where
+		u.userid=i.userid and
+		 policyid=${_parameter}
+		 
+	</select>
+<!-- _parameter -->
+</mapper>
+
+
+
+
+

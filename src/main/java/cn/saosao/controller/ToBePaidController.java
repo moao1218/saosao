@@ -1,15 +1,11 @@
 package cn.saosao.controller;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.saosao.pojo.Claim_List;
 import cn.saosao.pojo.Clerk;
 import cn.saosao.service.Finance.DaiZhiFuServer;
 
@@ -46,16 +41,15 @@ public class ToBePaidController {
 		map.put("claimid", null);
 		map.put("name", null);
 		map.put("sfz", null);
+		PageHelper.startPage(adr, 5);
 		List<Map<String, Object>> findall = dzfs.findall(map);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		PageInfo po = new PageInfo(findall, 5);
 		for(int i=0;i<findall.size();i++) {
 			Object object = findall.get(i).get("TRANSFER_FAILED");
 			if(object==null)findall.get(i).put("TRANSFER_FAILED", "");
 			
 		}
-		
-		PageHelper.startPage(adr, 5);
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		PageInfo po = new PageInfo(findall, 5);
 		
 		// 主体信息
 		request.setAttribute("list", po); // 查询的结果
@@ -169,7 +163,7 @@ public class ToBePaidController {
 				map.put("ACCOUNTANT", clerk.getUsername());// 操作人username
 				map.put("TRANSFERTIME", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 操作时间
 				map.put("ACCOUNT_STATUS", "1");// 转态
-				map.put("REMARKS", "");// 备注
+				map.put("REMARKS", "理赔转账支出");// 备注
 				map.put("YULIU", "");// 预留字段
 
 			}
