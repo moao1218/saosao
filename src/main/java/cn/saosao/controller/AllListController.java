@@ -85,6 +85,9 @@ public class AllListController {
 		
 		iClaimListService.getAll(map);
 		List<Status> allStatus = iStatusService.findAllStatus();
+		for (Status status : allStatus) {
+			System.out.println(status);
+		}
 		List<Claim_List> lista = (List)map.get("claim_list");
 		for (Claim_List claim_List : lista) {
 			String claim_date = claim_List.getUpper_date();

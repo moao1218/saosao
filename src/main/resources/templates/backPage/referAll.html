@@ -168,7 +168,7 @@
 								    <label>理赔单状态:</label>
 								    <select class="form-control" id="status" name="status.statusid" style="width:125px;display:inline">
 								      <option th:selected="${statusid==null||statusid==''||statusid=='不限'}" value="">不限</option>
-								      <option th:selected="${statusid==status.statusid}" th:value="${status.statusid}" th:if="${!#strings.startsWith(status.status_name,'保单')}" th:each="status:${allStatus}">[[${status.status_name}]]</option>
+								      <option th:selected="${statusid==statuss.statusid}" th:value="${statuss.statusid}" th:if="${!#strings.startsWith(statuss.status_name,'保单')}" th:each="statuss:${allStatus}">[[${statuss.status_name}]]</option>
 								    </select>
 								  </div>
 								  

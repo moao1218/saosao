@@ -22,5 +22,9 @@ public class Status implements Serializable {
 	public void setStatus_name(String status_name) {
 		this.status_name = status_name;
 	}
+	@Override
+	public String toString() {
+		return "Status [statusid=" + statusid + ", status_name=" + status_name + "]";
+	}
 	
 }

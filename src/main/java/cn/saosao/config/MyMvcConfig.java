@@ -20,11 +20,12 @@ public class MyMvcConfig implements WebMvcConfigurer {
 				  registry.addViewController("/").setViewName("backPage/login");
 				  registry.addViewController("/login.html").setViewName("backPage/login");
 			  } 
-			  @Override
-			public void addInterceptors(InterceptorRegistry registry) {
-				  registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
-				  .excludePathPatterns("/login.html","/login","/webjars/**","/asserts/**","/back/**","/images/**","/upload/**");
-			}
+			/*
+			 * @Override public void addInterceptors(InterceptorRegistry registry) {
+			 * registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
+			 * .excludePathPatterns("/login.html","/login","/webjars/**","/asserts/**",
+			 * "/back/**","/images/**","/upload/**"); }
+			 */
 		  };
 		  return adapter;
 	  }
