@@ -27,7 +27,6 @@ import cn.saosao.service.IPolicyService;
 import cn.saosao.service.IStatusService;
 import cn.saosao.service.IUsersService;
 import cn.saosao.util.JsonUtil;
-import cn.saosao.util.RedisUtil;
 
 @Controller
 public class AllListController {
@@ -44,8 +43,7 @@ public class AllListController {
 	@Autowired
 	ICoverageService iCoverageservice;
 	
-	@Autowired
-	private RedisUtil redisUtil;
+
 	
 	@RequestMapping("/getall")
 	public String allList(Model model,Claim_List claim,String cp,String start_time,String end_time,String timegap) throws ParseException {
@@ -55,7 +53,7 @@ public class AllListController {
 		model.addAttribute("start_time",start_time);
 		model.addAttribute("end_time",end_time);
 		model.addAttribute("timegap",timegap);
-		redisUtil.set("", "",60000);
+
 		Map map=new HashMap();
 		Integer ccp;
 		String mintime=null;
