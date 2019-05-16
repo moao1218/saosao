@@ -106,6 +106,9 @@ public class DoingController {
 				}
 				
 			}
+			
+			
+			
 			BigDecimal line_count=(BigDecimal) map.get("v_count");
 			BigDecimal totlepage=(BigDecimal)map.get("totlepage");
 			model.addAttribute("cp",ccp);
@@ -127,6 +130,11 @@ public class DoingController {
 		List<Claim_List> c = (List)map.get("claim_list");
 		model.addAttribute("claim", c.get(0));
 		Clerk clerk = (Clerk)session.getAttribute("clerk");
+		List<Claim_Verify> list = iClaimVerifyService.getList(claimid);
+		System.out.println("列表长度"+list.size());
+		for (Claim_Verify claim_Verify : list) {
+			System.out.println(claim_Verify);
+		}
 		//--------------------------------------------------------------
 		System.out.println(clerk);
 		if(clerk.getRoleid().equals("10")){
