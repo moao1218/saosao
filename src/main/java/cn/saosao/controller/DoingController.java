@@ -118,7 +118,7 @@ public class DoingController {
 			model.addAttribute("allStatus",allStatus);
 
 			return "backPage/doing";
-	}
+	}   
 	@GetMapping("/getclerkdoing/{id}")
 	public String getClerkById(@PathVariable("id") String claimid,Map<String,Object> map,Model model,HttpSession session) {
 		Integer cp=1;
@@ -130,16 +130,23 @@ public class DoingController {
 		List<Claim_List> c = (List)map.get("claim_list");
 		model.addAttribute("claim", c.get(0));
 		Clerk clerk = (Clerk)session.getAttribute("clerk");
+
 		List<Claim_Verify> list = iClaimVerifyService.getList(claimid);
 		System.out.println("列表长度"+list.size());
 		for (Claim_Verify claim_Verify : list) {
 			System.out.println(claim_Verify);
 		}
+
+	
+
 		//--------------------------------------------------------------
 		System.out.println(clerk);
 		if(clerk.getRoleid().equals("10")){
+			 List<Items> items = pvServiceImpl.findAllItems();
+			 model.addAttribute("items",items);
 			return "backPage/showdoingInfo";
 		}else {
+			model.addAttribute("itemlist",list);
 			return "backPage/doingInfo";
 		}
 	}
@@ -256,13 +263,13 @@ public class DoingController {
 	  }
 	 
 	  @PostMapping(value="/insertPv")
-		public void insertPv(Pv pv,HttpServletRequest request) {
+		public String insertPv(Pv pv,HttpServletRequest request) {
 		  
 			Map<String,Object> map = new HashMap<String,Object>();
 			
 			Items items = new Items();
 			
-			pv.setScout(pv.getScout());
+			pv.setVerify_scout(pv.getVerify_scout());
 			pv.setDel_status("0");
 		
 			MultipartRequest req = (MultipartRequest) request;	
@@ -318,12 +325,12 @@ public class DoingController {
 			}
 //			List<Items> items = pvService.findAllItems();
 //			model.addAttribute("items", items);
-//			return "redirect:/doing";
+			return "redirect:/doing";
 		}
 	
 	
 	@PostMapping("/showfile") 
-	public String showfile( Claim_Verify cla_ver,Claim_List claim, HttpServletRequest request) {
+	public String showfile( Claim_Verify cla_ver,Claim_List claim, HttpServletRequest request,Pv pv) {
 		  Date date = new Date();
 		  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		  String times = sdf.format(date);
@@ -336,6 +343,69 @@ public class DoingController {
 		claim.getUpper_operator().setMagid(clerk.getMagid());
 		claim.getStatus().setStatusid("18");//勘查中页面该状态为勘查借宿
 		iClaimListService.updateClaim(claim);
+		
+		//--------------------------------------------------------------------------------------------------
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		Items items = new Items();
+		
+		pv.setVerify_scout(pv.getVerify_scout());
+		pv.setDel_status("0");
+	
+		MultipartRequest req = (MultipartRequest) request;	
+		MultipartFile h_pic = req.getFile("h_pic");
+		MultipartFile bu_pic = req.getFile("bud_pic");
+		if(h_pic!=null) {
+			String house_pic = InterfaceUtil.upload(request, h_pic);
+			pv.setHouse_pic(house_pic);
+		}
+		if(bu_pic!=null) {
+			String building_pic = InterfaceUtil.upload(request, bu_pic);
+			pv.setBuilding_pic(building_pic);
+		}
+		
+		
+		String num = request.getParameter("num");
+		System.out.println("num:"+num);
+		for (int i = 1; i < Integer.parseInt(num); i++) {
+			long currentTimeMillis = System.currentTimeMillis();
+			int r = new Random().nextInt(8999)+1000;
+			pv.setCla_ver_id(""+currentTimeMillis+r);
+			
+			if(req.getFile("a_pic"+i)!=null) {
+				String site_photo = InterfaceUtil.upload(request, req.getFile("a_pic"+i));
+				items.setSite_photo(site_photo);
+			}
+			
+			if(req.getFile("b_pic"+i)!=null) {
+				String third_pic = InterfaceUtil.upload(request, req.getFile("b_pic"+i));
+				items.setThird_pic(third_pic);
+			}
+			if(req.getFile("c_pic"+i)!=null) {
+				String invoice_pic = InterfaceUtil.upload(request, req.getFile("c_pic"+i));
+				items.setInvoice_pic(invoice_pic);
+			}
+			String itemid = request.getParameter("a"+i);
+			String user_age = request.getParameter("b"+i);
+			String invoice = request.getParameter("c"+i);
+			String mark = request.getParameter("d"+i);
+			String itme_model = request.getParameter("e"+i);
+			
+			items.setItemid(Integer.parseInt(itemid));
+			System.out.println(items.getItemid());
+			items.setUser_age(user_age);
+			items.setInvoice(invoice);
+			items.setMark(mark);
+			items.setItme_model(itme_model);
+			System.out.println("aaaaaaaaaaa:"+items);
+			map.put("pv", pv);
+			map.put("items", items);
+			
+			boolean insertPv = pvServiceImpl.insertPv(map);
+		}
+//		List<Items> items = pvService.findAllItems();
+//		model.addAttribute("items", items);
+		
 		return "redirect:/doing";
 	}
 	

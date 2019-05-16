@@ -16,7 +16,7 @@ public class Pv implements Serializable {
 	private String house_age; //房屋使用年限
 	private String completed_date; //房屋竣工时间
 	private String verify_date; //勘察时间
-	private String scout; //勘察员
+	private String verify_scout; //勘察员
 	private String del_status;
 	public String getCla_ver_id() {
 		return cla_ver_id;
@@ -84,11 +84,12 @@ public class Pv implements Serializable {
 	public void setVerify_date(String verify_date) {
 		this.verify_date = verify_date;
 	}
-	public String getScout() {
-		return scout;
+	
+	public String getVerify_scout() {
+		return verify_scout;
 	}
-	public void setScout(String scout) {
-		this.scout = scout;
+	public void setVerify_scout(String verify_scout) {
+		this.verify_scout = verify_scout;
 	}
 	public String getDel_status() {
 		return del_status;

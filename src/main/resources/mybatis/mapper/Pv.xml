@@ -11,7 +11,7 @@
 		  #{items.user_age}, #{items.invoice_pic}, #{items.invoice}, #{items.mark}, 
 		  #{items.itme_model},  #{pv.house_pic}, #{pv.address}, #{pv.building_pic}, 
 		  #{pv.acreage}, #{pv.house_market}, #{pv.house_age}, #{pv.completed_date}, 
-		  #{pv.verify_date}, #{pv.scout}, #{pv.del_status}, #{pv.claimid})
+		  #{pv.verify_date}, #{pv.verify_scout}, #{pv.del_status}, #{pv.claimid})
 	</insert>
 	
 	
