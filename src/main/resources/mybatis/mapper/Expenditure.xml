@@ -70,7 +70,7 @@ a.accountid,
 </select>
 
 <select id="findcount" resultType="java.lang.Integer">
-select count(0) from account a,claim_list c where a.claimid=c.claimid
+select count(0) from account a left join claim_list c on a.claimid=c.claimid
 </select>
 
 
