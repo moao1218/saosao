@@ -52,6 +52,9 @@ public class CompletedController {
 		if (adree <= 0)
 			adree = 1;
 		int findcount = exs.findcount();// 获取总数据
+		Object attribute =  request.getSession().getAttribute("zongyeshu");
+		if(attribute!=null)
+		findcount=Integer.valueOf(attribute+"");
 		if (findcount % 5 != 0) {// 不等于0就是总数据不是五的整数
 			findcount = findcount / 5 + 1;
 		} else {
@@ -137,9 +140,30 @@ System.out.println();
 
 		// 获得每页五个的数据，就是中间显示的物体
 		List<Map<String, Object>> finAll = exs.finAll(m);
+		for (int i = 0; i < finAll.size(); i++) {
+			if (finAll.get(i).get("CLAIMID") == null) {
+				finAll.get(i).put("CLAIMID", "");
+			}
+			if (finAll.get(i).get("POLICYID") == null) {
+				finAll.get(i).put("POLICYID", "");
+			}
+			if (finAll.get(i).get("CLAIM_NAME") == null) {
+				finAll.get(i).put("CLAIM_NAME", "");
+			}
+			if (finAll.get(i).get("CLAIM_PHONE") == null) {
+				finAll.get(i).put("CLAIM_PHONE", "");
+			}
+			
+			for (Entry<String, Object> m1 : finAll.get(i).entrySet()) {
+				System.out.print(m1.getKey() + "::" + m1.getValue()+"  ");
+			}
+System.out.println();
+		}
 		Object object = m.get("zys");
 		Integer zys = Integer.valueOf(object.toString());
-
+		//添加总页数
+		request.getSession().setAttribute("zongyeshu", zys);
+		
 		request.setAttribute("accountlist", finAll);
 
 		// 获取右下角的页码
@@ -159,26 +183,40 @@ System.out.println();
 	 * @return
 	 */
 	public FenYe huoqu2(int zsj) {
+		int adress=1;
 		int zys = 0;
 		if (zsj % 5 != 0) {// 不等于0就是总数据不是五的整数
 			zys = zsj / 5 + 1;
 		} else {
-			zys /= 5;
+			zys =zsj/5;
 		}
 		FenYe f = new FenYe();
 		f.setXsh(5);// 行数据
 		f.setZsj(zsj);// 总数据
-		f.setIsshang(false);// 是否有上一行
-		f.setIsxia(true);
-		f.setDangqian(1);
+		if (adress == 1)
+			f.setIsshang(false);// 是否有上一行
+		else
+			f.setIsshang(true);// 是否有上一行
+		if (adress == zys)
+			f.setIsxia(false);// 是否有下一行
+		else
+			f.setIsxia(true);// 是否有下一行
+		f.setDangqian(adress);
 		f.setZong(zys);// 总页数
 		f.setZsj(zsj);// 总数据
 		List<Integer> list = new ArrayList<Integer>();
-		for (int i = 1; i <= zys; i++) {
-			list.add(i);
+		if (adress - 2 > 0) { // 1,2,3,4,5
+			int a = adress - 2;	//小于的情况
+			if(adress+2>zys) a=zys-4;//大于的情况
+			for (int i = 1, j = a; i <= 5 && j <= zys; i++, j++) {
+				list.add(j);
+			}
+		} else {// 123
+			for (int i = 1, j = 1; i <= 5 && j <= zys; i++, j++) {
+				list.add(i);
+			}
 		}
 		f.setLie(list);
-
 		return f;
 	}
 
@@ -213,6 +251,7 @@ System.out.println();
 		if (adress - 2 > 0) { // 1,2,3,4,5
 			int a = adress - 2;	//小于的情况
 			if(adress+2>zys) a=zys-4;//大于的情况
+			if(a<=0)a=1;//因为 上一步减4之后 可能a的值可能小于0
 			for (int i = 1, j = a; i <= 5 && j <= zys; i++, j++) {
 				list.add(j);
 			}
