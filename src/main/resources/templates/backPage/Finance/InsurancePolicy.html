@@ -213,7 +213,7 @@ wh
 										<th th:text="${account.POLICYID}">投保单</th>
 										<th th:text="${account.HOLDER_NAME}">投保人姓名</th>
 										<th th:text="${account.HOLDER_CARD}">投保人证件号</th>
-										<th th:text="${account.HOLDER_SEX}">投保人性别</th>
+										<th th:text="${account.HOLDER_SEX}==0?'男':'女'">投保人性别</th>
 										<th th:text="${account.HOLDER_PHONE}">投保人手机号码</th>
 										<th th:text="${account.INSURE_DATE}">投保日期</th>
 										<th th:text="${account.SECOND_AUDITOR}">投保单二审人</th>

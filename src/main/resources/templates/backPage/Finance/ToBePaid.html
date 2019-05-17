@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- 
 查看带支出的
+查看未完成的理赔单
 wh
  -->
 <head lang="en">
@@ -243,7 +244,7 @@ wh
 										th:href="@{ToBeCompleted(adr=${a})}" th:text="${a}"></a></li>
 
 									<li th:class="${list.hasNextPage==false?'disabled':''}"><a
-										th:href="@{ToBeCompleted(adr=${list.nextPage})}"
+										th:href="@{ToBeCompleted(adr=${list.pageNum+1})}"
 										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 									</a></li>
 								</ul>

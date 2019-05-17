@@ -193,7 +193,7 @@ System.out.println();
 		if (zsj % 5 != 0) {// 不等于0就是总数据不是五的整数
 			zys = zsj / 5 + 1;
 		} else {
-			zys /= 5;
+			zys =zsj/5;
 		}
 		FenYe f = new FenYe();
 		f.setXsh(5);// 行数据
