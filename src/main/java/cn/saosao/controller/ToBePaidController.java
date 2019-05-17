@@ -215,8 +215,14 @@ public class ToBePaidController {
 			if (findByid.get(i).get("FINAL_DATE") == null)
 				findByid.get(i).put("FINAL_DATE", "");// 转账结束时间
 			if (findByid.get(i).get("TRANSFER_FAILED") == null)
-				findByid.get(i).put("TRANSFER_FAILED", "");// 转账结束时间
-
+				findByid.get(i).put("TRANSFER_FAILED", "");// 转账失败原因
+			if (findByid.get(i).get("THIRD_AUDITOR") == null)
+				findByid.get(i).put("THIRD_AUDITOR", "");// 三审操作人
+			if (findByid.get(i).get("SECOND_AUDITOR") == null)
+				findByid.get(i).put("SECOND_AUDITOR", "");// 二审操作人
+			if (findByid.get(i).get("SCOUT") == null)
+				findByid.get(i).put("SCOUT", "");// 勘察操作人
+			
 			for (Entry<String, Object> entrySet : findByid.get(i).entrySet()) {
 				System.out.print(entrySet.getKey() + ":" + entrySet.getValue() + "  ");
 			}
