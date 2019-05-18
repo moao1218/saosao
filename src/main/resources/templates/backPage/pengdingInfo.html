@@ -103,6 +103,12 @@
 		location.href="/goManage/"+id;
 		fom.action="/goManage";
 	} */
+	function submit(){
+		var r=confirm("确认受理？");
+		if(r){
+			fom.submit();
+		}
+	}
 </script>
 </head>
 <body style="background-color:#D4EDDA;">
@@ -210,10 +216,10 @@
 					  </div>
 					  <textarea class="form-control " name="transfer_failed" aria-label="With textarea" readonly>[[${claim.transfer_failed}]]</textarea>
 					</div>
-					<button type="submit" class="btn btn-round btn-primary" >受理</button>
-					<!-- th:onclick="goManage([[${claim.claimid}]]) -->
-					<button type="button" class="btn btn-round btn-info pull-right" th:onclick="goback()">返回</button>
 					
+					<span onclick="submit()" class="btn btn-round btn-primary" >受理</span>
+					<!-- th:onclick="goManage([[${claim.claimid}]]) -->
+					<span class="btn btn-round btn-info pull-right" th:onclick="goback()">返回</span>
 				</div>
 				</form>
 			</section>

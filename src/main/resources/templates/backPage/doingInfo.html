@@ -106,11 +106,18 @@
 	}
 	function end(status){
 		if(status=="success"){
-			fom.doingstatus.value="success";
-			fom.submit();
+			var r=confirm("确认通过？");
+			if(r==true){
+				fom.doingstatus.value="success";
+				fom.submit();
+			}
 		}else{
-			fom.doingstatus.value="failer";
-			fom.submit();
+			var r=confirm("确认不通过？");
+			if(r==true){
+				fom.doingstatus.value="failer";
+				fom.submit();
+			}
+			
 		}
 	}
 	$(function (){
