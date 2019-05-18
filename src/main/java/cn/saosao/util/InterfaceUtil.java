@@ -83,7 +83,7 @@ public class InterfaceUtil {
 		String ul ="";
 		try {
 		    /*String realpath = request.getSession().getServletContext().getRealPath("/upload");*/
-			String realpath = "C:\\Users\\Administrator\\Desktop\\我的项目\\saosao\\src\\main\\resources\\static\\upload";
+			String realpath = "C:\\Users\\THINK\\git\\saosao\\src\\main\\resources\\static\\upload";
 			String oldname = pic.getOriginalFilename();
 			System.out.println("oldname:"+oldname);
 			String endname = oldname.substring(oldname.lastIndexOf("."));

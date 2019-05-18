@@ -260,8 +260,8 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">现场图片</span>
 					  </div>
-					  <div><img src="" id="imghouse" th:if="${verify.site_photo!=null}"></div>
-					  <input type="hidden" th:value="${verify.site_photo}" id="path">
+					  <div><img th:src="${verify.site_photo}" id="imghouse" th:if="${verify.site_photo!=null}"></div>
+					  <!-- <input type="hidden" th:value="${verify.site_photo}" id="path"> -->
 					  <input type="text" value="暂无图片" th:if="${verify.site_photo==null}" class="form-control" readonly/>
 					</div>
 					</form>

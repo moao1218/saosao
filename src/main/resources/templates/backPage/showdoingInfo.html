@@ -115,11 +115,11 @@
 	//查询所有清单
 	function change(object){
 		$.post("/findAllItems",{},function(data){
-			$(".itemlist:gt(1)").remove();
+			//$(".itemlist:gt(1)").remove();
 			 $.each(data,function(i,n){
 				$(object).append("<option value='"+n.itemid+"'>"+n.item_name+"</option>");
         	 });
-			 
+			 $(object).prop("onclick",null).off("click");//点击第一次的时候显示出数据,之后第二次开始就让点击事件失效
 		},"json");
  	}
 	//追加行
@@ -135,7 +135,8 @@
              "</div></div></div></td><td ><input type='text' class='form-control' name='c"+n+"'></td><td ><input type='text' class='form-control' name='d"+n+"'></td><td ><input type='text' class='form-control' name='e"+n+"'></td></tr>"
              );
 		n++;
-		myform.num.value=n;
+		fom.num.value=n;
+		
 	}
 	function sub(){
 		var r=confirm("确认提交？");
@@ -159,6 +160,8 @@
 			<section class="wrapper" >
 			
 				<form th:action="@{/showfile}" method="POST" name="fom" enctype="multipart/form-data" >
+			
+				
 				<div class="container" style="margin-top:50px;">
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
@@ -244,7 +247,7 @@
 				<!-- </form>	
 					
 				<form th:action="@{/insertPv}" method="post" enctype="multipart/form-data" id="myform" name="myform"> -->
-					<input type="hidden" value="2"  id="num" name="num">
+					
 					<!-- table -->
 					
 					<table class="table table-striped">
@@ -303,6 +306,10 @@
 						    </tr>
 						  </tbody>
 						  
+						  <input type="hidden" th:value="${claim.claimid}" name="claimid"/>
+						  <input type="hidden" name="item_name">
+						  <input type="hidden" value="2"  id="num" name="num">
+						  
 						  <thead>
 						    <tr> 
 						      <th scope="col">物品名称</th>
@@ -313,12 +320,11 @@
 						      <th scope="col">发票金额</th>
 						      <th scope="col">品牌</th>
 						      <th scope="col">型号</th>
-						     <!--  <th> <button type="button" class="btn btn-round btn-success "  th:onclick="addRow()">添加</button></th> -->
+						      <th> <button type="button" class="btn btn-round btn-success "  th:onclick="addRow()">添加</button></th>
 						    </tr>
 						  </thead>
 						  
-						  <input type="hidden" th:value="${claim.claimid}" name="claimid"/>
-						  <input type="hidden" name="item_name">
+						  
 						  <tbody id="tbody1">
 						    <tr>
 						    	<td>

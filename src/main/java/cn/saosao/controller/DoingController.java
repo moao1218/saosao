@@ -357,16 +357,7 @@ public class DoingController {
 		pv.setDel_status("0");
 	
 		MultipartRequest req = (MultipartRequest) request;	
-		MultipartFile h_pic = req.getFile("h_pic");
-		MultipartFile bu_pic = req.getFile("bud_pic");
-		if(h_pic!=null) {
-			String house_pic = InterfaceUtil.upload(request, h_pic);
-			pv.setHouse_pic(house_pic);
-		}
-		if(bu_pic!=null) {
-			String building_pic = InterfaceUtil.upload(request, bu_pic);
-			pv.setBuilding_pic(building_pic);
-		}
+		
 		
 		
 		String num = request.getParameter("num");
@@ -376,18 +367,32 @@ public class DoingController {
 			int r = new Random().nextInt(8999)+1000;
 			pv.setCla_ver_id(""+currentTimeMillis+r);
 			
+			MultipartFile h_pic = req.getFile("h_pic");
+			MultipartFile bu_pic = req.getFile("bud_pic");
+			if(h_pic!=null) {
+				String house_pic = InterfaceUtil.upload(request, h_pic);
+				pv.setHouse_pic(house_pic);
+			}
+			if(bu_pic!=null) {
+				String building_pic = InterfaceUtil.upload(request, bu_pic);
+				pv.setBuilding_pic(building_pic);
+			}
+			
 			if(req.getFile("a_pic"+i)!=null) {
 				String site_photo = InterfaceUtil.upload(request, req.getFile("a_pic"+i));
 				items.setSite_photo(site_photo);
+				System.out.println("items.getSite_photo:"+items.getSite_photo());
 			}
 			
 			if(req.getFile("b_pic"+i)!=null) {
 				String third_pic = InterfaceUtil.upload(request, req.getFile("b_pic"+i));
 				items.setThird_pic(third_pic);
+				System.out.println("items.getThird_pic:"+items.getThird_pic());
 			}
 			if(req.getFile("c_pic"+i)!=null) {
 				String invoice_pic = InterfaceUtil.upload(request, req.getFile("c_pic"+i));
 				items.setInvoice_pic(invoice_pic);
+				System.out.println("items.getInvoice_pic:"+items.getInvoice_pic());
 			}
 			String itemid = request.getParameter("a"+i);
 			String user_age = request.getParameter("b"+i);
@@ -397,7 +402,9 @@ public class DoingController {
 			
 			items.setItemid(Integer.parseInt(itemid));
 			System.out.println(items.getItemid());
-			items.setItem_name(cla_ver.getItem_name());
+			//根据编号查出物品名称
+			Items item = iItemsListService.findItemById(items.getItemid());
+			items.setItem_name(item.getItem_name());
 			items.setUser_age(user_age);
 			items.setInvoice(invoice);
 			items.setMark(mark);
@@ -408,8 +415,7 @@ public class DoingController {
 			
 			boolean insertPv = pvServiceImpl.insertPv(map);
 		}
-//		List<Items> items = pvService.findAllItems();
-//		model.addAttribute("items", items);
+
 		
 		return "redirect:/doing";
 	}
