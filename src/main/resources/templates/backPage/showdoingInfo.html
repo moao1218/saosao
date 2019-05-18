@@ -138,7 +138,8 @@
 		myform.num.value=n;
 	}
 	function sub(){
-
+		var item_name=$("#inputState").find("option:selected").text();
+		fom.item_name.value=item_name;
 		fom.submit();
 	}
 </script>
@@ -314,7 +315,7 @@
 						  </thead>
 						  
 						  <input type="hidden" th:value="${claim.claimid}" name="claimid"/>
-						  
+						  <input type="hidden" name="item_name">
 						  <tbody id="tbody1">
 						    <tr>
 						    	<td>

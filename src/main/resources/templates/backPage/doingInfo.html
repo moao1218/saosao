@@ -258,8 +258,8 @@
 					  <input type="text" value="暂无图片" th:if="${verify.site_photo==null}" class="form-control" readonly/>
 					</div>
 					</form>
-					<span class="btn btn-round btn-success" th:onclick="end('success')">通过</span>
-					<span class="btn btn-round btn-danger" th:onclick="end('failer')">不通过</span>
+					<span th:if="${!(clerk.roleid=='4'&&(claim.status.statusid=='16'||claim.status.statusid=='17'))}" class="btn btn-round btn-success" th:onclick="end('success')">通过</span>
+					<span th:if="${!(clerk.roleid=='4'&&(claim.status.statusid=='16'||claim.status.statusid=='17'))}" class="btn btn-round btn-danger" th:onclick="end('failer')">不通过</span>
 					<span class="btn btn-round btn-info pull-right" th:onclick="goback()">返回</span>
 				</div>
 			</section>

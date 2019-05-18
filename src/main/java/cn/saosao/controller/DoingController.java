@@ -130,7 +130,7 @@ public class DoingController {
 		List<Claim_List> c = (List)map.get("claim_list");
 		model.addAttribute("claim", c.get(0));
 		Clerk clerk = (Clerk)session.getAttribute("clerk");
-
+		model.addAttribute("clerk",clerk);
 		List<Claim_Verify> list = iClaimVerifyService.getList(claimid);
 		System.out.println("列表长度"+list.size());
 		for (Claim_Verify claim_Verify : list) {
@@ -397,6 +397,7 @@ public class DoingController {
 			
 			items.setItemid(Integer.parseInt(itemid));
 			System.out.println(items.getItemid());
+			items.setItem_name(cla_ver.getItem_name());
 			items.setUser_age(user_age);
 			items.setInvoice(invoice);
 			items.setMark(mark);
