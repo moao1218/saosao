@@ -3,11 +3,11 @@
 <mapper namespace="cn.saosao.mapper.PvMapper">
 	<insert id="insertPv" parameterType="java.util.Map">
 		insert into claim_verify
-		  (cla_ver_id, itemid,  site_photo, third_pic, user_age, invoice_pic, invoice, 
+		  (cla_ver_id, itemid, item_name ,site_photo, third_pic, user_age, invoice_pic, invoice, 
 		  mark, itme_model, house_pic, address, building_pic, acreage, house_market, house_age, 
 		  completed_date, verify_date, scout, del_status,claimid)
 		values
-		  (#{pv.cla_ver_id}, #{items.itemid},  #{items.site_photo}, #{items.third_pic}, 
+		  (#{pv.cla_ver_id}, #{items.itemid}, #{items.item_name} ,#{items.site_photo}, #{items.third_pic}, 
 		  #{items.user_age}, #{items.invoice_pic}, #{items.invoice}, #{items.mark}, 
 		  #{items.itme_model},  #{pv.house_pic}, #{pv.address}, #{pv.building_pic}, 
 		  #{pv.acreage}, #{pv.house_market}, #{pv.house_age}, #{pv.completed_date}, 
