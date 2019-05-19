@@ -96,6 +96,9 @@ public class CompletedController {
 			if (finAll.get(i).get("CLAIM_PHONE") == null) {
 				finAll.get(i).put("CLAIM_PHONE", "");
 			}
+			if (finAll.get(i).get("REMARKS") == null) {
+				finAll.get(i).put("REMARKS", "");
+			}
 			
 			for (Entry<String, Object> m1 : finAll.get(i).entrySet()) {
 				System.out.print(m1.getKey() + "::" + m1.getValue()+"  ");
@@ -153,7 +156,9 @@ System.out.println();
 			if (finAll.get(i).get("CLAIM_PHONE") == null) {
 				finAll.get(i).put("CLAIM_PHONE", "");
 			}
-			
+			if (finAll.get(i).get("REMARKS") == null) {
+				finAll.get(i).put("REMARKS", "");
+			}
 			for (Entry<String, Object> m1 : finAll.get(i).entrySet()) {
 				System.out.print(m1.getKey() + "::" + m1.getValue()+"  ");
 			}

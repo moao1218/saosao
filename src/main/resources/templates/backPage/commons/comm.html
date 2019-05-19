@@ -72,44 +72,44 @@
             </a>
           </li>
          
-          <li class="sub-menu">
+          <li class="sub-menu" th:if="${session.clerk.roleid}!='7'">
             <a th:href="@{/getall}" th:class="${activeUri=='referAll.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>理赔清单</span>
             </a>
           </li>
-          <li class="sub-menu">
+          <li class="sub-menu" th:if="${session.clerk.roleid}!='7'">
             <a th:href="@{/pending}" th:class="${activeUri=='pending.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>待办清单</span>
             </a>
           </li>
-          <li class="sub-menu">
+          <li class="sub-menu" th:if="${session.clerk.roleid}!='7'">
             <a th:href="@{/doing}" th:class="${activeUri=='doing.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>正在办理</span>
             </a>
           </li>
-          <li class="sub-menu">
+          <li class="sub-menu" th:if="${session.clerk.roleid}!='7'">
             <a th:href="@{/history}" th:class="${activeUri=='history.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>已办清单</span>
             </a>
           </li>
           
-          <li class="sub-menu ">
+          <li class="sub-menu " th:if="${session.clerk.roleid}=='7'">
             <a href="Completed?adree=-1" th:class="${activeUri=='Completed.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>查看已完成理赔单</span>
             </a>
           </li>
-          <li class="sub-menu">
+          <li class="sub-menu" th:if="${session.clerk.roleid}=='7'">
             <a href="ToBeCompleted" th:class="${activeUri=='ToBeCompleted.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>查看未完成理赔单</span>
             </a>
           </li>
-           <li class="sub-menu">
+           <li class="sub-menu" th:if="${session.clerk.roleid}=='7'">
             <a href="InsurancePolicy?red=1" th:class="${activeUri=='InsurancePolicy.html'?'dcjq-parent active':'dcjq-parent'}">
               <i class="fa fa-cogs"></i>
               <span>处理未完成的保单</span>
