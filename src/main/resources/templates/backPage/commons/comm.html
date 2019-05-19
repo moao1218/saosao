@@ -64,7 +64,7 @@
           	<img th:src="@{/back/img/ui-pic.jpg}"  class="rounded-circle" width="80"/>
           </a>
           </p>
-          <a th:href="@{/userinfo}"><h5 class="centered" th:text="${session.clerk.realname}"></h5></a>
+          <a th:href="@{/userinfo}"><h5 class="centered" >[[${session.clerk.realname}]]([[${session.clerk.job}]])</h5></a>
           <li class="mt">
             <a class="active" th:href="@{/index}" th:class="${activeUri=='index.html'?'active':''}">
               <i class="fa fa-dashboard"></i>

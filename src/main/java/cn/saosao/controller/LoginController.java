@@ -22,7 +22,7 @@ public class LoginController {
 	
 	
 	@PostMapping("/login")
-	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map,String msg) {
+	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map,String msg,Model model) {
 		Clerk c = clerkServiceImpl.findUserPwd(clerk);
 		if(c==null) {
 			//登录失败
@@ -38,6 +38,7 @@ public class LoginController {
 			if(flagPwd) {
 				Clerk cler = clerkServiceImpl.checkLogin(clerk); 
 				request.getSession().setAttribute("clerk", cler);
+//				model.addAttribute("clerk", c);
 				return "backPage/index";
 			}else {
 				//登录失败
