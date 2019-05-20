@@ -96,6 +96,7 @@
 }
 </style>
 <script>
+	
 	function goback(){
 		location.href="/doing";
 	}
@@ -124,7 +125,35 @@
 		var path=$("#path").val();
 		console.log(path);
 		$("#imghouse").attr("src","/"+path);
-	})
+	});
+	
+	
+</script>
+<script>
+ function checkidrr(){
+	var id=$("#idcard").val();
+	var realname=$("#realname").val();
+	$.post("/checkid",{"id":id,"realname":realname},function(data){
+		var status=data.status;
+		console.log(status);
+		console.log(data);
+		/* if(status=="01"){
+			$("#checkidpass").css("display":"block","color":"green");
+			$("#checkid").css("display","none");
+		}else{
+			$("#checkidnotpass").css("display":"block","color":"red"));
+			$("#checkid").css("display","hidden");
+		} */
+		if(data=="01"){
+			$("#checkid").css("display","none");
+			$("#checkidpass").css("display","block");
+		}else{
+			$("#checkid").css("display","none");
+			$("#checkidnotpass").css("display","block");
+		}
+		
+	},"json");
+}
 </script>
 </head>
 <body style="background-color:#D4EDDA;">
@@ -155,7 +184,7 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">姓名和申请时间和结束时间</span>
 					  </div>
-					  <input type="text" name="claim_name" th:value="${claim.claim_name}"  class="form-control" readonly>
+					  <input type="text" name="claim_name" th:value="${claim.claim_name}" id="realname"  class="form-control" readonly>
 					  <input type="text" name="claim_date" th:value="${claim.claim_date}"  class="form-control" readonly>
 					  <input type="text" name="final_date" th:value="${claim.final_date}"  class="form-control" readonly>
 					</div>
@@ -164,8 +193,12 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="">证件号码和电话号码</span>
 					  </div>
-					  <input type="text" name="claim_card" th:value="${claim.claim_card}" class="form-control" readonly>
+					  <input type="text" name="claim_card" th:value="${claim.claim_card}" class="form-control" id="idcard" readonly>
 					  <input type="text" name="claim_phone" th:value="${claim.claim_phone}" class="form-control" readonly>
+					  <span onclick="checkidrr()" id="checkid" class="btn btn-info" th:if="session.clerk.roleid==4">验证</span>
+					  <span id="checkidpass" style="display:none" class="btn btn-dangers">通过</span>
+					  <span id="checkidnotpass" style="display:none" class="btn btn-success">不通过</span>
+					  
 					</div>
 					
 					<div class="input-group mb-3">
@@ -208,7 +241,7 @@
 					  </div>
 					  <input type="text" name="users.userid"  th:value="${claim.users}==null?'':${claim.users.userid}"  class="form-control" readonly />
 					  <input type="text" name="users.username" th:value="${claim.users}==null?'':${claim.users.username}"  class="form-control" readonly />
-					  <input type="text" name="users.realname" th:value="${claim.users}==null?'':${claim.users.realname}"  class="form-control" readonly />
+					  <input type="text" name="users.realname" th:value="${claim.users}==null?'':${claim.users.realname}"   class="form-control" readonly />
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">

@@ -1,5 +1,6 @@
 package cn.saosao.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,39 +10,49 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
 
 import cn.saosao.pojo.Clerk;
 import cn.saosao.service.IClerkService;
 import cn.saosao.util.InterfaceUtil;
+import cn.saosao.util.RSAImpl;
 
 @Controller
 public class LoginController {
 
 	@Autowired
 	IClerkService clerkServiceImpl;
-	
-	
+	Map<Integer,String> map=new HashMap();
+
 	@PostMapping("/login")
-	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map,String msg) {
+	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map1,String msg) throws Exception {
 		Clerk c = clerkServiceImpl.findUserPwd(clerk);
+		System.out.println(c);
+		System.out.println(clerk);
+		/* map1=new HashMap<String, Object>(); */
 		if(c==null) {
 			//登录失败
 			if(msg==null) {
-			map.put("msg", "用户名不存在!");
+				map1.put("msg", "用户名不存在!");
+				System.out.println("1");
 			}else {
-				map.put("msg", msg);
+				map1.put("msg", msg);
 			}
 			return "backPage/login";
 		}else {
 			//调用接口类的验证密文方法
-			boolean flagPwd = InterfaceUtil.checkMatch(clerk.getUserpwd(), c.getUserpwd());
+			String realpwd=RSAImpl.getOriginal(clerk.getUserpwd(), (String) map.get(1));
+			
+			boolean flagPwd = InterfaceUtil.checkMatch(realpwd, c.getUserpwd());
 			if(flagPwd) {
 				Clerk cler = clerkServiceImpl.checkLogin(clerk); 
 				request.getSession().setAttribute("clerk", cler);
 				return "backPage/index";
 			}else {
 				//登录失败
-				map.put("msg", "用户名密码错误!");
+				map1.put("msg", "用户名密码错误!");
 				return "backPage/login"; 
 			}
 		}
@@ -62,6 +73,16 @@ public class LoginController {
 		return "backPage/userinfo";
 	}
 	
+	@ResponseBody
+	@PostMapping("/getPublicKey")
+	public String getPublicKey() {
+		
+		RSAImpl rsa=new RSAImpl();
+		map=rsa.getCommAndPrivaKey();
+		System.out.println("公钥是"+map.get(0));
+		return "\""+map.get(0)+"\"";
+		
+	}
 }
 
 

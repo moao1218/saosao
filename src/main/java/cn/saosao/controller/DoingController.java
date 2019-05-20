@@ -1,5 +1,6 @@
 package cn.saosao.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +35,7 @@ import cn.saosao.service.IClaimVerifyService;
 import cn.saosao.service.IItemsListService;
 import cn.saosao.service.IPvService;
 import cn.saosao.service.IStatusService;
+import cn.saosao.util.IDUtil;
 import cn.saosao.util.InterfaceUtil;
 
 @Controller
@@ -419,6 +421,11 @@ public class DoingController {
 		
 		return "redirect:/doing";
 	}
-	
+	@RequestMapping("/checkid")
+	@ResponseBody
+	public String checkid(String realname,String id) throws IOException {
+
+		return IDUtil.getTest(id, realname);
+	}
 
 }

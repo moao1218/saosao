@@ -10,23 +10,42 @@
 		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
+		<script th:src="@{/js/jsencrypt.js}"></script>
+		<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+		<script>
+			function checklogin(){
+				var pwd=$("#pwdpwd").val();
+				alert(pwd);
+				var publicKey;
+				$.post("/getPublicKey",{},function(data){
+	            	publicKey=data;
+					alert(publicKey);
+					let encrypt = new JSEncrypt();
+		            encrypt.setPublicKey(publicKey);
+		            let encryptPwd = encrypt.encryptLong(pwd);
+		            alert(encryptPwd);
+		            sform.userpwd.value=encryptPwd;
+		            sform.submit();
+	            },"json");
+			}
+		</script>
 	</head>
 	<body class="text-center">
-		<form class="form-signin"  th:action="@{/login}" method="post">
+		<form class="form-signin"  th:action="@{/login}" method="post" name="sform" id="sform">
 			<img class="mb-4" th:src="@{/asserts/img/bootstrap-solid.svg}" src="asserts/img/bootstrap-solid.svg" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
 			<!-- 判断th:if是否成立,成立则显示,不成立得不会显示 -->
 			<p style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 			<label class="sr-only" th:text="#{login.username}">Username</label>
 			<input type="text" value="zhaoliu"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
-			<label class="sr-only" th:text="#{login.password}">Password</label>
-			<input type="password" value="123" name="userpwd" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
+			<label class="sr-only" th:text="#{login.password}" id="pwd">Password</label>
+			<input type="password" value="123" name="userpwd" class="form-control" placeholder="Password" id="pwdpwd" th:placeholder="#{login.password}" required="">
 			<div class="checkbox mb-3">
 				<label>
           			<input type="checkbox" value="remember-me"/> [[#{login.remember}]]
         		</label>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
+			<span class="btn btn-lg btn-primary btn-block" th:text="#{login.btn}" onclick="checklogin()">Sign in</span>
 			<p class="mt-5 mb-3 text-muted">© 2018-2019</p>
 			<a class="btn btn-sm" th:href="@{/login.html(l='zh_CN')}">中文</a>
 			<a class="btn btn-sm" th:href="@{/login.html(l='en_US')}">English</a>
