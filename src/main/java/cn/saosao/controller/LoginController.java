@@ -27,7 +27,9 @@ public class LoginController {
 	Map<Integer,String> map=new HashMap();
 
 	@PostMapping("/login")
+
 	public String checkLogin(Clerk clerk,HttpServletRequest request,Map<String,Object> map1,String msg) throws Exception {
+
 		Clerk c = clerkServiceImpl.findUserPwd(clerk);
 		System.out.println(c);
 		System.out.println(clerk);
@@ -49,6 +51,7 @@ public class LoginController {
 			if(flagPwd) {
 				Clerk cler = clerkServiceImpl.checkLogin(clerk); 
 				request.getSession().setAttribute("clerk", cler);
+//				model.addAttribute("clerk", c);
 				return "backPage/index";
 			}else {
 				//登录失败

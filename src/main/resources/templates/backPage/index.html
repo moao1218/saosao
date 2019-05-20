@@ -27,6 +27,11 @@
 <link th:href="@{/back/css/style-responsive.css}" rel="stylesheet" />
 <script th:src="@{/back/lib/chart-master/Chart.js}"></script>
 
+
+
+<link rel="stylesheet" type="text/css"	th:href="@{/editor/style.css}" />
+
+
 <!-- =======================================================
     Template Name: Dashio
     Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
@@ -149,7 +154,7 @@
 			<section class="wrapper">
 				<div class="row">
 					<div class="container" style="margin-top:100px">
-						<p ><span id="province"></span>省&nbsp;&nbsp;<span id="cityname"></span>市</p>
+						<!-- <p ><span id="province"></span>省&nbsp;&nbsp;<span id="cityname"></span>市</p>
 						<p>更新时间 : <span id="lastUpdateTime"></span></p>
 						<p><span id="weatherTruth"></span></p>
 						<p>今日气温：<span id="temperature"></span></p>
@@ -158,11 +163,58 @@
 						<p>开始图标：<span id="startPic"></span></p>
 						<p>结束图标：<span id="endPic"></span></p>
 						<p id="introduction"></p>
-						<p id="cityDesc"></p>
-					</div>
-				</div>
+						<p id="cityDesc"></p> -->
+						<!-- 天气 -->
+						<div style="padding-left:160px;">
+						<iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=2" width="770" height="70" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe><br/>			
+						</div>
+						<div class="pull-left" style="width:550px;height: 500px;">
+							<div class="panel panel-default" style="height:500px ;">
+								<div class="panel-bd">
+									<div class="panel panel-default" style="height:465px ;">
+										<div class="panel-hd">管理员信息:</div>
+										<div class="panel-bd">
+											<div class="pull-left" style="width:290px;">
+											<p><span>ID : </span><span>[[${session.clerk.magid}]]</span></p>
+											<p><span>姓名 : </span><span>[[${session.clerk.realname}]]</span></p>
+											<p><span>职位 : </span><span>[[${session.clerk.job}]]</span></p>
+											</div>
+											<div class="pull-right" style="width:190px; ">
+												<img th:src="@{/back/img/ui-pic.jpg}"  class="rounded-circle" width="80"/>
+											</div>
+											<div class="pull-left">
+											<p><span>入职日期 : </span><span>[[${session.clerk.join_date}]]</span></p>
+											<p><span>身份证号码 : </span><span>[[${session.clerk.user_card}]]</span></p>
+											<p><span>账号 : </span><span>[[${session.clerk.username}]]</span></p>
+											<p><span>手机号码 : </span><span>[[${session.clerk.phone}]]</span></p>
+											<p><span>邮箱 : </span><span>[[${session.clerk.email}]]</span></p>
+											<p><span>家庭住址 : </span><span>[[${session.clerk.address}]]</span></p>
+											<p><span>紧急联系人姓名 : </span><span>[[${session.clerk.linkman}]]</span></p>
+											<p><span>紧急联系人电话号码 : </span><span>[[${session.clerk.emergency}]]</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<div class="pull-left" style=" margin-left:5px; width:550px;height: 500px;">
+							<div class="panel panel-default" style="height:500px ;">
+								<div class="panel-bd">
+									<div class="panel panel-default" style="height:465px ;">
+										<div class="panel-hd">公司信息:</div>
+										<div class="panel-bd">
+											<div style="width:490px; font-size:16px;">
+												<p>财产保险核保是财险公司的专业技术人员对投保人的申请进行风险评估,决定是否结束这风险,并在决定接收风险的情况下,决定承保的条件,包括使用的条款和附加条款,确定费率和免赔率等,可见,核保就是风险选择的过程,是财险公司承包工作的核心.通过使用一个合理的财险核保系统来实现公司收益最大化.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 			</section>
-
+			
+			<input name="name" id="name" type="hidden" th:value="${session.clerk.realname}"/>
 		</section>
 		<!--main content end-->
 		<!--footer start-->
@@ -189,12 +241,13 @@
 		$(document)
 				.ready(
 						function() {
+							var realname=$("#name").val();
 							var unique_id = $.gritter
 									.add({
 										// (string | mandatory) the heading of the notification
-										title : '欢迎来到喵喵财保',
+										title : realname+',欢迎来到喵喵财保',
 										// (string | mandatory) the text inside the notification
-										text : '你好，今天心情还好吗？',
+										text : '今天心情还好吗？',
 										// (string | optional) the image to display on the left
 										image : 'back/img/ui-pic.jpg',
 										// (bool | optional) if you want it to fade out on its own or just sit there

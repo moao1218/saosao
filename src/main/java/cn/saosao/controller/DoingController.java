@@ -371,30 +371,36 @@ public class DoingController {
 			
 			MultipartFile h_pic = req.getFile("h_pic");
 			MultipartFile bu_pic = req.getFile("bud_pic");
-			if(h_pic!=null) {
+			if(h_pic!=null&&!"".equals(h_pic.getOriginalFilename())) {
 				String house_pic = InterfaceUtil.upload(request, h_pic);
 				pv.setHouse_pic(house_pic);
 			}
-			if(bu_pic!=null) {
+			if(bu_pic!=null&&!"".equals(bu_pic.getOriginalFilename())) {
 				String building_pic = InterfaceUtil.upload(request, bu_pic);
 				pv.setBuilding_pic(building_pic);
 			}
 			
-			if(req.getFile("a_pic"+i)!=null) {
+			if(req.getFile("a_pic"+i)!=null&&!"".equals(req.getFile("a_pic"+i).getOriginalFilename())) {
 				String site_photo = InterfaceUtil.upload(request, req.getFile("a_pic"+i));
 				items.setSite_photo(site_photo);
 				System.out.println("items.getSite_photo:"+items.getSite_photo());
+			}else {
+				items.setSite_photo("");
 			}
 			
-			if(req.getFile("b_pic"+i)!=null) {
+			if(req.getFile("b_pic"+i)!=null&&!"".equals(req.getFile("b_pic"+i).getOriginalFilename())) {
 				String third_pic = InterfaceUtil.upload(request, req.getFile("b_pic"+i));
 				items.setThird_pic(third_pic);
 				System.out.println("items.getThird_pic:"+items.getThird_pic());
+			}else {
+				items.setThird_pic("");
 			}
-			if(req.getFile("c_pic"+i)!=null) {
+			if(req.getFile("c_pic"+i)!=null&&!"".equals(req.getFile("c_pic"+i).getOriginalFilename())) {
 				String invoice_pic = InterfaceUtil.upload(request, req.getFile("c_pic"+i));
 				items.setInvoice_pic(invoice_pic);
 				System.out.println("items.getInvoice_pic:"+items.getInvoice_pic());
+			}else {
+				items.setInvoice_pic("");
 			}
 			String itemid = request.getParameter("a"+i);
 			String user_age = request.getParameter("b"+i);
